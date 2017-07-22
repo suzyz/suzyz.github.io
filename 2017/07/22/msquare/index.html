@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>USACO Section3.2 msquare | Suzy Zhang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Problem Summary  Given the initial and target configurations of the magic board, and three basic transformations, compute a minimal sequence of basic transformations. Solution  There are at most 8!=40">
+<meta name="keywords" content="USACO">
+<meta property="og:type" content="article">
+<meta property="og:title" content="USACO Section3.2 msquare">
+<meta property="og:url" content="http://yoursite.com/2017/07/22/msquare/index.html">
+<meta property="og:site_name" content="Suzy Zhang">
+<meta property="og:description" content="Problem Summary  Given the initial and target configurations of the magic board, and three basic transformations, compute a minimal sequence of basic transformations. Solution  There are at most 8!=40">
+<meta property="og:updated_time" content="2017-07-22T09:04:01.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="USACO Section3.2 msquare">
+<meta name="twitter:description" content="Problem Summary  Given the initial and target configurations of the magic board, and three basic transformations, compute a minimal sequence of basic transformations. Solution  There are at most 8!=40">
+  
+    <link rel="alternate" href="/atom.xml" title="Suzy Zhang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Suzy Zhang</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/categories">Categories</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-msquare" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/07/22/msquare/" class="article-date">
+  <time datetime="2017-07-22T03:00:25.000Z" itemprop="datePublished">2017-07-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Algorithm/">Algorithm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      USACO Section3.2 msquare
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Problem-Summary"><a href="#Problem-Summary" class="headerlink" title="Problem Summary"></a>Problem Summary</h2><p>  Given the initial and target configurations of the magic board, and three basic transformations, compute a minimal sequence of basic transformations.</p>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>  There are at most 8!=40320 configurations, so it is acceptable to use BFS.<br>  To avoid excessive memory usage, I use Cantor expansion to get hash value of configurations. </p>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fstream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Square</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">int</span> config[<span class="number">8</span>];</div><div class="line">&#125; target;</div><div class="line"></div><div class="line">Square init = &#123; .config = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>&#125; &#125;;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span></span></div><div class="line">&#123;</div><div class="line">	Square sq;</div><div class="line">	<span class="keyword">int</span> steps,last;</div><div class="line">	<span class="keyword">char</span> opr;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">int</span> head,tail;</div><div class="line">Node qu[<span class="number">40330</span>];</div><div class="line"><span class="keyword">bool</span> vis[<span class="number">41000</span>];</div><div class="line"></div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> tr[][<span class="number">8</span>]=&#123;</div><div class="line">	&#123;<span class="number">7</span>,<span class="number">6</span>,<span class="number">5</span>,<span class="number">4</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">0</span>&#125;,</div><div class="line">	&#123;<span class="number">3</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">4</span>&#125;,</div><div class="line">	&#123;<span class="number">0</span>,<span class="number">6</span>,<span class="number">1</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">2</span>,<span class="number">5</span>,<span class="number">7</span>&#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> factorial[]=&#123;<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">6</span>,<span class="number">24</span>,<span class="number">120</span>,<span class="number">720</span>,<span class="number">5040</span>&#125;;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">transform</span><span class="params">(<span class="keyword">int</span> mode,<span class="keyword">const</span> Square &amp;st,Square &amp;res)</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">8</span>;i++)</div><div class="line">		res.config[i]=st.config[tr[mode][i]];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">cantor</span><span class="params">(Square *a)</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">int</span> res=<span class="number">0</span>,t;</div><div class="line"></div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">7</span>;i++)</div><div class="line">	&#123;</div><div class="line">		t=<span class="number">0</span>;</div><div class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=i+<span class="number">1</span>;j&lt;<span class="number">8</span>;j++)</div><div class="line">			<span class="keyword">if</span>(a-&gt;config[j]&gt;a-&gt;config[i])</div><div class="line">				t++;</div><div class="line"></div><div class="line">		res+=t*factorial[<span class="number">7</span>-i];</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">return</span> res;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">	<span class="function">fstream <span class="title">fin</span><span class="params">(<span class="string">"msquare.in"</span>,ios::in)</span></span>;</div><div class="line">	<span class="function">fstream <span class="title">fout</span><span class="params">(<span class="string">"msquare.out"</span>,ios::out)</span></span>;</div><div class="line"></div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">8</span>;i++) fin&gt;&gt;target.config[i];</div><div class="line"></div><div class="line">	<span class="keyword">int</span> tar_cantor=cantor(&amp;target);</div><div class="line"></div><div class="line">	<span class="keyword">if</span>(cantor(&amp;init)==tar_cantor)</div><div class="line">	&#123;</div><div class="line">		fout&lt;&lt;<span class="number">0</span>&lt;&lt;<span class="built_in">endl</span>&lt;&lt;<span class="built_in">endl</span>;</div><div class="line">		fin.close();</div><div class="line">		fout.close();</div><div class="line">		<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	head=<span class="number">0</span>; tail=<span class="number">1</span>;</div><div class="line">	qu[<span class="number">0</span>].sq=init;</div><div class="line">	qu[<span class="number">0</span>].steps=<span class="number">0</span>;</div><div class="line">	qu[<span class="number">0</span>].last=<span class="number">0</span>;</div><div class="line">	vis[cantor(&amp;init)]=<span class="literal">true</span>;</div><div class="line"></div><div class="line">	<span class="keyword">int</span> idx=<span class="number">0</span>;</div><div class="line">	Node cur;</div><div class="line">	Square tmp;</div><div class="line">	<span class="keyword">bool</span> flag=<span class="literal">false</span>;</div><div class="line">	<span class="keyword">while</span>(head&lt;tail)</div><div class="line">	&#123;</div><div class="line">		cur=qu[head];</div><div class="line">		head++;</div><div class="line">		</div><div class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">3</span>;i++)</div><div class="line">		&#123;</div><div class="line">			transform(i,cur.sq,tmp);</div><div class="line"></div><div class="line">			<span class="keyword">int</span> j=cantor(&amp;tmp);</div><div class="line">			<span class="keyword">if</span>(vis[j]) <span class="keyword">continue</span>;</div><div class="line">			vis[j]=<span class="literal">true</span>;</div><div class="line"></div><div class="line">			qu[tail].sq=tmp;</div><div class="line">			qu[tail].steps=cur.steps+<span class="number">1</span>;</div><div class="line">			qu[tail].last=head<span class="number">-1</span>;</div><div class="line">			qu[tail].opr=<span class="string">'A'</span>+i;</div><div class="line"></div><div class="line">			tail++;</div><div class="line"></div><div class="line">			<span class="keyword">if</span>(j==tar_cantor)</div><div class="line">			&#123;</div><div class="line">				idx=tail<span class="number">-1</span>;</div><div class="line">				flag=<span class="literal">true</span>;</div><div class="line">				<span class="keyword">break</span>;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">if</span>(flag) <span class="keyword">break</span>;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	fout&lt;&lt;qu[idx].steps&lt;&lt;<span class="built_in">endl</span>;</div><div class="line"></div><div class="line">	<span class="keyword">int</span> count=<span class="number">0</span>,i=<span class="number">0</span>;</div><div class="line">	<span class="keyword">char</span> ans[<span class="number">200</span>];</div><div class="line">	<span class="keyword">while</span>(idx&gt;<span class="number">0</span>)</div><div class="line">	&#123;</div><div class="line">		ans[i]=qu[idx].opr;</div><div class="line">		idx=qu[idx].last;</div><div class="line">		i++;</div><div class="line">	&#125;</div><div class="line">	i--;</div><div class="line">	count=<span class="number">0</span>;</div><div class="line">	<span class="keyword">while</span>(i&gt;=<span class="number">0</span>)</div><div class="line">	&#123;</div><div class="line">		fout&lt;&lt;ans[i];</div><div class="line">		i--;</div><div class="line">		count++;</div><div class="line">		<span class="keyword">if</span>(count%<span class="number">60</span>==<span class="number">0</span>)</div><div class="line">		&#123;</div><div class="line">			count=<span class="number">0</span>;</div><div class="line">			fout&lt;&lt;<span class="built_in">endl</span>;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">if</span>(count) fout&lt;&lt;<span class="built_in">endl</span>;</div><div class="line"></div><div class="line">	fin.close();</div><div class="line">	fout.close();</div><div class="line">	<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/07/22/msquare/" data-id="cj5f2u3520000jro9lxktwwcf" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/USACO/">USACO</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/">Algorithm</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/USACO/">USACO</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/07/22/msquare/">USACO Section3.2 msquare</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Suzy Zhang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
