@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>USACO Section3.3 game1 | Suzy Zhang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Problem SummaryTwo players play a game with a sequence of N positive integers laid onto a 1*N game board. Player 1 starts the game and they move alternately by selecting a number from either the left">
+<meta name="keywords" content="USACO,Game Theory,DP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="USACO Section3.3 game1">
+<meta property="og:url" content="http://yoursite.com/2017/07/26/game1/index.html">
+<meta property="og:site_name" content="Suzy Zhang">
+<meta property="og:description" content="Problem SummaryTwo players play a game with a sequence of N positive integers laid onto a 1*N game board. Player 1 starts the game and they move alternately by selecting a number from either the left">
+<meta property="og:updated_time" content="2017-07-26T07:26:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="USACO Section3.3 game1">
+<meta name="twitter:description" content="Problem SummaryTwo players play a game with a sequence of N positive integers laid onto a 1*N game board. Player 1 starts the game and they move alternately by selecting a number from either the left">
+  
+    <link rel="alternate" href="/atom.xml" title="Suzy Zhang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Suzy Zhang</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-game1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/07/26/game1/" class="article-date">
+  <time datetime="2017-07-26T03:50:00.000Z" itemprop="datePublished">2017-07-26</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Algorithm/">Algorithm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      USACO Section3.3 game1
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem-Summary"><a href="#Problem-Summary" class="headerlink" title="Problem Summary"></a>Problem Summary</h1><p>Two players play a game with a sequence of N positive integers laid onto a 1*N game board. Player 1 starts the game and they move alternately by selecting a number from either the left or the right end of the board. The selected number is then deleted, and its value is added to the score of the player who selected it. Whoever has the greater sum in the end wins.<br>Write a program that implements the optimal strategy for player 2. The optimal strategy yields maximum points when playing against the “best possible” opponent.</p>
+<h1 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h1><p>We can use dynamic programming to compute the best scores.<br>Define f[i][j] to be the highest score we can get by going first with the sequence from i to j.<br>Then the player can choose data[i] or data[j],and leave the rest to his opponent. So we can write :</p>
+<p>  <strong>f[i][j] = max(data[i]+sum[i+1][j]-f[i+1][j],data[j]+sum[i][j-1]-f[i][j-1]), 1&lt;=i&lt;j&lt;=N<br>  f[i][i] = data[i], 1&lt;=i&lt;=N</strong></p>
+<h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fstream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;climits&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">102</span>;</div><div class="line"></div><div class="line"><span class="keyword">int</span> n,d[maxn];</div><div class="line"><span class="keyword">int</span> sum[maxn][maxn],f[maxn][maxn];</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">	<span class="function">fstream <span class="title">fin</span><span class="params">(<span class="string">"game1.in"</span>,ios::in)</span></span>;</div><div class="line">	<span class="function">fstream <span class="title">fout</span><span class="params">(<span class="string">"game1.out"</span>,ios::out)</span></span>;</div><div class="line"></div><div class="line">	fin&gt;&gt;n;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</div><div class="line">	&#123;</div><div class="line">		fin&gt;&gt;d[i];</div><div class="line">		f[i][i]=sum[i][i]=d[i];</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;n;i++)</div><div class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=i+<span class="number">1</span>;j&lt;=n;j++)</div><div class="line">			sum[i][j]=sum[i][j<span class="number">-1</span>]+d[j];</div><div class="line"></div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> len=<span class="number">2</span>;len&lt;=n;len++)</div><div class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n-len+<span class="number">1</span>;i++)</div><div class="line">		&#123;</div><div class="line">			<span class="keyword">int</span> j=i+len<span class="number">-1</span>;</div><div class="line">			f[i][j]=max(d[i]+sum[i+<span class="number">1</span>][j]-f[i+<span class="number">1</span>][j],d[j]+sum[i][j<span class="number">-1</span>]-f[i][j<span class="number">-1</span>]);</div><div class="line">		&#125;</div><div class="line"></div><div class="line">	fout&lt;&lt;f[<span class="number">1</span>][n]&lt;&lt;<span class="string">" "</span>&lt;&lt;sum[<span class="number">1</span>][n]-f[<span class="number">1</span>][n]&lt;&lt;<span class="built_in">endl</span>;</div><div class="line"></div><div class="line">	fin.close();</div><div class="line">	fout.close();</div><div class="line">	<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/07/26/game1/" data-id="cj5korav60007ego9prejwjv1" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DP/">DP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Game-Theory/">Game Theory</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/USACO/">USACO</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/07/26/camlot/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">USACO Section3.3 camlot</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/">Algorithm</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BFS/">BFS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/">DP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Game-Theory/">Game Theory</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Graph-Theory/">Graph Theory</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hash/">Hash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MST/">MST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Number-Theory/">Number Theory</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Prim/">Prim</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SPFA/">SPFA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/USACO/">USACO</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/07/26/game1/">USACO Section3.3 game1</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/26/camlot/">USACO Section3.3 camlot</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/23/agrinet/">USACO Section3.1 agrinet</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/23/fact4/">USACO Section3.2 fact4</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/22/butter/">USACO Section3.2 butter</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Suzy Zhang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
