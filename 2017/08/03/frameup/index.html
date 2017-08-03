@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>USACO Section4.4 frameup | Suzy Zhang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Problem SummaryGiven a picture of several overlapping frames, find all possible sequence of the frames in the order they were stacked from bottom to top.">
+<meta name="keywords" content="USACO,Search,Partial order">
+<meta property="og:type" content="article">
+<meta property="og:title" content="USACO Section4.4 frameup">
+<meta property="og:url" content="https://suzyz.github.io/2017/08/03/frameup/index.html">
+<meta property="og:site_name" content="Suzy Zhang">
+<meta property="og:description" content="Problem SummaryGiven a picture of several overlapping frames, find all possible sequence of the frames in the order they were stacked from bottom to top.">
+<meta property="og:updated_time" content="2017-08-03T13:06:17.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="USACO Section4.4 frameup">
+<meta name="twitter:description" content="Problem SummaryGiven a picture of several overlapping frames, find all possible sequence of the frames in the order they were stacked from bottom to top.">
+  
+    <link rel="alternate" href="/atom.xml" title="Suzy Zhang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Suzy Zhang</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://suzyz.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-frameup" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/08/03/frameup/" class="article-date">
+  <time datetime="2017-08-03T12:54:10.000Z" itemprop="datePublished">2017-08-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Algorithm/">Algorithm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      USACO Section4.4 frameup
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem-Summary"><a href="#Problem-Summary" class="headerlink" title="Problem Summary"></a>Problem Summary</h1><p>Given a picture of several overlapping frames, find all possible sequence of the frames in the order they were stacked from bottom to top.</p>
+<a id="more"></a>
+<h1 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h1><p>Note that,</p>
+<blockquote>
+<p>It is possible to see at least one part of each of the four sides of a frame. A corner is part of two sides.</p>
+</blockquote>
+<p>So it is easy to get a partial order of the frames. Then we only need to search for all the possible total orders.</p>
+<h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div></pre></td><td class="code"><pre><div class="line">nclude &lt;iostream&gt;</div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fstream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">32</span>;</div><div class="line"></div><div class="line"><span class="keyword">int</span> n,m,num;</div><div class="line"><span class="keyword">char</span> board[maxn][maxn];</div><div class="line"><span class="keyword">bool</span> g[maxn][maxn],used[maxn];</div><div class="line"><span class="keyword">int</span> under[maxn],now[maxn];</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Frame</span></span></div><div class="line">&#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">	<span class="keyword">char</span> ch;</div><div class="line">	<span class="keyword">int</span> top,bottom,left,right;</div><div class="line">	<span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">(<span class="keyword">char</span> c,<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span></div><div class="line">	&#123;</div><div class="line">		ch=c;</div><div class="line">		top=bottom=a;</div><div class="line">		left=right=b;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">void</span> <span class="title">update</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b,<span class="keyword">int</span> c,<span class="keyword">int</span> d)</span></span></div><div class="line">	&#123;</div><div class="line">		top=min(top,a);</div><div class="line">		bottom=max(bottom,b);</div><div class="line">		left=min(left,c);</div><div class="line">		right=max(right,d);</div><div class="line">	&#125;</div><div class="line">&#125; frames[<span class="number">30</span>];</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(<span class="keyword">const</span> Frame &amp;a,<span class="keyword">const</span> Frame &amp;b)</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">return</span> (a.ch&lt;b.ch);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">bool</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span> <span class="comment">/* return true if Frame b is on top of Frame a */</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">int</span> x1=frames[a].top,x2=frames[a].bottom,tar=frames[b].ch;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> j=frames[a].left;j&lt;=frames[a].right;j++)</div><div class="line">		<span class="keyword">if</span>(board[x1][j]==tar || board[x2][j]==tar)</div><div class="line">			<span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line"></div><div class="line">	<span class="keyword">int</span> y1=frames[a].left,y2=frames[a].right;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=frames[a].top;i&lt;=frames[a].bottom;i++)</div><div class="line">		<span class="keyword">if</span>(board[i][y1]==tar || board[i][y2]==tar)</div><div class="line">			<span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line"></div><div class="line">	<span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">generate</span><span class="params">(<span class="keyword">int</span> cur,fstream *fout)</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">if</span>(cur&gt;num)</div><div class="line">	&#123;</div><div class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=num;i++)</div><div class="line">			(*fout)&lt;&lt;frames[now[i]].ch;</div><div class="line">		(*fout)&lt;&lt;<span class="built_in">endl</span>;</div><div class="line"></div><div class="line">		<span class="keyword">return</span>;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=num;i++)</div><div class="line">		<span class="keyword">if</span>(under[i]==<span class="number">0</span> &amp;&amp; !used[i])</div><div class="line">		&#123;</div><div class="line">			now[cur]=i;</div><div class="line">			used[i]=<span class="literal">true</span>;</div><div class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=num;j++)</div><div class="line">				<span class="keyword">if</span>(g[i][j])</div><div class="line">					under[j]--;</div><div class="line"></div><div class="line">			generate(cur+<span class="number">1</span>,fout);</div><div class="line"></div><div class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=num;j++)</div><div class="line">				<span class="keyword">if</span>(g[i][j])</div><div class="line">					under[j]++;</div><div class="line">			used[i]=<span class="literal">false</span>;</div><div class="line">		&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">	<span class="function">fstream <span class="title">fin</span><span class="params">(<span class="string">"frameup.in"</span>,ios::in)</span></span>;</div><div class="line">	<span class="function">fstream <span class="title">fout</span><span class="params">(<span class="string">"frameup.out"</span>,ios::out)</span></span>;</div><div class="line"></div><div class="line">	fin&gt;&gt;n&gt;&gt;m;</div><div class="line">	num=<span class="number">0</span>;</div><div class="line">	<span class="keyword">int</span> idx;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</div><div class="line">	&#123;</div><div class="line">		fin&gt;&gt;board[i];</div><div class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;m;j++)</div><div class="line">			<span class="keyword">if</span>(board[i][j]!=<span class="string">'.'</span>)</div><div class="line">			&#123;</div><div class="line">				idx=<span class="number">0</span>;</div><div class="line">				<span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">1</span>;k&lt;=num;k++)</div><div class="line">					<span class="keyword">if</span>(frames[k].ch==board[i][j])</div><div class="line">					&#123;</div><div class="line">						idx=k;</div><div class="line">						<span class="keyword">break</span>;</div><div class="line">					&#125;</div><div class="line"></div><div class="line">				<span class="keyword">if</span>(idx==<span class="number">0</span>)</div><div class="line">				&#123;</div><div class="line">					num++;</div><div class="line">					frames[num].init(board[i][j],i,j);</div><div class="line">				&#125;</div><div class="line">				<span class="keyword">else</span></div><div class="line">					frames[idx].update(i,i,j,j);</div><div class="line">			&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	sort(frames+<span class="number">1</span>,frames+num+<span class="number">1</span>,cmp);</div><div class="line"></div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=num;i++)</div><div class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=num;j++)</div><div class="line">			<span class="keyword">if</span>(i!=j)</div><div class="line">			&#123;</div><div class="line">				g[i][j]=find(i,j);</div><div class="line">				under[j]+=g[i][j];</div><div class="line">			&#125;</div><div class="line"></div><div class="line">	generate(<span class="number">1</span>,&amp;fout);</div><div class="line"></div><div class="line">	fout.close();</div><div class="line">	<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://suzyz.github.io/2017/08/03/frameup/" data-id="cj5wganc20009n8o90mhwx0n0" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Partial-order/">Partial order</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Search/">Search</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/USACO/">USACO</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/07/31/ditch/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">USACO Section4.2 ditch</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/">Algorithm</a><span class="category-list-count">11</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BFS/">BFS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/">DP</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Game-Theory/">Game Theory</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Graph-Theory/">Graph Theory</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hash/">Hash</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hungarian-Alogrithm/">Hungarian Alogrithm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MST/">MST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maximum-flow/">Maximum flow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Minimum-length-cycle/">Minimum length cycle</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Number-Theory/">Number Theory</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Partial-order/">Partial order</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Prim/">Prim</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SPFA/">SPFA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Search/">Search</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/USACO/">USACO</a><span class="tag-list-count">11</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">10</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/08/03/frameup/">USACO Section4.4 frameup</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/31/ditch/">USACO Section4.2 ditch</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/30/fence6/">USACO Section4.1 fence6</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/29/stall4/">USACO Section4.1 stall4</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/27/nuggets/">USACO Section4.1 nuggets</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Suzy Zhang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

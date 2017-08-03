@@ -1099,6 +1099,7 @@ a.article-title:hover {
   border-style: solid;
   border-color: #ddd;
   border-width: 1px 0;
+  border-radius: 5px;
   overflow: auto;
   color: #ccc;
   line-height: 22.400000000000002px;
@@ -1113,7 +1114,8 @@ a.article-title:hover {
   font-family: "Source Code Pro", Consolas, Monaco, Menlo, Consolas, monospace;
 }
 .article-entry code {
-  background: #eee;
+  background: #2d2d2d;
+  color: #666;
   text-shadow: 0 1px #fff;
   padding: 0 0.3em;
 }
