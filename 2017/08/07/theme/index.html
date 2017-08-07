@@ -9,10 +9,10 @@
 <meta name="keywords" content="USACO,DP">
 <meta property="og:type" content="article">
 <meta property="og:title" content="USACO Section5.1 theme">
-<meta property="og:url" content="https://suzyz.github.io/2017/08/06/theme/index.html">
+<meta property="og:url" content="https://suzyz.github.io/2017/08/07/theme/index.html">
 <meta property="og:site_name" content="Suzy Zhang">
 <meta property="og:description" content="Problem SummaryGiven an array of N integers, find the maximal length of its “repeating” subsequence.">
-<meta property="og:updated_time" content="2017-08-07T04:26:46.000Z">
+<meta property="og:updated_time" content="2017-08-07T09:56:18.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="USACO Section5.1 theme">
 <meta name="twitter:description" content="Problem SummaryGiven an array of N integers, find the maximal length of its “repeating” subsequence.">
@@ -68,8 +68,8 @@
       <div class="outer">
         <section id="main"><article id="post-theme" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/08/06/theme/" class="article-date">
-  <time datetime="2017-08-06T06:40:35.000Z" itemprop="datePublished">2017-08-06</time>
+    <a href="/2017/08/07/theme/" class="article-date">
+  <time datetime="2017-08-07T04:30:35.000Z" itemprop="datePublished">2017-08-07</time>
 </a>
     
   <div class="article-category">
@@ -94,14 +94,26 @@
       
         <h1 id="Problem-Summary"><a href="#Problem-Summary" class="headerlink" title="Problem Summary"></a>Problem Summary</h1><p>Given an array of N integers, find the maximal length of its “repeating” subsequence.</p>
 <a id="more"></a>
+<p>“A repeats B” means that subsequence A and B meet the following conditions:</p>
+<ol>
+<li>A and B are not overlapping</li>
+<li>A and B have the same length N, where N&gt;=5</li>
+<li>There is a constant c, s.t.  A[i]+c=B[i], 1&lt;=i&lt;=N</li>
+</ol>
 <h1 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h1><p>This is a pretty staight forward dynamic programming problem.</p>
-<p>Let <em>diff[i]=seq[i]-seq[i-1],1&lt;i&lt;=n</em><br>Let f[i][j] be the maximal length of repeating subsequence ending at i and j in Diff. Then the answer is max{f[i][j]}+1.</p>
+<p>Let diff[i]=seq[i]-seq[i-1],2&lt;i&lt;=n. Then the problem is equivalent to finding the maximal length of repeating subsequence of diff.</p>
+<p>Let f[i][j] be the maximal length of repeating subsequence ending at i and j in the sequence diff. Apparently, f[i][j] has the same value with f[j][i]. Then the answer to the original problem is max{f[i][j]}+1, 2&lt;=i&lt;n, i+1&lt;j&lt;=n</p>
+<p>The dynamic programming equations are:</p>
+<p><strong>f[i][j]=f[i-1][j-1]+1, if diff[i]==diff[j] &amp;&amp; f[i-1][j-1]&lt;=j-i-2</strong><br><strong>f[i][j]=f[i-1][j-1],   if diff[i]==diff[j] &amp;&amp; f[i-1][j-1]==j-i-2</strong><br><strong>f[i][j]=0,             if diff[i]!=diff[j]</strong></p>
+<p>Well, for any i, f[i][j] only depends on f[i-1][j], so we can rewrite the eqations:</p>
+<p><strong>f[j]=f[j-1]+1, if diff[i]==diff[j] &amp;&amp; f[j-1]&lt;=j-i-2</strong><br><strong>f[j]=f[j-1],   if diff[i]==diff[j] &amp;&amp; f[j-1]==j-i-2</strong><br><strong>f[j]=0,        if diff[i]!=diff[j]</strong></p>
+<p>Using the new equations, we need to do the inner loop backwards. And we can save a lot of space.</p>
 <h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fstream&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">5002</span>;</div><div class="line"></div><div class="line"><span class="keyword">int</span> n,diff[maxn];</div><div class="line"><span class="keyword">int</span> f[maxn];</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">	<span class="function">fstream <span class="title">fin</span><span class="params">(<span class="string">"theme.in"</span>,ios::in)</span></span>;</div><div class="line">	<span class="function">fstream <span class="title">fout</span><span class="params">(<span class="string">"theme.out"</span>,ios::out)</span></span>;</div><div class="line"></div><div class="line">	fin&gt;&gt;n;</div><div class="line">	<span class="keyword">int</span> pre=<span class="number">0</span>,cur=<span class="number">0</span>;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</div><div class="line">	&#123;</div><div class="line">		fin&gt;&gt;cur;</div><div class="line">		diff[i]=cur-pre;</div><div class="line">		pre=cur;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">int</span> ans=<span class="number">0</span>;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">3</span>;j&lt;=n;j++)</div><div class="line">		f[j]=(diff[j]==diff[<span class="number">2</span>]);</div><div class="line"></div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">3</span>;i&lt;=n;i++)</div><div class="line">	&#123;</div><div class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=n;j&gt;=i+<span class="number">2</span>;j--)</div><div class="line">		&#123;</div><div class="line">			<span class="keyword">if</span>(diff[i]==diff[j])</div><div class="line">			&#123;</div><div class="line">				<span class="keyword">if</span>(f[j<span class="number">-1</span>]&lt;=j-i<span class="number">-2</span>)</div><div class="line">					f[j]=f[j<span class="number">-1</span>]+<span class="number">1</span>;</div><div class="line">				<span class="keyword">else</span></div><div class="line">					f[j]=f[j<span class="number">-1</span>];</div><div class="line">			&#125;</div><div class="line">			<span class="keyword">else</span></div><div class="line">				f[j]=<span class="number">0</span>;</div><div class="line"></div><div class="line">			ans=ans&gt;f[j] ? ans:f[j];</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	ans++;</div><div class="line">	<span class="keyword">if</span>(ans&lt;<span class="number">5</span>) ans=<span class="number">0</span>;</div><div class="line">	fout&lt;&lt;ans&lt;&lt;<span class="built_in">endl</span>;</div><div class="line"></div><div class="line">	fin.close();</div><div class="line">	fout.close();</div><div class="line">	<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://suzyz.github.io/2017/08/06/theme/" data-id="cj61npi3r000zv1o9pa0tokif" class="article-share-link">Share</a>
+      <a data-url="https://suzyz.github.io/2017/08/07/theme/" data-id="cj61z226w000wdjo99th1dnpk" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DP/">DP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/USACO/">USACO</a></li></ul>
@@ -112,19 +124,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2017/08/07/window/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          USACO Section5.3 Window Area (window)
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/08/06/schlnet/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/08/07/window/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">USACO Section5.3 schlnet</div>
+      <div class="article-nav-title">USACO Section5.3 Window Area (window)</div>
     </a>
   
 </nav>
@@ -173,11 +176,11 @@
       <ul>
         
           <li>
-            <a href="/2017/08/07/window/">USACO Section5.3 Window Area (window)</a>
+            <a href="/2017/08/07/theme/">USACO Section5.1 theme</a>
           </li>
         
           <li>
-            <a href="/2017/08/06/theme/">USACO Section5.1 theme</a>
+            <a href="/2017/08/07/window/">USACO Section5.3 Window Area (window)</a>
           </li>
         
           <li>
