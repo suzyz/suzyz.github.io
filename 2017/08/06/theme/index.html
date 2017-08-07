@@ -3,19 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>USACO Section3.2 fact4 | Suzy Zhang</title>
+  <title>USACO Section5.1 theme | Suzy Zhang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Problem SummaryGiven N, find the last digit of N! that is not zero. SolutionThe solution is obvious once we notice that,   Only 2 and 5 as a pair can cause 0 at the end of the product, There are alway">
-<meta name="keywords" content="USACO,Number Theory">
+  <meta name="description" content="Problem SummaryGiven an array of N integers, find the maximal length of its decreasing subsequence.">
+<meta name="keywords" content="USACO,DP">
 <meta property="og:type" content="article">
-<meta property="og:title" content="USACO Section3.2 fact4">
-<meta property="og:url" content="https://suzyz.github.io/2017/07/23/fact4/index.html">
+<meta property="og:title" content="USACO Section5.1 theme">
+<meta property="og:url" content="https://suzyz.github.io/2017/08/06/theme/index.html">
 <meta property="og:site_name" content="Suzy Zhang">
-<meta property="og:description" content="Problem SummaryGiven N, find the last digit of N! that is not zero. SolutionThe solution is obvious once we notice that,   Only 2 and 5 as a pair can cause 0 at the end of the product, There are alway">
-<meta property="og:updated_time" content="2017-07-31T03:29:30.000Z">
+<meta property="og:description" content="Problem SummaryGiven an array of N integers, find the maximal length of its decreasing subsequence.">
+<meta property="og:updated_time" content="2017-08-06T06:44:47.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="USACO Section3.2 fact4">
-<meta name="twitter:description" content="Problem SummaryGiven N, find the last digit of N! that is not zero. SolutionThe solution is obvious once we notice that,   Only 2 and 5 as a pair can cause 0 at the end of the product, There are alway">
+<meta name="twitter:title" content="USACO Section5.1 theme">
+<meta name="twitter:description" content="Problem SummaryGiven an array of N integers, find the maximal length of its decreasing subsequence.">
   
     <link rel="alternate" href="/atom.xml" title="Suzy Zhang" type="application/atom+xml">
   
@@ -66,10 +66,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-fact4" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-theme" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/07/23/fact4/" class="article-date">
-  <time datetime="2017-07-23T03:04:16.000Z" itemprop="datePublished">2017-07-23</time>
+    <a href="/2017/08/06/theme/" class="article-date">
+  <time datetime="2017-08-06T06:40:35.000Z" itemprop="datePublished">2017-08-06</time>
 </a>
     
   <div class="article-category">
@@ -84,7 +84,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      USACO Section3.2 fact4
+      USACO Section5.1 theme
     </h1>
   
 
@@ -92,23 +92,18 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Problem-Summary"><a href="#Problem-Summary" class="headerlink" title="Problem Summary"></a>Problem Summary</h1><p>Given N, find the last digit of N! that is not zero.</p>
-<h1 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h1><p>The solution is obvious once we notice that, </p>
-<ol>
-<li>Only 2 and 5 as a pair can cause 0 at the end of the product,</li>
-<li>There are always more 2s than 5s in a factorial.</li>
-</ol>
+        <h1 id="Problem-Summary"><a href="#Problem-Summary" class="headerlink" title="Problem Summary"></a>Problem Summary</h1><p>Given an array of N integers, find the maximal length of its decreasing subsequence.</p>
 <a id="more"></a>
-<p>So we firstly ignore the 2s and 5s during the calculation, and get the number of 2s and 5s respectively, then multiply the result by the extra 2s.</p>
-<h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fstream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="keyword">int</span> n,ans=<span class="number">1</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">	<span class="function">fstream <span class="title">fin</span><span class="params">(<span class="string">"fact4.in"</span>,ios::in)</span></span>;</div><div class="line">	<span class="function">fstream <span class="title">fout</span><span class="params">(<span class="string">"fact4.out"</span>,ios::out)</span></span>;</div><div class="line"></div><div class="line">	fin&gt;&gt;n;</div><div class="line"></div><div class="line">	<span class="keyword">int</span> j;</div><div class="line">	<span class="keyword">int</span> c2=<span class="number">0</span>,c5=<span class="number">0</span>;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=n;i++)</div><div class="line">	&#123;</div><div class="line">		j=i;</div><div class="line">		<span class="keyword">while</span>(j&gt;<span class="number">0</span> &amp;&amp; (j&amp;<span class="number">1</span>)==<span class="number">0</span>) &#123; j&gt;&gt;=<span class="number">1</span>; c2++; &#125;</div><div class="line">		<span class="keyword">while</span>(j&gt;<span class="number">0</span> &amp;&amp; j%<span class="number">5</span>==<span class="number">0</span>) &#123; j/=<span class="number">5</span>; c5++; &#125;</div><div class="line"></div><div class="line">		ans=ans*j%<span class="number">10</span>;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	c2-=c5;</div><div class="line">	<span class="keyword">while</span>(c2)</div><div class="line">	&#123;</div><div class="line">		ans=(ans&lt;&lt;<span class="number">1</span>)%<span class="number">10</span>;</div><div class="line">		c2--;</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	fout&lt;&lt;ans&lt;&lt;<span class="built_in">endl</span>;</div><div class="line">	</div><div class="line">	fin.close();</div><div class="line">	fout.close();</div><div class="line">	<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h1><p>This is a pretty staight forward dynamic programming problem.</p>
+<h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://suzyz.github.io/2017/07/23/fact4/" data-id="cj61n6rq60006u5o9zau54f5i" class="article-share-link">Share</a>
+      <a data-url="https://suzyz.github.io/2017/08/06/theme/" data-id="cj61n6rt20032u5o94j0fk115" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Number-Theory/">Number Theory</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/USACO/">USACO</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DP/">DP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/USACO/">USACO</a></li></ul>
 
     </footer>
   </div>
@@ -116,19 +111,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2017/07/23/agrinet/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/08/07/window/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          USACO Section3.1 agrinet
+          USACO Section5.3 Window Area (window)
         
       </div>
     </a>
   
   
-    <a href="/2017/07/22/butter/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/08/06/schlnet/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">USACO Section3.2 butter</div>
+      <div class="article-nav-title">USACO Section5.3 schlnet</div>
     </a>
   
 </nav>
