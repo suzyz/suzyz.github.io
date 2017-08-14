@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>USACO Section6.1 Cow XOR (cowxor) | Suzy Zhang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Problem SummaryGiven a sequence of integers, d[1],d[2],…,d[N] (1&amp;lt;=N&amp;lt;=100,000), find the consecutive subsequnce such that the bitwise XOR between the subsequence has the maximum value. (0&amp;lt;=d[i">
+<meta name="keywords" content="USACO,Trie">
+<meta property="og:type" content="article">
+<meta property="og:title" content="USACO Section6.1 Cow XOR (cowxor)">
+<meta property="og:url" content="https://suzyz.github.io/2017/08/14/cowxor/index.html">
+<meta property="og:site_name" content="Suzy Zhang">
+<meta property="og:description" content="Problem SummaryGiven a sequence of integers, d[1],d[2],…,d[N] (1&amp;lt;=N&amp;lt;=100,000), find the consecutive subsequnce such that the bitwise XOR between the subsequence has the maximum value. (0&amp;lt;=d[i">
+<meta property="og:updated_time" content="2017-08-14T03:57:35.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="USACO Section6.1 Cow XOR (cowxor)">
+<meta name="twitter:description" content="Problem SummaryGiven a sequence of integers, d[1],d[2],…,d[N] (1&amp;lt;=N&amp;lt;=100,000), find the consecutive subsequnce such that the bitwise XOR between the subsequence has the maximum value. (0&amp;lt;=d[i">
+  
+    <link rel="alternate" href="/atom.xml" title="Suzy Zhang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Suzy Zhang</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://suzyz.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-cowxor" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/08/14/cowxor/" class="article-date">
+  <time datetime="2017-08-14T02:17:39.000Z" itemprop="datePublished">2017-08-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Algorithm/">Algorithm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      USACO Section6.1 Cow XOR (cowxor)
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem-Summary"><a href="#Problem-Summary" class="headerlink" title="Problem Summary"></a>Problem Summary</h1><p>Given a sequence of integers, d[1],d[2],…,d[N] (1&lt;=N&lt;=100,000), find the consecutive subsequnce such that the bitwise XOR between the subsequence has the maximum value. (0&lt;=d[i]&lt;(2^21))</p>
+<a id="more"></a>
+<h1 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h1><p>At first, we need to know a property of xor (exclusive or) operation:</p>
+<blockquote>
+<p>If a xor b equals c, then the xor of any two of a,b,c, equals the other one.</p>
+</blockquote>
+<p>Let xr[i] be the xor of d[1],d[2],…,d[i], 1&lt;=i&lt;=N. Suppose xr[0]=0, then the xor of the sequence d[i],…,d[j] equals xr[i-1] xor xr[j].<br>Apparently, the maximam value is max{xr[i] xor xr[j]}, where 0&lt;=i&lt;j&lt;=N.</p>
+<p>For each j, 1&lt;=j&lt;=N, we only need to find an i (0&lt;=i&lt;j), such that xr[i] xor xr[j] is maximal. That is, we need to find a xr[i] which is most different from x[j]. Since N can be as large as 100,000, we need to use an algorithm faster than O(N^2).</p>
+<p>Note that d[i] is in the range from 0 to (2^21)-1, so xr[i] is also in this range, and its binary representation has at most 21 digits.</p>
+<p>Limited length and limited options for each digit lead me to think about Trie, which can greatly reduce time complexity. So I used Trie to keep values of the array xr.</p>
+<h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div></pre></td><td class="code"><pre><div class="line">nclude &lt;iostream&gt;</div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fstream&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> max_len = <span class="number">21</span>;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">100002</span>;</div><div class="line"></div><div class="line"><span class="keyword">int</span> n,d[maxn];</div><div class="line"><span class="keyword">int</span> ans,st,en;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span></span></div><div class="line">&#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">	<span class="keyword">int</span> rank;</div><div class="line">	Node *l,*r;</div><div class="line"></div><div class="line">	Node() &#123; rank=<span class="number">0</span>; l=r=<span class="literal">NULL</span>; &#125;</div><div class="line">	<span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> cur,<span class="keyword">int</span> r)</span></span>;</div><div class="line">&#125; trie;</div><div class="line"></div><div class="line"><span class="keyword">void</span> Node::add(<span class="keyword">int</span> cur,<span class="keyword">int</span> r)</div><div class="line">&#123;</div><div class="line">	<span class="keyword">int</span> idx = max_len,tmp;</div><div class="line">	Node *p = &amp;trie;</div><div class="line"></div><div class="line">	<span class="keyword">while</span>(idx&gt;=<span class="number">0</span> &amp;&amp; p!=<span class="literal">NULL</span>)</div><div class="line">	&#123;</div><div class="line">		tmp=cur&amp;(<span class="number">1</span>&lt;&lt;idx);</div><div class="line">		<span class="keyword">if</span>(tmp==<span class="number">0</span>)</div><div class="line">		&#123;</div><div class="line">			<span class="keyword">if</span>(p-&gt;l==<span class="literal">NULL</span>)</div><div class="line">				p-&gt;l=<span class="keyword">new</span> Node();</div><div class="line">			p=p-&gt;l;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">else</span></div><div class="line">		&#123;</div><div class="line">			<span class="keyword">if</span>(p-&gt;r==<span class="literal">NULL</span>)</div><div class="line">				p-&gt;r=<span class="keyword">new</span> Node();</div><div class="line">			p=p-&gt;r;</div><div class="line">		&#125;</div><div class="line">		idx--;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	p-&gt;rank=r;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">find_best</span><span class="params">(<span class="keyword">int</span> cur,<span class="keyword">int</span> cur_end)</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">int</span> idx = max_len,tmp;</div><div class="line">	Node *p = &amp;trie, *q;</div><div class="line"></div><div class="line">	<span class="keyword">while</span>(idx&gt;=<span class="number">0</span> &amp;&amp; p!=<span class="literal">NULL</span>)</div><div class="line">	&#123;</div><div class="line">		<span class="keyword">int</span> tmp=cur&amp;(<span class="number">1</span>&lt;&lt;idx);</div><div class="line">		<span class="keyword">if</span>(tmp==<span class="number">0</span>)</div><div class="line">		&#123;</div><div class="line">			<span class="keyword">if</span>(p-&gt;r!=<span class="literal">NULL</span>) q=p-&gt;r;</div><div class="line">			<span class="keyword">else</span> q=p-&gt;l;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">else</span></div><div class="line">		&#123;</div><div class="line">			<span class="keyword">if</span>(p-&gt;l!=<span class="literal">NULL</span>) q=p-&gt;l;</div><div class="line">			<span class="keyword">else</span> q=p-&gt;r;</div><div class="line">		&#125;</div><div class="line">		p=q;</div><div class="line">		idx--;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	tmp = (d[p-&gt;rank]) ^ cur;</div><div class="line">	<span class="keyword">if</span>(tmp&gt;ans)</div><div class="line">	&#123;</div><div class="line">		ans=tmp;</div><div class="line">		st=p-&gt;rank+<span class="number">1</span>;</div><div class="line">		en=cur_end;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">	<span class="function">fstream <span class="title">fin</span><span class="params">(<span class="string">"cowxor.in"</span>,ios::in)</span></span>;</div><div class="line">	<span class="function">fstream <span class="title">fout</span><span class="params">(<span class="string">"cowxor.out"</span>,ios::out)</span></span>;</div><div class="line"></div><div class="line">	trie.add(<span class="number">0</span>,<span class="number">0</span>);</div><div class="line">	ans=<span class="number">-1</span>;</div><div class="line"></div><div class="line">	fin&gt;&gt;n;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</div><div class="line">	&#123;</div><div class="line">		fin&gt;&gt;d[i];</div><div class="line">		d[i]^=d[i<span class="number">-1</span>];</div><div class="line">		find_best(d[i],i);</div><div class="line"></div><div class="line">		trie.add(d[i],i);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	fout&lt;&lt;ans&lt;&lt;<span class="string">" "</span>&lt;&lt;st&lt;&lt;<span class="string">" "</span>&lt;&lt;en&lt;&lt;<span class="built_in">endl</span>;</div><div class="line">	fin.close();</div><div class="line">	fout.close();</div><div class="line">	<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://suzyz.github.io/2017/08/14/cowxor/" data-id="cj6bwzgm40005eao99l9b7xrk" class="article-share-link">Share</a>
+      
+        <a href="https://suzyz.github.io/2017/08/14/cowxor/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Trie/">Trie</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/USACO/">USACO</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/08/13/hidden/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">USACO Section5.5 Hidden Password (hidden)</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/">Algorithm</a><span class="category-list-count">22</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BFS/">BFS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Convex-Hull/">Convex Hull</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/">DP</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dinic/">Dinic</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Game-Theory/">Game Theory</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Geometry/">Geometry</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Graph-Theory/">Graph Theory</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hash/">Hash</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hungarian-Alogrithm/">Hungarian Alogrithm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDDFS/">IDDFS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Implementation/">Implementation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MST/">MST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maximum-Flow/">Maximum Flow</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Minimum-Cut/">Minimum Cut</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Minimum-length-cycle/">Minimum length cycle</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Number-Theory/">Number Theory</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Partial-order/">Partial order</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Prim/">Prim</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SPFA/">SPFA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Search/">Search</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/String/">String</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Strongly-connected-components/">Strongly connected components</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tarjan-s-algorithm/">Tarjan's algorithm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Trie/">Trie</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/USACO/">USACO</a><span class="tag-list-count">22</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">10</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/08/14/cowxor/">USACO Section6.1 Cow XOR (cowxor)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/08/13/hidden/">USACO Section5.5 Hidden Password (hidden)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/08/11/rectbarn/">USACO Section6.1 A Rectangular Barn (rectbarn)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/08/09/telecow/">USACO Section5.4 Telecowmunication (telecow)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/08/08/tour/">USACO Section5.4 Canada Tour (tour)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Suzy Zhang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'suzyz';
+  
+  var disqus_url = 'https://suzyz.github.io/2017/08/14/cowxor/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

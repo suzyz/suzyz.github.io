@@ -3,19 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>USACO Section3.1 agrinet | Suzy Zhang</title>
+  <title>USACO Section5.5 Hidden Password (hidden) | Suzy Zhang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Problem SummaryGiven an undirected graph, find the weight of its minimum spanning tree.  SolutionSince the graph is dense, we choose Prim Algorithm over Kruskal Algorithm.The graph is stored in adjace">
-<meta name="keywords" content="Graph Theory,MST,Prim,USACO">
+  <meta name="description" content="Problem SummaryGiven a string S composed of L (5&amp;lt;=L&amp;lt;=100,000) letters, find the start position of the first letter of the sorted list of cyclic shifts of S.">
+<meta name="keywords" content="USACO,String">
 <meta property="og:type" content="article">
-<meta property="og:title" content="USACO Section3.1 agrinet">
-<meta property="og:url" content="https://suzyz.github.io/2017/07/23/agrinet/index.html">
+<meta property="og:title" content="USACO Section5.5 Hidden Password (hidden)">
+<meta property="og:url" content="https://suzyz.github.io/2017/08/13/hidden/index.html">
 <meta property="og:site_name" content="Suzy Zhang">
-<meta property="og:description" content="Problem SummaryGiven an undirected graph, find the weight of its minimum spanning tree.  SolutionSince the graph is dense, we choose Prim Algorithm over Kruskal Algorithm.The graph is stored in adjace">
-<meta property="og:updated_time" content="2017-07-31T03:29:52.000Z">
+<meta property="og:description" content="Problem SummaryGiven a string S composed of L (5&amp;lt;=L&amp;lt;=100,000) letters, find the start position of the first letter of the sorted list of cyclic shifts of S.">
+<meta property="og:updated_time" content="2017-08-14T08:45:29.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="USACO Section3.1 agrinet">
-<meta name="twitter:description" content="Problem SummaryGiven an undirected graph, find the weight of its minimum spanning tree.  SolutionSince the graph is dense, we choose Prim Algorithm over Kruskal Algorithm.The graph is stored in adjace">
+<meta name="twitter:title" content="USACO Section5.5 Hidden Password (hidden)">
+<meta name="twitter:description" content="Problem SummaryGiven a string S composed of L (5&amp;lt;=L&amp;lt;=100,000) letters, find the start position of the first letter of the sorted list of cyclic shifts of S.">
   
     <link rel="alternate" href="/atom.xml" title="Suzy Zhang" type="application/atom+xml">
   
@@ -66,10 +66,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-agrinet" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-hidden" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/07/23/agrinet/" class="article-date">
-  <time datetime="2017-07-23T03:24:55.000Z" itemprop="datePublished">2017-07-23</time>
+    <a href="/2017/08/13/hidden/" class="article-date">
+  <time datetime="2017-08-13T10:32:02.000Z" itemprop="datePublished">2017-08-13</time>
 </a>
     
   <div class="article-category">
@@ -84,7 +84,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      USACO Section3.1 agrinet
+      USACO Section5.5 Hidden Password (hidden)
     </h1>
   
 
@@ -92,20 +92,31 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Problem-Summary"><a href="#Problem-Summary" class="headerlink" title="Problem Summary"></a>Problem Summary</h1><p>Given an undirected graph, find the weight of its minimum spanning tree. </p>
-<h1 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h1><p>Since the graph is dense, we choose Prim Algorithm over Kruskal Algorithm.<br>The graph is stored in adjacency matrix, so the time complexity is O(n^2).</p>
+        <h1 id="Problem-Summary"><a href="#Problem-Summary" class="headerlink" title="Problem Summary"></a>Problem Summary</h1><p>Given a string S composed of L (5&lt;=L&lt;=100,000) letters, find the start position of the first letter of the sorted list of cyclic shifts of S.</p>
 <a id="more"></a>
-<h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fstream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;climits&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="keyword">int</span> n;</div><div class="line"><span class="keyword">int</span> dist[<span class="number">102</span>][<span class="number">102</span>],d[<span class="number">102</span>];</div><div class="line"><span class="keyword">bool</span> vis[<span class="number">102</span>];</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">prim</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++) d[i]=dist[<span class="number">0</span>][i];</div><div class="line"></div><div class="line">	<span class="keyword">int</span> mind,k,ans=<span class="number">0</span>;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</div><div class="line">	&#123;</div><div class="line">		mind=INT_MAX;</div><div class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;n;j++)</div><div class="line">			<span class="keyword">if</span>(!vis[j] &amp;&amp; d[j]&lt;mind)</div><div class="line">			&#123;</div><div class="line">				mind=d[j];</div><div class="line">				k=j;</div><div class="line">			&#125;</div><div class="line"></div><div class="line">		<span class="keyword">if</span>(mind==INT_MAX) <span class="keyword">break</span>;</div><div class="line"></div><div class="line">		vis[k]=<span class="literal">true</span>;</div><div class="line">		ans+=mind;</div><div class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;n;j++)</div><div class="line">			<span class="keyword">if</span>(!vis[j] &amp;&amp; d[j]&gt;dist[k][j])</div><div class="line">				d[j]=dist[k][j];</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span> ans;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">	<span class="function">fstream <span class="title">fin</span><span class="params">(<span class="string">"agrinet.in"</span>,ios::in)</span></span>;</div><div class="line">	<span class="function">fstream <span class="title">fout</span><span class="params">(<span class="string">"agrinet.out"</span>,ios::out)</span></span>;</div><div class="line"></div><div class="line">	fin&gt;&gt;n;</div><div class="line"></div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</div><div class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;n;j++)</div><div class="line">			fin&gt;&gt;dist[i][j];</div><div class="line"></div><div class="line">	fout&lt;&lt;prim()&lt;&lt;<span class="built_in">endl</span>;</div><div class="line"></div><div class="line">	fin.close();</div><div class="line">	fout.close();</div><div class="line">	<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>For example, with the string “alabala”, the sorted cyclic shifts are:</p>
+<p>aalabal<br>abalaal<br>alaalab<br>alabala<br>balaala<br>laalaba<br>labalaa</p>
+<p>Lexicographically, the first string is “aalabal”. So the answer is position 6.</p>
+<h1 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h1><p>First, we concatenate two copies of our string S, yielding SS. Then we simply want the lexicographically least L-letter substring of SS. </p>
+<p>We use two iterators to indicate the two positions we are comparing. Let i be 0 and j be 1, and start a while loop. Each time, suppose k is the minimal non-negative integer s.t. s[i+k]!=s[j+k] &amp;&amp; k&lt;=L. Then there are 4 cases:</p>
+<ol>
+<li>i or j is equal to or greater than L. Then the smaller one is answer.</li>
+<li>k does not exist, i.e. the L-letter substring starting at i is the same as the one starting at j. We move j to j+L.</li>
+<li>s[i+k]&gt;s[j+k]. In this case, it is needless to examine the substrings starting at i, i+1, i+2,…, or i+k. So we just move i to i+k+1.</li>
+<li>s[i+k]&lt;s[j+k]. Similarly, we move j to j+k+1.</li>
+</ol>
+<p>Apparently, the time comlexity is O(n).</p>
+<h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fstream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;climits&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">200020</span>;</div><div class="line"></div><div class="line"><span class="keyword">int</span> n;</div><div class="line"><span class="keyword">char</span> s[maxn];</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">	<span class="function">fstream <span class="title">fin</span><span class="params">(<span class="string">"hidden.in"</span>,ios::in)</span></span>;</div><div class="line">	<span class="function">fstream <span class="title">fout</span><span class="params">(<span class="string">"hidden.out"</span>,ios::out)</span></span>;</div><div class="line"></div><div class="line">	fin&gt;&gt;n;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i+=<span class="number">72</span>)</div><div class="line">		fin&gt;&gt;(s+i);</div><div class="line"></div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</div><div class="line">		s[i+n]=s[i];</div><div class="line"></div><div class="line">	<span class="keyword">int</span> i=<span class="number">0</span>,j=<span class="number">1</span>,k;</div><div class="line">	<span class="keyword">while</span>(i&lt;n &amp;&amp; j&lt;n)</div><div class="line">	&#123;</div><div class="line">		k=<span class="number">0</span>;</div><div class="line">		<span class="keyword">while</span>(k&lt;n &amp;&amp; s[i+k]==s[j+k])</div><div class="line">			k++;</div><div class="line"></div><div class="line">		<span class="keyword">if</span>(s[i+k]&gt;s[j+k])</div><div class="line">			i+=k+<span class="number">1</span>;</div><div class="line">		<span class="keyword">else</span></div><div class="line">			j+=k+<span class="number">1</span>;</div><div class="line"></div><div class="line">		<span class="keyword">if</span>(i==j) j++;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">if</span>(i&gt;j) i=j;</div><div class="line">	fout&lt;&lt;i&lt;&lt;<span class="built_in">endl</span>;</div><div class="line">	fin.close();</div><div class="line">	fout.close();</div><div class="line">	<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://suzyz.github.io/2017/07/23/agrinet/" data-id="cj6bwzglk0000eao9lo77edi6" class="article-share-link">Share</a>
+      <a data-url="https://suzyz.github.io/2017/08/13/hidden/" data-id="cj6bwzgn7000meao9343ps1xt" class="article-share-link">Share</a>
       
-        <a href="https://suzyz.github.io/2017/07/23/agrinet/#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="https://suzyz.github.io/2017/08/13/hidden/#disqus_thread" class="article-comment-link">Comments</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Graph-Theory/">Graph Theory</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MST/">MST</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Prim/">Prim</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/USACO/">USACO</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/String/">String</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/USACO/">USACO</a></li></ul>
 
     </footer>
   </div>
@@ -113,19 +124,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2017/07/26/camlot/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/08/14/cowxor/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          USACO Section3.3 camlot
+          USACO Section6.1 Cow XOR (cowxor)
         
       </div>
     </a>
   
   
-    <a href="/2017/07/23/fact4/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/08/11/rectbarn/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">USACO Section3.2 fact4</div>
+      <div class="article-nav-title">USACO Section6.1 A Rectangular Barn (rectbarn)</div>
     </a>
   
 </nav>
@@ -230,7 +241,7 @@
 <script>
   var disqus_shortname = 'suzyz';
   
-  var disqus_url = 'https://suzyz.github.io/2017/07/23/agrinet/';
+  var disqus_url = 'https://suzyz.github.io/2017/08/13/hidden/';
   
   (function(){
     var dsq = document.createElement('script');
