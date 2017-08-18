@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>USACO Section6.3 Cryptcowgraphy (cryptcow) | Suzy Zhang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Problem SummaryGiven a string T and an encrypted string S, determine whether S can be decoded as T.">
+<meta name="keywords" content="USACO,DFS,Pruning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="USACO Section6.3 Cryptcowgraphy (cryptcow)">
+<meta property="og:url" content="https://suzyz.github.io/2017/08/18/cryptcow/index.html">
+<meta property="og:site_name" content="Suzy Zhang">
+<meta property="og:description" content="Problem SummaryGiven a string T and an encrypted string S, determine whether S can be decoded as T.">
+<meta property="og:updated_time" content="2017-08-18T04:09:55.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="USACO Section6.3 Cryptcowgraphy (cryptcow)">
+<meta name="twitter:description" content="Problem SummaryGiven a string T and an encrypted string S, determine whether S can be decoded as T.">
+  
+    <link rel="alternate" href="/atom.xml" title="Suzy Zhang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Suzy Zhang</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://suzyz.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-cryptcow" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/08/18/cryptcow/" class="article-date">
+  <time datetime="2017-08-18T02:13:38.000Z" itemprop="datePublished">2017-08-18</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Algorithm/">Algorithm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      USACO Section6.3 Cryptcowgraphy (cryptcow)
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem-Summary"><a href="#Problem-Summary" class="headerlink" title="Problem Summary"></a>Problem Summary</h1><p>Given a string T and an encrypted string S, determine whether S can be decoded as T.</p>
+<a id="more"></a>
+<p>The encryption of messege S in this problem goes like:<br>First, insert three letters C, O, and W, one after another and in random location in S.<br>Second, swap the part of S between C and O, and the part between O and W.</p>
+<p>Note that this kind of encryption can be applied several times, and T does not contain any C, O, or W.</p>
+<h1 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h1><p>This problem can be solved with DFS, but it certainly needs some optimization.</p>
+<p>First, we can examine the input S and count the numbers of all characters. If the numbers of C, O, and W are not the same, or the number of any other character in S is different from that in T, then S can not be decoded as T.</p>
+<p>Note that, the string is cut into several sequences by C, O, and W. These sequences must be in T. If not, there is no need to continue the search.</p>
+<p>Additionally, a tip about coding.<br>The C++ function ”memcpy“ requires the destination and source arrays to be seperate,i.e. not overlapping. For overlapping memory blocks, “memmove” is a safer approach.</p>
+<h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fstream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">100</span>;</div><div class="line"><span class="keyword">const</span> <span class="keyword">char</span> t[] = <span class="string">"Begin the Escape execution at the Break of Dawn"</span>;</div><div class="line"><span class="keyword">char</span> s[maxn],backup[maxn],tmp1[maxn],tmp2[maxn];</div><div class="line"></div><div class="line"><span class="keyword">int</span> n,s_count[<span class="number">300</span>],t_count[<span class="number">300</span>];</div><div class="line"><span class="keyword">bool</span> match;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap_s</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b,<span class="keyword">int</span> c,<span class="keyword">int</span> len)</span></span></div><div class="line">&#123;</div><div class="line">	memmove(tmp1,s+a+<span class="number">1</span>,b<span class="number">-1</span>-a);</div><div class="line">	memmove(tmp2,s+b+<span class="number">1</span>,c<span class="number">-1</span>-b);</div><div class="line"></div><div class="line">	memmove(s+a,tmp2,c<span class="number">-1</span>-b);</div><div class="line">	memmove(s+a+c<span class="number">-1</span>-b,tmp1,b<span class="number">-1</span>-a);</div><div class="line">	memmove(s+c<span class="number">-2</span>,s+c+<span class="number">1</span>,len-c<span class="number">-1</span>);</div><div class="line">	s[len<span class="number">-3</span>]=<span class="number">0</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">bool</span> <span class="title">my_strstr</span><span class="params">(<span class="keyword">char</span> *p,<span class="keyword">int</span> l)</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">bool</span> flag;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">47</span>;i++)</div><div class="line">		<span class="keyword">if</span>(t[i]==p[<span class="number">0</span>])</div><div class="line">		&#123;</div><div class="line">			flag=<span class="literal">true</span>;</div><div class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;l;j++)</div><div class="line">				<span class="keyword">if</span>(t[i+j]!=p[j])</div><div class="line">				&#123;</div><div class="line">					flag=<span class="literal">false</span>;</div><div class="line">					<span class="keyword">break</span>;</div><div class="line">				&#125;</div><div class="line">			<span class="keyword">if</span>(flag) <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">	<span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> len,<span class="keyword">int</span> num)</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">if</span>(match || len&lt;<span class="number">47</span>) <span class="keyword">return</span>;</div><div class="line">	<span class="keyword">if</span>(num==<span class="number">0</span>)</div><div class="line">	&#123;</div><div class="line">		<span class="keyword">if</span>(<span class="built_in">strcmp</span>(s,t)==<span class="number">0</span>)</div><div class="line">			match=<span class="literal">true</span>;</div><div class="line">		</div><div class="line">		<span class="keyword">return</span>;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">int</span> pos[<span class="number">3</span>][<span class="number">10</span>],idx[<span class="number">30</span>];</div><div class="line">	pos[<span class="number">0</span>][<span class="number">0</span>]=pos[<span class="number">1</span>][<span class="number">0</span>]=pos[<span class="number">2</span>][<span class="number">0</span>]=idx[<span class="number">0</span>]=<span class="number">0</span>;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;len;i++)</div><div class="line">		<span class="keyword">if</span>(s[i]==<span class="string">'O'</span>)</div><div class="line">		&#123;</div><div class="line">			pos[<span class="number">0</span>][<span class="number">0</span>]++;</div><div class="line">			pos[<span class="number">0</span>][pos[<span class="number">0</span>][<span class="number">0</span>]]=i;</div><div class="line">			idx[<span class="number">0</span>]++;</div><div class="line">			idx[idx[<span class="number">0</span>]]=i;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">else</span></div><div class="line">		<span class="keyword">if</span>(s[i]==<span class="string">'C'</span>)</div><div class="line">		&#123;</div><div class="line">			pos[<span class="number">1</span>][<span class="number">0</span>]++;</div><div class="line">			pos[<span class="number">1</span>][pos[<span class="number">1</span>][<span class="number">0</span>]]=i;</div><div class="line">			idx[<span class="number">0</span>]++;</div><div class="line">			idx[idx[<span class="number">0</span>]]=i;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">else</span></div><div class="line">		<span class="keyword">if</span>(s[i]==<span class="string">'W'</span>)</div><div class="line">		&#123;</div><div class="line">			pos[<span class="number">2</span>][<span class="number">0</span>]++;</div><div class="line">			pos[<span class="number">2</span>][pos[<span class="number">2</span>][<span class="number">0</span>]]=i;</div><div class="line">			idx[<span class="number">0</span>]++;</div><div class="line">			idx[idx[<span class="number">0</span>]]=i;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">	<span class="keyword">if</span>(pos[<span class="number">1</span>][<span class="number">1</span>]&gt;pos[<span class="number">0</span>][<span class="number">1</span>] || pos[<span class="number">1</span>][<span class="number">1</span>]&gt;pos[<span class="number">2</span>][<span class="number">1</span>] || pos[<span class="number">2</span>][num]&lt;pos[<span class="number">0</span>][<span class="number">1</span>])</div><div class="line">		<span class="keyword">return</span>;</div><div class="line"></div><div class="line">	<span class="keyword">if</span>(pos[<span class="number">1</span>][<span class="number">1</span>]&gt;<span class="number">0</span> &amp;&amp; <span class="built_in">strncmp</span>(s,t,pos[<span class="number">1</span>][<span class="number">1</span>])!=<span class="number">0</span>) <span class="comment">/* first segment */</span></div><div class="line">		<span class="keyword">return</span>;</div><div class="line"></div><div class="line">	<span class="keyword">if</span>(pos[<span class="number">2</span>][<span class="number">1</span>]&lt;len &amp;&amp; <span class="built_in">strcmp</span>(s+pos[<span class="number">2</span>][num]+<span class="number">1</span>,t+<span class="number">48</span>-len+pos[<span class="number">2</span>][num])!=<span class="number">0</span>) <span class="comment">/* last segment */</span></div><div class="line">		<span class="keyword">return</span>;</div><div class="line"></div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;idx[<span class="number">0</span>];i++)</div><div class="line">		<span class="keyword">if</span>(idx[i]+<span class="number">1</span>&lt;idx[i+<span class="number">1</span>])</div><div class="line">		&#123;</div><div class="line">			<span class="keyword">if</span>(!my_strstr(s+idx[i]+<span class="number">1</span>,idx[i+<span class="number">1</span>]-idx[i]<span class="number">-1</span>))</div><div class="line">				<span class="keyword">return</span>;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">	<span class="keyword">char</span> backup[maxn];</div><div class="line">	<span class="built_in">memcpy</span>(backup,s,n+<span class="number">1</span>);</div><div class="line">	</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=num;i++)</div><div class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=num;j++)</div><div class="line">			<span class="keyword">if</span>(pos[<span class="number">0</span>][i]&gt;pos[<span class="number">1</span>][j])</div><div class="line">				<span class="keyword">for</span>(<span class="keyword">int</span> k=num;k&gt;=<span class="number">1</span>;k--)</div><div class="line">				&#123;</div><div class="line">					<span class="keyword">if</span>(pos[<span class="number">2</span>][k]&lt;=pos[<span class="number">0</span>][i]) <span class="keyword">break</span>;</div><div class="line"></div><div class="line">					swap_s(pos[<span class="number">1</span>][j],pos[<span class="number">0</span>][i],pos[<span class="number">2</span>][k],len);</div><div class="line">					dfs(len<span class="number">-3</span>,num<span class="number">-1</span>);</div><div class="line"></div><div class="line">					<span class="built_in">memcpy</span>(s,backup,n+<span class="number">1</span>);</div><div class="line">				&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">	<span class="function">fstream <span class="title">fin</span><span class="params">(<span class="string">"cryptcow.in"</span>,ios::in)</span></span>;</div><div class="line">	<span class="function">fstream <span class="title">fout</span><span class="params">(<span class="string">"cryptcow.out"</span>,ios::out)</span></span>;</div><div class="line"></div><div class="line">	<span class="built_in">string</span> s1;</div><div class="line">	getline(fin,s1);</div><div class="line">	fin.close();</div><div class="line"></div><div class="line">	n=s1.length();</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</div><div class="line">		s[i]=s1[i];</div><div class="line">	s[n]=<span class="number">0</span>;</div><div class="line"></div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</div><div class="line">		s_count[s[i]]++;</div><div class="line"></div><div class="line">	<span class="keyword">if</span>(s_count[<span class="string">'C'</span>]!=s_count[<span class="string">'O'</span>] || s_count[<span class="string">'O'</span>]!=s_count[<span class="string">'W'</span>] || s_count[<span class="string">'C'</span>]!=s_count[<span class="string">'W'</span>] || n<span class="number">-3</span>*s_count[<span class="string">'C'</span>]!=<span class="number">47</span>)</div><div class="line">	&#123;</div><div class="line">		fout&lt;&lt;<span class="string">"0 0"</span>&lt;&lt;<span class="built_in">endl</span>;</div><div class="line">		fout.close();</div><div class="line">		<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">if</span>(s_count[<span class="string">'C'</span>]==<span class="number">0</span>)</div><div class="line">	&#123;</div><div class="line">		<span class="keyword">if</span>(<span class="built_in">strcmp</span>(s,t)==<span class="number">0</span>)</div><div class="line">			fout&lt;&lt;<span class="string">"1 0"</span>&lt;&lt;<span class="built_in">endl</span>;</div><div class="line">		<span class="keyword">else</span></div><div class="line">			fout&lt;&lt;<span class="string">"0 0"</span>&lt;&lt;<span class="built_in">endl</span>;</div><div class="line">		fout.close();</div><div class="line">		<span class="keyword">return</span> <span class="number">0</span>;		</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">47</span>;i++) t_count[t[i]]++;</div><div class="line"></div><div class="line">	<span class="keyword">bool</span> flag=<span class="literal">true</span>;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">255</span>;i++)</div><div class="line">	&#123;</div><div class="line">		<span class="keyword">if</span>(i==<span class="string">'C'</span> || i==<span class="string">'O'</span> || i==<span class="string">'W'</span>)</div><div class="line">			<span class="keyword">continue</span>;</div><div class="line">		<span class="keyword">if</span>(s_count[i]!=t_count[i])</div><div class="line">		&#123;</div><div class="line">			flag=<span class="literal">false</span>;</div><div class="line">			<span class="keyword">break</span>;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">if</span>(flag)</div><div class="line">		dfs(n,s_count[<span class="string">'C'</span>]);</div><div class="line"></div><div class="line">	<span class="keyword">if</span>(match)</div><div class="line">		fout&lt;&lt;<span class="string">"1 "</span>&lt;&lt;s_count[<span class="string">'C'</span>]&lt;&lt;<span class="built_in">endl</span>;</div><div class="line">	<span class="keyword">else</span></div><div class="line">		fout&lt;&lt;<span class="string">"0 0"</span>&lt;&lt;<span class="built_in">endl</span>;</div><div class="line"></div><div class="line">	fout.close();</div><div class="line">	<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://suzyz.github.io/2017/08/18/cryptcow/" data-id="cj6hcxln40007tro9bipb05yl" class="article-share-link">Share</a>
+      
+        <a href="https://suzyz.github.io/2017/08/18/cryptcow/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DFS/">DFS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Pruning/">Pruning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/USACO/">USACO</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/08/17/fence8/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">USACO Section6.4 Fence Rails (fence8)</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/">Algorithm</a><span class="category-list-count">24</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BFS/">BFS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Binary-search/">Binary search</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Convex-Hull/">Convex Hull</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DFS/">DFS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/">DP</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dinic/">Dinic</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Game-Theory/">Game Theory</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Geometry/">Geometry</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Graph-Theory/">Graph Theory</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hash/">Hash</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hungarian-Alogrithm/">Hungarian Alogrithm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDDFS/">IDDFS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Implementation/">Implementation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MST/">MST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maximum-Flow/">Maximum Flow</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Minimum-Cut/">Minimum Cut</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Minimum-length-cycle/">Minimum length cycle</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Number-Theory/">Number Theory</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Partial-order/">Partial order</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Prim/">Prim</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pruning/">Pruning</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SPFA/">SPFA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/String/">String</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Strongly-connected-components/">Strongly connected components</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tarjan-s-algorithm/">Tarjan's algorithm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Trie/">Trie</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/USACO/">USACO</a><span class="tag-list-count">24</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">10</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/08/18/cryptcow/">USACO Section6.3 Cryptcowgraphy (cryptcow)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/08/17/fence8/">USACO Section6.4 Fence Rails (fence8)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/08/14/cowxor/">USACO Section6.1 Cow XOR (cowxor)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/08/13/hidden/">USACO Section5.5 Hidden Password (hidden)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/08/11/rectbarn/">USACO Section6.1 A Rectangular Barn (rectbarn)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Suzy Zhang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'suzyz';
+  
+  var disqus_url = 'https://suzyz.github.io/2017/08/18/cryptcow/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
