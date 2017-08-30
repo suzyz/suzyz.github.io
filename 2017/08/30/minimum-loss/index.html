@@ -3,14 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Tag: Trie | Suzy Zhang</title>
+  <title>HackerRank/Algorithm/Search/Minimum Loss | Suzy Zhang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Suzy Zhang">
-<meta property="og:url" content="https://suzyz.github.io/tags/Trie/index.html">
+  <meta name="description" content="Problem SummaryGiven prices of a house in N days,">
+<meta name="keywords" content="HackerRank,Greedy">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HackerRank&#x2F;Algorithm&#x2F;Search&#x2F;Minimum Loss">
+<meta property="og:url" content="https://suzyz.github.io/2017/08/30/minimum-loss/index.html">
 <meta property="og:site_name" content="Suzy Zhang">
+<meta property="og:description" content="Problem SummaryGiven prices of a house in N days,">
+<meta property="og:updated_time" content="2017-08-30T04:17:28.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Suzy Zhang">
+<meta name="twitter:title" content="HackerRank&#x2F;Algorithm&#x2F;Search&#x2F;Minimum Loss">
+<meta name="twitter:description" content="Problem SummaryGiven prices of a house in N days,">
   
     <link rel="alternate" href="/atom.xml" title="Suzy Zhang" type="application/atom+xml">
   
@@ -61,41 +66,80 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/14/cowxor/" class="archive-article-date">
-  <time datetime="2017-08-14T02:17:39.000Z" itemprop="datePublished">Aug 14</time>
+        <section id="main"><article id="post-minimum-loss" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/08/30/minimum-loss/" class="article-date">
+  <time datetime="2017-08-30T03:43:02.000Z" itemprop="datePublished">2017-08-30</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Algorithm/">Algorithm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/14/cowxor/">USACO Section6.1 Cow XOR (cowxor)</a>
+    <h1 class="article-title" itemprop="name">
+      HackerRank/Algorithm/Search/Minimum Loss
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem-Summary"><a href="#Problem-Summary" class="headerlink" title="Problem Summary"></a>Problem Summary</h1><p>Given prices of a house in N days, </p>
+<a id="more"></a>
+<h1 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h1><p>This problem is actually about greedy, instead of search.</p>
+<p>First, we sort all prices from low to high.</p>
+<h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">200002</span>;</div><div class="line"></div><div class="line"><span class="keyword">int</span> n,idx[maxn];</div><div class="line"><span class="keyword">long</span> <span class="keyword">long</span> p[maxn];</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">if</span>(p[a]&gt;p[b]) <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">	<span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</div><div class="line"></div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</div><div class="line">	&#123;</div><div class="line">		idx[i]=i;</div><div class="line">		<span class="built_in">scanf</span>(<span class="string">"%lld"</span>,&amp;p[i]);</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	sort(idx+<span class="number">1</span>,idx+n+<span class="number">1</span>,cmp);</div><div class="line"></div><div class="line">	<span class="keyword">int</span> a,b;</div><div class="line">	<span class="keyword">long</span> <span class="keyword">long</span> ans = ((<span class="keyword">long</span> <span class="keyword">long</span>)<span class="number">1</span>)&lt;&lt;<span class="number">50</span>;</div><div class="line"></div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;n;i++)</div><div class="line">	&#123;</div><div class="line">		a=idx[i];</div><div class="line">		b=idx[i+<span class="number">1</span>];</div><div class="line">		<span class="keyword">if</span>(a&lt;b &amp;&amp; p[a]&gt;p[b])</div><div class="line">			ans=min(ans,p[a]-p[b]);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="built_in">printf</span>(<span class="string">"%lld\n"</span>,ans);</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://suzyz.github.io/2017/08/30/minimum-loss/" data-id="cj6yvg8990018meo95rsc1m7q" class="article-share-link">Share</a>
+      
+        <a href="https://suzyz.github.io/2017/08/30/minimum-loss/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Greedy/">Greedy</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HackerRank/">HackerRank</a></li></ul>
+
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/08/30/roads-and-libraries/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          HackerRank/Algorithm/Graph Theory/Roads and Libraries
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/08/29/the-story-of-a-tree/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">HackerRank/Algorithms/Graph Theory/The Story of a Tree</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
 
 
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
 </section>
         
           <aside id="sidebar">
@@ -187,11 +231,13 @@
 <script>
   var disqus_shortname = 'suzyz';
   
+  var disqus_url = 'https://suzyz.github.io/2017/08/30/minimum-loss/';
+  
   (function(){
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>
