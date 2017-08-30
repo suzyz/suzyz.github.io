@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>HackerRank/Algorithms/Graph Theory/The Story of a Tree | Suzy Zhang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Problem SummaryAlice and Bob play a game. Given a tree with N nodes, two integers G and K, and G guesses (u1,v1),…,(ug,vg). (1&amp;lt;=N,G,K&amp;lt;=100000) (ui,vi) means Alice guesses that ui is the parent o">
+<meta name="keywords" content="Graph Theory,HackerRank">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HackerRank&#x2F;Algorithms&#x2F;Graph Theory&#x2F;The Story of a Tree">
+<meta property="og:url" content="https://suzyz.github.io/2017/08/29/the-story-of-a-tree/index.html">
+<meta property="og:site_name" content="Suzy Zhang">
+<meta property="og:description" content="Problem SummaryAlice and Bob play a game. Given a tree with N nodes, two integers G and K, and G guesses (u1,v1),…,(ug,vg). (1&amp;lt;=N,G,K&amp;lt;=100000) (ui,vi) means Alice guesses that ui is the parent o">
+<meta property="og:updated_time" content="2017-08-30T02:41:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HackerRank&#x2F;Algorithms&#x2F;Graph Theory&#x2F;The Story of a Tree">
+<meta name="twitter:description" content="Problem SummaryAlice and Bob play a game. Given a tree with N nodes, two integers G and K, and G guesses (u1,v1),…,(ug,vg). (1&amp;lt;=N,G,K&amp;lt;=100000) (ui,vi) means Alice guesses that ui is the parent o">
+  
+    <link rel="alternate" href="/atom.xml" title="Suzy Zhang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Suzy Zhang</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://suzyz.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-the-story-of-a-tree" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/08/29/the-story-of-a-tree/" class="article-date">
+  <time datetime="2017-08-29T10:28:31.000Z" itemprop="datePublished">2017-08-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Algorithm/">Algorithm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      HackerRank/Algorithms/Graph Theory/The Story of a Tree
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem-Summary"><a href="#Problem-Summary" class="headerlink" title="Problem Summary"></a>Problem Summary</h1><p>Alice and Bob play a game.</p>
+<p>Given a tree with N nodes, two integers G and K, and G guesses (u1,v1),…,(ug,vg). (1&lt;=N,G,K&lt;=100000)</p>
+<p>(ui,vi) means Alice guesses that ui is the parent of vi.</p>
+<p>When a node of the tree is randomly selected (with equal probability) to be root by Bob, and Alice does not know, find the probability that the number of right guesses is greater than or equal to K.</p>
+<a id="more"></a>
+<h1 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h1><p>At first I think of a solution with time complexity O(NG).</p>
+<p>Let w[i] be the number of right guesses when node i is the root Bob picked. Then we only need to find w[i] of every node and count the ones greater than or equal to K.</p>
+<p>Step 1. First, I pick node 1 as the root, and use DFS to find the parent of each node.</p>
+<p>Step 2. Then, for each guess (ui,vi).</p>
+<p>(1) If parent[vi]==ui, i.e. the guess is right when the root is node 1, or any other node that is on the same “side” with node 1, of edge (ui,vi). Then we add 1 to w[1] and w of the nodes that satisfying the mentioned condition.</p>
+<p>(2) If parent[vi]!=ui. Since it is guaranteed that an undirected edge connecting ui and vi exists in the tree, we have parent[ui]==vi. Then we add 1 to w[ui] and w of the nodes on the same “side” with node ui of edge (ui,vi).</p>
+<p>Step 3. Finally, we can check the w value of all nodes.</p>
+<p>The time complexity is O(N*G), too high for N=G=100000. So we need some optimization.</p>
+<p>Let us look back on the two kinds of nodes in step 2. The nodes in 2.(1) are the nodes that are not in the subtree with node vi as root. And the nodes in 2.(2) are the nodes of the subtree with node ui as root. This lead me to think about segment tree, which is much faster when it comes to updating and query. But we can not apply segment tree directly here. Instead, we can “split” w values of each node to itself and its ancestors. Let us assume that the REAL w value of node i equals the sum of its w value and  w values of all ancestors of node i.</p>
+<p>Then, when we want to add 1 to all w values of a subtree, we only need to add 1 to the w value of its root. So step 2 and 3 is changed as follows.</p>
+<p>Step 2. For each guess (ui,vi),</p>
+<p>(1) If parent[vi]==ui, add 1 to w<a href="i.e. w[root]">1</a> and subtract 1 from w[vi].<br>(2) If parent[ui]==vi, add 1 to w[ui].</p>
+<p>Step 3. Use DFS to find the REAL w value of each node, and find the answer.</p>
+<p>In this way, we reduce the time complexity to O(N+G).</p>
+<h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">100002</span>;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> root = <span class="number">1</span>;</div><div class="line"></div><div class="line"><span class="keyword">int</span> n,ans,kk;</div><div class="line"><span class="keyword">int</span> tot,head[maxn&lt;&lt;<span class="number">1</span>],next_e[maxn&lt;&lt;<span class="number">1</span>],v[maxn&lt;&lt;<span class="number">1</span>];</div><div class="line"></div><div class="line"><span class="keyword">int</span> parent[maxn],w[maxn];</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span></div><div class="line">&#123;</div><div class="line">	tot++; next_e[tot]=head[a]; head[a]=tot; v[tot]=b;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">gcd</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">if</span>(a%b==<span class="number">0</span>) <span class="keyword">return</span> b;</div><div class="line">	<span class="keyword">return</span> gcd(b,a%b);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> p)</span></span></div><div class="line">&#123;</div><div class="line">	parent[x]=p;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=head[x];i!=<span class="number">0</span>;i=next_e[i])</div><div class="line">	&#123;</div><div class="line">		<span class="keyword">int</span> y=v[i];</div><div class="line">		<span class="keyword">if</span>(parent[y]==<span class="number">0</span>)</div><div class="line">			dfs(y,x);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">calc</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> sum)</span></span></div><div class="line">&#123;</div><div class="line">	sum+=w[x];</div><div class="line">	<span class="keyword">if</span>(sum&gt;=kk) ans++;</div><div class="line"></div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=head[x];i!=<span class="number">0</span>;i=next_e[i])</div><div class="line">	&#123;</div><div class="line">		<span class="keyword">if</span>(v[i]!=parent[x])</div><div class="line">			calc(v[i],sum);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">	freopen(<span class="string">"a.in"</span>,<span class="string">"r"</span>,<span class="built_in">stdin</span>);</div><div class="line"></div><div class="line">	<span class="keyword">int</span> T,g;</div><div class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;T);</div><div class="line"><span class="keyword">while</span>(T)</div><div class="line">&#123;</div><div class="line">	T--;</div><div class="line"></div><div class="line">	tot=<span class="number">0</span>;</div><div class="line">	<span class="built_in">memset</span>(head,<span class="number">0</span>,<span class="keyword">sizeof</span>(head));</div><div class="line">	<span class="built_in">memset</span>(next_e,<span class="number">0</span>,<span class="keyword">sizeof</span>(next_e));</div><div class="line"></div><div class="line">	<span class="keyword">int</span> a,b;</div><div class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;n;i++)</div><div class="line">	&#123;</div><div class="line">		<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;a,&amp;b);</div><div class="line">		add(a,b);</div><div class="line">		add(b,a);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="built_in">memset</span>(parent,<span class="number">0</span>,<span class="keyword">sizeof</span>(parent));</div><div class="line">	dfs(root,<span class="number">-1</span>);</div><div class="line">	</div><div class="line">	<span class="built_in">memset</span>(w,<span class="number">0</span>,<span class="keyword">sizeof</span>(w));</div><div class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;g,&amp;kk);</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=g;i++)</div><div class="line">	&#123;</div><div class="line">		<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;a,&amp;b);</div><div class="line">		<span class="keyword">if</span>(parent[b]==a)</div><div class="line">		&#123;</div><div class="line">			w[root]++;</div><div class="line">			w[b]--;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">else</span></div><div class="line">		&#123;</div><div class="line">			<span class="comment">/* It's guaranteed that an undirected edge </span></div><div class="line">			connecting a and b exists in the tree.</div><div class="line">			So we have parent[a]==b */</div><div class="line">			w[a]++;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	ans=<span class="number">0</span>;</div><div class="line">	calc(root,<span class="number">0</span>);</div><div class="line"></div><div class="line">	<span class="keyword">if</span>(ans&gt;<span class="number">0</span>)</div><div class="line">	&#123;</div><div class="line">		<span class="keyword">int</span> c = gcd(ans,n);</div><div class="line">		ans/=c;</div><div class="line">		n/=c;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">else</span></div><div class="line">		n=<span class="number">1</span>;</div><div class="line"></div><div class="line">	<span class="built_in">printf</span>(<span class="string">"%d/%d\n"</span>,ans,n);</div><div class="line">&#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://suzyz.github.io/2017/08/29/the-story-of-a-tree/" data-id="cj6yf46o7001sido9r54ix8j3" class="article-share-link">Share</a>
+      
+        <a href="https://suzyz.github.io/2017/08/29/the-story-of-a-tree/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Graph-Theory/">Graph Theory</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HackerRank/">HackerRank</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/08/27/even-tree/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">HackerRank/Algorithms/Graphy Theory/Even Tree</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/">Algorithm</a><span class="category-list-count">27</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BFS/">BFS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Big-Number/">Big Number</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Binary-search/">Binary search</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Convex-Hull/">Convex Hull</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DFS/">DFS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/">DP</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dinic/">Dinic</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Game-Theory/">Game Theory</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Geometry/">Geometry</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Graph-Theory/">Graph Theory</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Greedy/">Greedy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HackerRank/">HackerRank</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hash/">Hash</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hungarian-Alogrithm/">Hungarian Alogrithm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDDFS/">IDDFS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Implementation/">Implementation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MST/">MST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maximum-Flow/">Maximum Flow</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Minimum-Cut/">Minimum Cut</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Minimum-length-cycle/">Minimum length cycle</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Number-Theory/">Number Theory</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Partial-order/">Partial order</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Prim/">Prim</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pruning/">Pruning</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SPFA/">SPFA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/String/">String</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Strongly-connected-components/">Strongly connected components</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tarjan-s-algorithm/">Tarjan's algorithm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Trie/">Trie</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/USACO/">USACO</a><span class="tag-list-count">25</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">17</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">10</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/08/29/the-story-of-a-tree/">HackerRank/Algorithms/Graph Theory/The Story of a Tree</a>
+          </li>
+        
+          <li>
+            <a href="/2017/08/27/even-tree/">HackerRank/Algorithms/Graphy Theory/Even Tree</a>
+          </li>
+        
+          <li>
+            <a href="/2017/08/22/buylow/">USACO Section4.3 Buy Low, Buy Lower (buylow)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/08/18/cryptcow/">USACO Section6.3 Cryptcowgraphy (cryptcow)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/08/17/fence8/">USACO Section6.4 Fence Rails (fence8)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Suzy Zhang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'suzyz';
+  
+  var disqus_url = 'https://suzyz.github.io/2017/08/29/the-story-of-a-tree/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
