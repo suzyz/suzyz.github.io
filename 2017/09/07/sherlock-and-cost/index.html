@@ -3,14 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives | Suzy Zhang</title>
+  <title>HackerRank/Algorithm/Dynamic Programming/Sherlock and Cost | Suzy Zhang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Suzy Zhang">
-<meta property="og:url" content="https://suzyz.github.io/archives/index.html">
+  <meta name="description" content="Problem SummaryGiven an array B of N positive integers, and the relationship between array A and B: 1 &amp;le; A[i] &amp;le; B[i] (1 &amp;le; i &amp;le; N), find the maximum of S = sum{|A[i] - A[i-1]|}, 2 &amp;le; i &amp;le;">
+<meta name="keywords" content="DP,HackerRank">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HackerRank&#x2F;Algorithm&#x2F;Dynamic Programming&#x2F;Sherlock and Cost">
+<meta property="og:url" content="https://suzyz.github.io/2017/09/07/sherlock-and-cost/index.html">
 <meta property="og:site_name" content="Suzy Zhang">
+<meta property="og:description" content="Problem SummaryGiven an array B of N positive integers, and the relationship between array A and B: 1 &amp;le; A[i] &amp;le; B[i] (1 &amp;le; i &amp;le; N), find the maximum of S = sum{|A[i] - A[i-1]|}, 2 &amp;le; i &amp;le;">
+<meta property="og:updated_time" content="2017-09-07T02:50:49.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Suzy Zhang">
+<meta name="twitter:title" content="HackerRank&#x2F;Algorithm&#x2F;Dynamic Programming&#x2F;Sherlock and Cost">
+<meta name="twitter:description" content="Problem SummaryGiven an array B of N positive integers, and the relationship between array A and B: 1 &amp;le; A[i] &amp;le; B[i] (1 &amp;le; i &amp;le; N), find the maximum of S = sum{|A[i] - A[i-1]|}, 2 &amp;le; i &amp;le;">
   
     <link rel="alternate" href="/atom.xml" title="Suzy Zhang" type="application/atom+xml">
   
@@ -61,254 +66,72 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/09/07/sherlock-and-cost/" class="archive-article-date">
-  <time datetime="2017-09-07T02:20:16.000Z" itemprop="datePublished">Sep 7</time>
+        <section id="main"><article id="post-sherlock-and-cost" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/09/07/sherlock-and-cost/" class="article-date">
+  <time datetime="2017-09-07T02:20:16.000Z" itemprop="datePublished">2017-09-07</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Algorithm/">Algorithm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/07/sherlock-and-cost/">HackerRank/Algorithm/Dynamic Programming/Sherlock and Cost</a>
+    <h1 class="article-title" itemprop="name">
+      HackerRank/Algorithm/Dynamic Programming/Sherlock and Cost
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/09/05/synchronous-shopping/" class="archive-article-date">
-  <time datetime="2017-09-05T02:14:38.000Z" itemprop="datePublished">Sep 5</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/05/synchronous-shopping/">HackerRank/Graph Theory/Synchronous Shopping</a>
-    </h1>
-  
+        <h1 id="Problem-Summary"><a href="#Problem-Summary" class="headerlink" title="Problem Summary"></a>Problem Summary</h1><p>Given an array B of N positive integers, and the relationship between array A and B: 1 &le; A[i] &le; B[i] (1 &le; i &le; N), find the maximum of S = sum{|A[i] - A[i-1]|}, 2 &le; i &le; N.</p>
+<a id="more"></a>
+<h1 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h1><p>To find max S, we need to determine the values of A[i].</p>
+<p>First, we can prove that for any i, we only need to consider 1 and B[i], i.e. A[i] = 1 or A[i] = B[i].</p>
+<p>The rest is trivial.</p>
+<h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt; /* abs */</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">int</span> T,n,cur,pre,lo_hi,lo_lo,hi_lo,hi_hi,best_lo,best_hi,new_best_lo,new_best_hi;</div><div class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;T);</div><div class="line"></div><div class="line"><span class="keyword">while</span>(T)</div><div class="line">&#123;</div><div class="line">    T--;</div><div class="line"></div><div class="line">    best_lo = best_hi = lo_hi = hi_lo = lo_lo = hi_hi = <span class="number">0</span>;</div><div class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</div><div class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;pre);</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=n;i++)</div><div class="line">    &#123;</div><div class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;cur);</div><div class="line">        lo_lo=<span class="number">0</span>; <span class="comment">/* 1 - 1 */</span></div><div class="line">        lo_hi=cur<span class="number">-1</span>;</div><div class="line">        hi_lo=pre<span class="number">-1</span>;</div><div class="line">        hi_hi=<span class="built_in">abs</span>(cur-pre);</div><div class="line"></div><div class="line">        new_best_lo = max(best_lo,best_hi + hi_lo);</div><div class="line">        new_best_hi = max(best_lo + lo_hi,best_hi + hi_hi);</div><div class="line"></div><div class="line">        best_lo = new_best_lo;</div><div class="line">        best_hi = new_best_hi;</div><div class="line">        pre=cur;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,best_lo &gt; best_hi ? best_lo:best_hi);</div><div class="line">&#125;</div><div class="line">   </div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/09/04/time-conversion/" class="archive-article-date">
-  <time datetime="2017-09-04T08:19:27.000Z" itemprop="datePublished">Sep 4</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/04/time-conversion/">HackerRank/Algorithm/Time Conversion</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/30/roads-and-libraries/" class="archive-article-date">
-  <time datetime="2017-08-30T09:39:50.000Z" itemprop="datePublished">Aug 30</time>
-</a>
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://suzyz.github.io/2017/09/07/sherlock-and-cost/" data-id="cj79uvll0001kkco93kv113jc" class="article-share-link">Share</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/30/roads-and-libraries/">HackerRank/Algorithm/Graph Theory/Roads and Libraries</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/30/minimum-loss/" class="archive-article-date">
-  <time datetime="2017-08-30T03:43:02.000Z" itemprop="datePublished">Aug 30</time>
-</a>
+        <a href="https://suzyz.github.io/2017/09/07/sherlock-and-cost/#disqus_thread" class="article-comment-link">Comments</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/30/minimum-loss/">HackerRank/Algorithm/Search/Minimum Loss</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/29/the-story-of-a-tree/" class="archive-article-date">
-  <time datetime="2017-08-29T10:28:31.000Z" itemprop="datePublished">Aug 29</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/29/the-story-of-a-tree/">HackerRank/Algorithms/Graph Theory/The Story of a Tree</a>
-    </h1>
-  
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DP/">DP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HackerRank/">HackerRank</a></li></ul>
 
-    </header>
+    </footer>
   </div>
-</article>
   
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/27/even-tree/" class="archive-article-date">
-  <time datetime="2017-08-27T10:25:29.000Z" itemprop="datePublished">Aug 27</time>
-</a>
-      
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/27/even-tree/">HackerRank/Algorithms/Graphy Theory/Even Tree</a>
-    </h1>
   
+    <a href="/2017/09/05/synchronous-shopping/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">HackerRank/Graph Theory/Synchronous Shopping</div>
+    </a>
+  
+</nav>
 
-    </header>
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
   </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/22/buylow/" class="archive-article-date">
-  <time datetime="2017-08-22T03:48:33.000Z" itemprop="datePublished">Aug 22</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/22/buylow/">USACO Section4.3 Buy Low, Buy Lower (buylow)</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/18/cryptcow/" class="archive-article-date">
-  <time datetime="2017-08-18T02:13:38.000Z" itemprop="datePublished">Aug 18</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/18/cryptcow/">USACO Section6.3 Cryptcowgraphy (cryptcow)</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/17/fence8/" class="archive-article-date">
-  <time datetime="2017-08-17T09:56:51.000Z" itemprop="datePublished">Aug 17</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/17/fence8/">USACO Section6.4 Fence Rails (fence8)</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/14/cowxor/" class="archive-article-date">
-  <time datetime="2017-08-14T02:17:39.000Z" itemprop="datePublished">Aug 14</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/14/cowxor/">USACO Section6.1 Cow XOR (cowxor)</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/13/hidden/" class="archive-article-date">
-  <time datetime="2017-08-13T10:32:02.000Z" itemprop="datePublished">Aug 13</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/13/hidden/">USACO Section5.5 Hidden Password (hidden)</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-
-  <nav id="page-nav">
-    <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><a class="extend next" rel="next" href="/archives/page/2/">Next&raquo;</a>
-  </nav>
-
+</section>
 </section>
         
           <aside id="sidebar">
@@ -400,11 +223,13 @@
 <script>
   var disqus_shortname = 'suzyz';
   
+  var disqus_url = 'https://suzyz.github.io/2017/09/07/sherlock-and-cost/';
+  
   (function(){
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>
