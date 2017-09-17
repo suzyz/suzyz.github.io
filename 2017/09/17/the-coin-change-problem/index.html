@@ -3,14 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Tag: Number Theory | Suzy Zhang</title>
+  <title>HackerRank/Algorithm/Dynamic Programming/The Coin Change Problem | Suzy Zhang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Suzy Zhang">
-<meta property="og:url" content="https://suzyz.github.io/tags/Number-Theory/index.html">
+  <meta name="description" content="Problem SummaryGiven M types of coins in infinite quantities where the value of each type of coin is given in array C, determine the number of ways to make change for N units using these coins.">
+<meta name="keywords" content="HackerRank,DP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HackerRank&#x2F;Algorithm&#x2F;Dynamic Programming&#x2F;The Coin Change Problem">
+<meta property="og:url" content="https://suzyz.github.io/2017/09/17/the-coin-change-problem/index.html">
 <meta property="og:site_name" content="Suzy Zhang">
+<meta property="og:description" content="Problem SummaryGiven M types of coins in infinite quantities where the value of each type of coin is given in array C, determine the number of ways to make change for N units using these coins.">
+<meta property="og:updated_time" content="2017-09-17T12:04:24.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Suzy Zhang">
+<meta name="twitter:title" content="HackerRank&#x2F;Algorithm&#x2F;Dynamic Programming&#x2F;The Coin Change Problem">
+<meta name="twitter:description" content="Problem SummaryGiven M types of coins in infinite quantities where the value of each type of coin is given in array C, determine the number of ways to make change for N units using these coins.">
   
     <link rel="alternate" href="/atom.xml" title="Suzy Zhang" type="application/atom+xml">
   
@@ -61,60 +66,74 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/07/27/nuggets/" class="archive-article-date">
-  <time datetime="2017-07-27T03:52:53.000Z" itemprop="datePublished">Jul 27</time>
+        <section id="main"><article id="post-the-coin-change-problem" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/09/17/the-coin-change-problem/" class="article-date">
+  <time datetime="2017-09-17T11:44:30.000Z" itemprop="datePublished">2017-09-17</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Algorithm/">Algorithm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/27/nuggets/">USACO Section4.1 nuggets</a>
+    <h1 class="article-title" itemprop="name">
+      HackerRank/Algorithm/Dynamic Programming/The Coin Change Problem
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/07/23/fact4/" class="archive-article-date">
-  <time datetime="2017-07-23T03:04:16.000Z" itemprop="datePublished">Jul 23</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/23/fact4/">USACO Section3.2 fact4</a>
-    </h1>
-  
+        <h1 id="Problem-Summary"><a href="#Problem-Summary" class="headerlink" title="Problem Summary"></a>Problem Summary</h1><p>Given M types of coins in infinite quantities where the value of each type of coin is given in array C, determine the number of ways to make change for N units using these coins.</p>
+<a id="more"></a>
+<h1 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h1><p>This problem is very similiar to the unbounded knapsack problem (UKP).</p>
+<p>Let f[i,j] be the number of ways to make change for j units using coins of types 1,2,…,i. Then we have</p>
+<p><strong>f[i,j] = f[i-1,j], if j &lt; c[i] </strong><br><strong>f[i,j] = f[i-1,j] + f[i,j-c[i]], if j &ge; c[i] </strong></p>
+<p>Actually, it is not necessary to use 2-dimensional array. We can only use f[j] instead of f[i,j]. If we enumerate i from 1 to M, the formula is</p>
+<p><strong>f[j] = f[j] + f[j-c[i]], if j &ge; c[i]</strong></p>
+<h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="keyword">int</span> n,m,c[<span class="number">52</span>];</div><div class="line"><span class="keyword">long</span> <span class="keyword">long</span> f[<span class="number">252</span>];</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m);</div><div class="line"></div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m;i++) <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;c[i]);</div><div class="line"></div><div class="line">	f[<span class="number">0</span>]=<span class="number">1</span>;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m;i++)</div><div class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=c[i];j&lt;=n;j++)</div><div class="line">			f[j]+=f[j-c[i]];</div><div class="line"></div><div class="line">	<span class="built_in">printf</span>(<span class="string">"%lld\n"</span>,f[n]);</div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
-    </header>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://suzyz.github.io/2017/09/17/the-coin-change-problem/" data-id="cj7op0gq40023kdo9oce1v21a" class="article-share-link">Share</a>
+      
+        <a href="https://suzyz.github.io/2017/09/17/the-coin-change-problem/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DP/">DP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HackerRank/">HackerRank</a></li></ul>
+
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/09/16/prime-xor/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">HackerRank/Algorithm/Dynamic Programming/Prime XOR</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
 
 
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
 </section>
         
           <aside id="sidebar">
@@ -206,11 +225,13 @@
 <script>
   var disqus_shortname = 'suzyz';
   
+  var disqus_url = 'https://suzyz.github.io/2017/09/17/the-coin-change-problem/';
+  
   (function(){
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>
