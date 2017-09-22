@@ -3,14 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives: 2017/8 | Suzy Zhang</title>
+  <title>LintCode/Find Peak Element | Suzy Zhang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Suzy Zhang">
-<meta property="og:url" content="https://suzyz.github.io/archives/2017/08/page/2/index.html">
+  <meta name="description" content="Problem SummaryA is an array with N integers which has the following features:  The numbers in adjacent positions are different. A[0] &amp;lt; A[1] &amp;amp;&amp;amp; A[N - 2] &amp;gt; A[N - 1].  We define a position">
+<meta name="keywords" content="Binary Search,LintCode">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LintCode&#x2F;Find Peak Element">
+<meta property="og:url" content="https://suzyz.github.io/2017/09/20/find-peak-element/index.html">
 <meta property="og:site_name" content="Suzy Zhang">
+<meta property="og:description" content="Problem SummaryA is an array with N integers which has the following features:  The numbers in adjacent positions are different. A[0] &amp;lt; A[1] &amp;amp;&amp;amp; A[N - 2] &amp;gt; A[N - 1].  We define a position">
+<meta property="og:updated_time" content="2017-09-20T08:42:00.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Suzy Zhang">
+<meta name="twitter:title" content="LintCode&#x2F;Find Peak Element">
+<meta name="twitter:description" content="Problem SummaryA is an array with N integers which has the following features:  The numbers in adjacent positions are different. A[0] &amp;lt; A[1] &amp;amp;&amp;amp; A[N - 2] &amp;gt; A[N - 1].  We define a position">
   
     <link rel="alternate" href="/atom.xml" title="Suzy Zhang" type="application/atom+xml">
   
@@ -61,159 +66,77 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/08/milk4/" class="archive-article-date">
-  <time datetime="2017-08-08T03:32:51.000Z" itemprop="datePublished">Aug 8</time>
+        <section id="main"><article id="post-find-peak-element" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/09/20/find-peak-element/" class="article-date">
+  <time datetime="2017-09-20T07:37:04.000Z" itemprop="datePublished">2017-09-20</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Algorithm/">Algorithm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/08/milk4/">USACO Section5.3 Milk Measuring (milk4)</a>
+    <h1 class="article-title" itemprop="name">
+      LintCode/Find Peak Element
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/07/theme/" class="archive-article-date">
-  <time datetime="2017-08-07T04:30:35.000Z" itemprop="datePublished">Aug 7</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/07/theme/">USACO Section5.1 theme</a>
-    </h1>
-  
+        <h1 id="Problem-Summary"><a href="#Problem-Summary" class="headerlink" title="Problem Summary"></a>Problem Summary</h1><p>A is an array with N integers which has the following features:</p>
+<ol>
+<li>The numbers in adjacent positions are different.</li>
+<li>A[0] &lt; A[1] &amp;&amp; A[N - 2] &gt; A[N - 1].</li>
+</ol>
+<p>We define a position P is a peak if: A[P] &gt; A[P-1] &amp;&amp; A[P] &gt; A[P+1]</p>
+<p>Find a peak element in this array.<br><a id="more"></a></p>
+<h1 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h1><p>The O(N) solution is trivial. But can we solve this with a time complexity of O(logN)?</p>
+<p>We can think of binary search immediately. The key is whether we can rule out half the indices each time. When we find A[mid]<a[mid+1], there="" must="" be="" a="" peak="" in="" [mid+1,right],="" so="" we="" can="" toss="" out="" [left,mid].="" similarly,="" if="" find="" a[mid]="">A[mid+1], we can toss out [mid+1,right].</a[mid+1],></p>
+<p>In this way, we can reduce the time complexity to O(logN).</p>
+<h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="comment">/*</span></div><div class="line">     * @param A: An integers array.</div><div class="line">     * @return: return any of peek positions.</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">findPeak</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;A)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> l = <span class="number">0</span>, r = A.size()<span class="number">-1</span>, mid;</div><div class="line">        <span class="keyword">while</span> (l&lt;r)</div><div class="line">        &#123;</div><div class="line">            mid = (l+r)&gt;&gt;<span class="number">1</span>;</div><div class="line">            <span class="keyword">if</span> (A[mid]&gt;A[mid+<span class="number">1</span>])</div><div class="line">                r = mid;</div><div class="line">            <span class="keyword">else</span></div><div class="line">                l = mid+<span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> l;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/07/window/" class="archive-article-date">
-  <time datetime="2017-08-07T03:50:48.000Z" itemprop="datePublished">Aug 7</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/07/window/">USACO Section5.3 Window Area (window)</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/06/schlnet/" class="archive-article-date">
-  <time datetime="2017-08-06T02:40:21.000Z" itemprop="datePublished">Aug 6</time>
-</a>
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://suzyz.github.io/2017/09/20/find-peak-element/" data-id="cj7srya48000wfno95gbi6tlg" class="article-share-link">Share</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/06/schlnet/">USACO Section5.3 schlnet</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/04/fc/" class="archive-article-date">
-  <time datetime="2017-08-04T11:46:48.000Z" itemprop="datePublished">Aug 4</time>
-</a>
+        <a href="https://suzyz.github.io/2017/09/20/find-peak-element/#disqus_thread" class="article-comment-link">Comments</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/04/fc/">USACO Section5.1 Fencing the Cows (fc)</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/04/milk6/" class="archive-article-date">
-  <time datetime="2017-08-04T03:50:46.000Z" itemprop="datePublished">Aug 4</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/04/milk6/">USACO Section5.1 Pollutant Control(milk6)</a>
-    </h1>
-  
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Binary-Search/">Binary Search</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LintCode/">LintCode</a></li></ul>
 
-    </header>
+    </footer>
   </div>
-</article>
   
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/03/frameup/" class="archive-article-date">
-  <time datetime="2017-08-03T12:54:10.000Z" itemprop="datePublished">Aug 3</time>
-</a>
-      
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/03/frameup/">USACO Section4.4 frameup</a>
-    </h1>
   
+    <a href="/2017/09/19/angry-children2/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">HackerRank/Algorithm/Dynamic Programming/Angry Children 2</div>
+    </a>
+  
+</nav>
 
-    </header>
-  </div>
+  
 </article>
-  
-  
-    </div></section>
-  
 
 
-  <nav id="page-nav">
-    <a class="extend prev" rel="prev" href="/archives/2017/08/">&laquo;Prev</a><a class="page-number" href="/archives/2017/08/">1</a><span class="page-number current">2</span>
-  </nav>
-
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
 </section>
         
           <aside id="sidebar">
@@ -305,11 +228,13 @@
 <script>
   var disqus_shortname = 'suzyz';
   
+  var disqus_url = 'https://suzyz.github.io/2017/09/20/find-peak-element/';
+  
   (function(){
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>

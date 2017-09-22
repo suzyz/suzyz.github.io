@@ -3,19 +3,21 @@
 <head>
   <meta charset="utf-8">
   
-  <title>USACO Section5.5 Hidden Password (hidden) | Suzy Zhang</title>
+  <title>HackerRank/Algorithm/Dynamic Programming/Angry Children 2 | Suzy Zhang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Problem SummaryGiven a string S composed of L (5&amp;lt;=L&amp;lt;=100,000) letters, find the start position of the first letter of the sorted list of cyclic shifts of S.">
-<meta name="keywords" content="USACO,String">
+  <meta name="description" content="Problem SummarySuppose there are K packets with (x1, x2, x3,….xk) candies in them, where xi denotes the number of candies in the ith packet, then we define unfairness as  Given N packets, find the min">
+<meta name="keywords" content="HackerRank,DP">
 <meta property="og:type" content="article">
-<meta property="og:title" content="USACO Section5.5 Hidden Password (hidden)">
-<meta property="og:url" content="https://suzyz.github.io/2017/08/13/hidden/index.html">
+<meta property="og:title" content="HackerRank&#x2F;Algorithm&#x2F;Dynamic Programming&#x2F;Angry Children 2">
+<meta property="og:url" content="https://suzyz.github.io/2017/09/19/angry-children2/index.html">
 <meta property="og:site_name" content="Suzy Zhang">
-<meta property="og:description" content="Problem SummaryGiven a string S composed of L (5&amp;lt;=L&amp;lt;=100,000) letters, find the start position of the first letter of the sorted list of cyclic shifts of S.">
-<meta property="og:updated_time" content="2017-08-14T08:45:29.000Z">
+<meta property="og:description" content="Problem SummarySuppose there are K packets with (x1, x2, x3,….xk) candies in them, where xi denotes the number of candies in the ith packet, then we define unfairness as  Given N packets, find the min">
+<meta property="og:image" content="https://suzyz.github.io/2017/09/19/angry-children2/angry-children-2.png">
+<meta property="og:updated_time" content="2017-09-22T03:13:19.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="USACO Section5.5 Hidden Password (hidden)">
-<meta name="twitter:description" content="Problem SummaryGiven a string S composed of L (5&amp;lt;=L&amp;lt;=100,000) letters, find the start position of the first letter of the sorted list of cyclic shifts of S.">
+<meta name="twitter:title" content="HackerRank&#x2F;Algorithm&#x2F;Dynamic Programming&#x2F;Angry Children 2">
+<meta name="twitter:description" content="Problem SummarySuppose there are K packets with (x1, x2, x3,….xk) candies in them, where xi denotes the number of candies in the ith packet, then we define unfairness as  Given N packets, find the min">
+<meta name="twitter:image" content="https://suzyz.github.io/2017/09/19/angry-children2/angry-children-2.png">
   
     <link rel="alternate" href="/atom.xml" title="Suzy Zhang" type="application/atom+xml">
   
@@ -66,10 +68,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-hidden" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-angry-children2" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/08/13/hidden/" class="article-date">
-  <time datetime="2017-08-13T10:32:02.000Z" itemprop="datePublished">2017-08-13</time>
+    <a href="/2017/09/19/angry-children2/" class="article-date">
+  <time datetime="2017-09-19T11:29:03.000Z" itemprop="datePublished">2017-09-19</time>
 </a>
     
   <div class="article-category">
@@ -84,7 +86,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      USACO Section5.5 Hidden Password (hidden)
+      HackerRank/Algorithm/Dynamic Programming/Angry Children 2
     </h1>
   
 
@@ -92,31 +94,30 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Problem-Summary"><a href="#Problem-Summary" class="headerlink" title="Problem Summary"></a>Problem Summary</h1><p>Given a string S composed of L (5&lt;=L&lt;=100,000) letters, find the start position of the first letter of the sorted list of cyclic shifts of S.</p>
+        <h1 id="Problem-Summary"><a href="#Problem-Summary" class="headerlink" title="Problem Summary"></a>Problem Summary</h1><p>Suppose there are K packets with (x1, x2, x3,….xk) candies in them, where xi denotes the number of candies in the ith packet, then we define unfairness as</p>
+<p><img src="/2017/09/19/angry-children2/angry-children-2.png" alt="Unfairness"></p>
+<p>Given N packets, find the minimum unfairness when you pick K out of N packets.</p>
 <a id="more"></a>
-<p>For example, with the string “alabala”, the sorted cyclic shifts are:</p>
-<p>aalabal<br>abalaal<br>alaalab<br>alabala<br>balaala<br>laalaba<br>labalaa</p>
-<p>Lexicographically, the first string is “aalabal”. So the answer is position 6.</p>
-<h1 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h1><p>First, we concatenate two copies of our string S, yielding SS. Then we simply want the lexicographically least L-letter substring of SS. </p>
-<p>We use two iterators to indicate the two positions we are comparing. Let i be 0 and j be 1, and start a while loop. Each time, suppose k is the minimal non-negative integer s.t. s[i+k]!=s[j+k] &amp;&amp; k&lt;=L. Then there are 4 cases:</p>
-<ol>
-<li>i or j is equal to or greater than L. Then the smaller one is answer.</li>
-<li>k does not exist, i.e. the L-letter substring starting at i is the same as the one starting at j. We move j to j+L.</li>
-<li>s[i+k]&gt;s[j+k]. In this case, it is needless to examine the substrings starting at i, i+1, i+2,…, or i+k. So we just move i to i+k+1.</li>
-<li>s[i+k]&lt;s[j+k]. Similarly, we move j to j+k+1.</li>
-</ol>
-<p>Apparently, the time comlexity is O(n).</p>
-<h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fstream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;climits&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">200020</span>;</div><div class="line"></div><div class="line"><span class="keyword">int</span> n;</div><div class="line"><span class="keyword">char</span> s[maxn];</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">	<span class="function">fstream <span class="title">fin</span><span class="params">(<span class="string">"hidden.in"</span>,ios::in)</span></span>;</div><div class="line">	<span class="function">fstream <span class="title">fout</span><span class="params">(<span class="string">"hidden.out"</span>,ios::out)</span></span>;</div><div class="line"></div><div class="line">	fin&gt;&gt;n;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i+=<span class="number">72</span>)</div><div class="line">		fin&gt;&gt;(s+i);</div><div class="line"></div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</div><div class="line">		s[i+n]=s[i];</div><div class="line"></div><div class="line">	<span class="keyword">int</span> i=<span class="number">0</span>,j=<span class="number">1</span>,k;</div><div class="line">	<span class="keyword">while</span>(i&lt;n &amp;&amp; j&lt;n)</div><div class="line">	&#123;</div><div class="line">		k=<span class="number">0</span>;</div><div class="line">		<span class="keyword">while</span>(k&lt;n &amp;&amp; s[i+k]==s[j+k])</div><div class="line">			k++;</div><div class="line"></div><div class="line">		<span class="keyword">if</span>(s[i+k]&gt;s[j+k])</div><div class="line">			i+=k+<span class="number">1</span>;</div><div class="line">		<span class="keyword">else</span></div><div class="line">			j+=k+<span class="number">1</span>;</div><div class="line"></div><div class="line">		<span class="keyword">if</span>(i==j) j++;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">if</span>(i&gt;j) i=j;</div><div class="line">	fout&lt;&lt;i&lt;&lt;<span class="built_in">endl</span>;</div><div class="line">	fin.close();</div><div class="line">	fout.close();</div><div class="line">	<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h1><p>Obviously, we only need to consider the cases that K packets with the “closest” values, so we sort the array first.</p>
+<p>Then let f[i] be the unfairness when we choose x[i],x[i+1],…,x[i+K-1].</p>
+<p>In order to reduce time complexity, we need to find out the recurrence relation between f[i] and f[i+1].</p>
+<p>f[i] = |x[i+K-1] - x[i+K-2]| + |x[i+K-1] - x[i+K-3]| + … + |x[i+K-1] - x[i]|</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; + |x[i+K-2] - x[i+K-3]| + |x[i+K-2] - x[i+K-4]| + … + |x[i+K-2] - x[i]|</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; + … </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; + |x[i+1] - x[i]|</p>
+<p>So, f[i+1] = f[i] + (K-1) &times; (x[i+K] + x[i]) - 2 &times; (x[i+1] + x[i+2] + … + x[i+K-1]).</p>
+<p>The answer is the minimum of f[i] (1 &le; i &le; N-K+1).</p>
+<h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;climits&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">100002</span>;</div><div class="line"></div><div class="line"><span class="keyword">int</span> n,m;</div><div class="line"><span class="keyword">long</span> <span class="keyword">long</span> d[maxn],sum[maxn];</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m);</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</div><div class="line">        <span class="built_in">scanf</span>(<span class="string">"%lld"</span>,&amp;d[i]);</div><div class="line"></div><div class="line">    sort(d+<span class="number">1</span>,d+n+<span class="number">1</span>);</div><div class="line"></div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</div><div class="line">        sum[i]=sum[i<span class="number">-1</span>]+d[i];</div><div class="line"></div><div class="line">    <span class="keyword">long</span> <span class="keyword">long</span> cur,ans=<span class="number">0</span>;</div><div class="line"></div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m;i++)</div><div class="line">        ans += d[i] * (<span class="keyword">long</span> <span class="keyword">long</span>)(i<span class="number">-1</span> - (m-i));</div><div class="line"></div><div class="line">    cur = ans;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=n-m+<span class="number">1</span>;i++)</div><div class="line">    &#123;</div><div class="line">        cur += (d[i<span class="number">-1</span>] + d[i+m<span class="number">-1</span>]) * (<span class="keyword">long</span> <span class="keyword">long</span>)(m<span class="number">-1</span>) - (sum[i+m<span class="number">-2</span>]-sum[i<span class="number">-1</span>])*<span class="number">2</span>;</div><div class="line"></div><div class="line">        <span class="keyword">if</span>(cur&lt;ans) ans=cur;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="built_in">printf</span>(<span class="string">"%lld\n"</span>, ans);</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://suzyz.github.io/2017/08/13/hidden/" data-id="cj7srya4u0019fno9p5oude9m" class="article-share-link">Share</a>
+      <a data-url="https://suzyz.github.io/2017/09/19/angry-children2/" data-id="cj7srya2v0006fno98avl1w9h" class="article-share-link">Share</a>
       
-        <a href="https://suzyz.github.io/2017/08/13/hidden/#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="https://suzyz.github.io/2017/09/19/angry-children2/#disqus_thread" class="article-comment-link">Comments</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/String/">String</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/USACO/">USACO</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DP/">DP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HackerRank/">HackerRank</a></li></ul>
 
     </footer>
   </div>
@@ -124,19 +125,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2017/08/14/cowxor/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/09/20/find-peak-element/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          USACO Section6.1 Cow XOR (cowxor)
+          LintCode/Find Peak Element
         
       </div>
     </a>
   
   
-    <a href="/2017/08/11/rectbarn/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/09/18/the-maximum-subarray/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">USACO Section6.1 A Rectangular Barn (rectbarn)</div>
+      <div class="article-nav-title">HackerRank/Algorithm/Dynamic Programming/The Maximum Subarray</div>
     </a>
   
 </nav>
@@ -241,7 +242,7 @@
 <script>
   var disqus_shortname = 'suzyz';
   
-  var disqus_url = 'https://suzyz.github.io/2017/08/13/hidden/';
+  var disqus_url = 'https://suzyz.github.io/2017/09/19/angry-children2/';
   
   (function(){
     var dsq = document.createElement('script');
