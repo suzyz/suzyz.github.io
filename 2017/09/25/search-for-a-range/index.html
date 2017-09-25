@@ -3,14 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives: 2017 | Suzy Zhang</title>
+  <title>LintCode/Search For A Range | Suzy Zhang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Suzy Zhang">
-<meta property="og:url" content="https://suzyz.github.io/archives/2017/page/2/index.html">
+  <meta name="description" content="Problem SummaryGiven a sorted array of N integers, find the starting and ending position of a given target value.">
+<meta name="keywords" content="Binary Search,LintCode">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LintCode&#x2F;Search For A Range">
+<meta property="og:url" content="https://suzyz.github.io/2017/09/25/search-for-a-range/index.html">
 <meta property="og:site_name" content="Suzy Zhang">
+<meta property="og:description" content="Problem SummaryGiven a sorted array of N integers, find the starting and ending position of a given target value.">
+<meta property="og:updated_time" content="2017-09-25T02:26:38.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Suzy Zhang">
+<meta name="twitter:title" content="LintCode&#x2F;Search For A Range">
+<meta name="twitter:description" content="Problem SummaryGiven a sorted array of N integers, find the starting and ending position of a given target value.">
   
     <link rel="alternate" href="/atom.xml" title="Suzy Zhang" type="application/atom+xml">
   
@@ -61,254 +66,71 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/09/04/time-conversion/" class="archive-article-date">
-  <time datetime="2017-09-04T08:19:27.000Z" itemprop="datePublished">Sep 4</time>
+        <section id="main"><article id="post-search-for-a-range" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/09/25/search-for-a-range/" class="article-date">
+  <time datetime="2017-09-25T02:22:23.000Z" itemprop="datePublished">2017-09-25</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Algorithm/">Algorithm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/04/time-conversion/">HackerRank/Algorithm/Time Conversion</a>
+    <h1 class="article-title" itemprop="name">
+      LintCode/Search For A Range
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/30/roads-and-libraries/" class="archive-article-date">
-  <time datetime="2017-08-30T09:39:50.000Z" itemprop="datePublished">Aug 30</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/30/roads-and-libraries/">HackerRank/Algorithm/Graph Theory/Roads and Libraries</a>
-    </h1>
-  
+        <h1 id="Problem-Summary"><a href="#Problem-Summary" class="headerlink" title="Problem Summary"></a>Problem Summary</h1><p>Given a <strong>sorted</strong> array of N integers, find the starting and ending position of a given target value.</p>
+<a id="more"></a>
+<h1 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h1><p>We need to use binary search twice. The first is in range [0,…,N-1], and if we find a legal l, we ran the second binary search in range [l,..,N-1].</p>
+<p>Be careful about how to calculate mid to prevent endless loop.</p>
+<h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="comment">/*</span></div><div class="line">     * @param A: an integer sorted array</div><div class="line">     * @param target: an integer to be inserted</div><div class="line">     * @return: a list of length 2, [index1, index2]</div><div class="line">     */</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; searchRange(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;A, <span class="keyword">int</span> target) &#123;</div><div class="line">    	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; ans;</div><div class="line">        <span class="keyword">int</span> n = A.size();</div><div class="line">        <span class="keyword">int</span> l = <span class="number">0</span>, r = n<span class="number">-1</span>;</div><div class="line">        <span class="keyword">while</span> (l&lt;r) &#123;</div><div class="line">        	<span class="keyword">int</span> mid = l + ((r-l)&gt;&gt;<span class="number">1</span>);</div><div class="line">        	<span class="keyword">if</span> (A[mid]==target)</div><div class="line">        		r = mid;</div><div class="line">        	<span class="keyword">else</span></div><div class="line">        	<span class="keyword">if</span> (A[mid]&lt;target)</div><div class="line">        		l = mid+<span class="number">1</span>;</div><div class="line">        	<span class="keyword">else</span></div><div class="line">        		r = mid<span class="number">-1</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (l&gt;=n || A[l]!=target) &#123;</div><div class="line">        	ans.push_back(<span class="number">-1</span>);</div><div class="line">        	ans.push_back(<span class="number">-1</span>);</div><div class="line">        	<span class="keyword">return</span> ans;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span></div><div class="line">        	ans.push_back(l);</div><div class="line"></div><div class="line">        r = n<span class="number">-1</span>;</div><div class="line">        <span class="keyword">while</span> (l&lt;r) &#123;</div><div class="line">        	<span class="keyword">int</span> mid = l + ((r-l)&gt;&gt;<span class="number">1</span>) + <span class="number">1</span>;</div><div class="line">        	<span class="keyword">if</span> (A[mid]==target)</div><div class="line">        		l = mid;</div><div class="line">        	<span class="keyword">else</span></div><div class="line">        	<span class="keyword">if</span> (A[mid]&lt;target)</div><div class="line">        		l = mid+<span class="number">1</span>;</div><div class="line">        	<span class="keyword">else</span></div><div class="line">        		r = mid<span class="number">-1</span>;</div><div class="line">        &#125;</div><div class="line">        ans.push_back(r);</div><div class="line">        <span class="keyword">return</span> ans;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/30/minimum-loss/" class="archive-article-date">
-  <time datetime="2017-08-30T03:43:02.000Z" itemprop="datePublished">Aug 30</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/30/minimum-loss/">HackerRank/Algorithm/Search/Minimum Loss</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/29/the-story-of-a-tree/" class="archive-article-date">
-  <time datetime="2017-08-29T10:28:31.000Z" itemprop="datePublished">Aug 29</time>
-</a>
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://suzyz.github.io/2017/09/25/search-for-a-range/" data-id="cj7zjxto3002aivo9ws9xr44e" class="article-share-link">Share</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/29/the-story-of-a-tree/">HackerRank/Algorithms/Graph Theory/The Story of a Tree</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/27/even-tree/" class="archive-article-date">
-  <time datetime="2017-08-27T10:25:29.000Z" itemprop="datePublished">Aug 27</time>
-</a>
+        <a href="https://suzyz.github.io/2017/09/25/search-for-a-range/#disqus_thread" class="article-comment-link">Comments</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/27/even-tree/">HackerRank/Algorithms/Graphy Theory/Even Tree</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/22/buylow/" class="archive-article-date">
-  <time datetime="2017-08-22T03:48:33.000Z" itemprop="datePublished">Aug 22</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/22/buylow/">USACO Section4.3 Buy Low, Buy Lower (buylow)</a>
-    </h1>
-  
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Binary-Search/">Binary Search</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LintCode/">LintCode</a></li></ul>
 
-    </header>
+    </footer>
   </div>
-</article>
   
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/18/cryptcow/" class="archive-article-date">
-  <time datetime="2017-08-18T02:13:38.000Z" itemprop="datePublished">Aug 18</time>
-</a>
-      
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/18/cryptcow/">USACO Section6.3 Cryptcowgraphy (cryptcow)</a>
-    </h1>
   
+    <a href="/2017/09/25/wood-cut/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">LintCode/Wood Cut</div>
+    </a>
+  
+</nav>
 
-    </header>
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
   </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/17/fence8/" class="archive-article-date">
-  <time datetime="2017-08-17T09:56:51.000Z" itemprop="datePublished">Aug 17</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/17/fence8/">USACO Section6.4 Fence Rails (fence8)</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/14/cowxor/" class="archive-article-date">
-  <time datetime="2017-08-14T02:17:39.000Z" itemprop="datePublished">Aug 14</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/14/cowxor/">USACO Section6.1 Cow XOR (cowxor)</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/13/hidden/" class="archive-article-date">
-  <time datetime="2017-08-13T10:32:02.000Z" itemprop="datePublished">Aug 13</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/13/hidden/">USACO Section5.5 Hidden Password (hidden)</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/11/rectbarn/" class="archive-article-date">
-  <time datetime="2017-08-11T09:19:59.000Z" itemprop="datePublished">Aug 11</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/11/rectbarn/">USACO Section6.1 A Rectangular Barn (rectbarn)</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/09/telecow/" class="archive-article-date">
-  <time datetime="2017-08-09T12:32:12.000Z" itemprop="datePublished">Aug 9</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/09/telecow/">USACO Section5.4 Telecowmunication (telecow)</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-
-  <nav id="page-nav">
-    <a class="extend prev" rel="prev" href="/archives/2017/">&laquo;Prev</a><a class="page-number" href="/archives/2017/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/2017/page/3/">3</a><a class="page-number" href="/archives/2017/page/4/">4</a><a class="extend next" rel="next" href="/archives/2017/page/3/">Next&raquo;</a>
-  </nav>
-
+</section>
 </section>
         
           <aside id="sidebar">
@@ -400,11 +222,13 @@
 <script>
   var disqus_shortname = 'suzyz';
   
+  var disqus_url = 'https://suzyz.github.io/2017/09/25/search-for-a-range/';
+  
   (function(){
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>
