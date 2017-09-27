@@ -3,19 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>HackerRank/Algorithm/Dynamic Programming/The Maximum Subarray | Suzy Zhang</title>
+  <title>LintCode/Trailing Zeros | Suzy Zhang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Problem SummaryGiven an array A with N integers, find the maximum sum of a  Continguous subarray. Not necessarily contiguous subarray.  Empty subarrays or subsequences should not be considered.">
-<meta name="keywords" content="HackerRank,DP,Greedy">
+  <meta name="description" content="Problem SummaryFind the number of trailing zeros in N! (N factorial).">
+<meta name="keywords" content="Number Theory,LintCode">
 <meta property="og:type" content="article">
-<meta property="og:title" content="HackerRank&#x2F;Algorithm&#x2F;Dynamic Programming&#x2F;The Maximum Subarray">
-<meta property="og:url" content="https://suzyz.github.io/2017/09/18/the-maximum-subarray/index.html">
+<meta property="og:title" content="LintCode&#x2F;Trailing Zeros">
+<meta property="og:url" content="https://suzyz.github.io/2017/09/27/trailing-zeros/index.html">
 <meta property="og:site_name" content="Suzy Zhang">
-<meta property="og:description" content="Problem SummaryGiven an array A with N integers, find the maximum sum of a  Continguous subarray. Not necessarily contiguous subarray.  Empty subarrays or subsequences should not be considered.">
-<meta property="og:updated_time" content="2017-09-18T14:10:17.000Z">
+<meta property="og:description" content="Problem SummaryFind the number of trailing zeros in N! (N factorial).">
+<meta property="og:updated_time" content="2017-09-27T10:00:52.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="HackerRank&#x2F;Algorithm&#x2F;Dynamic Programming&#x2F;The Maximum Subarray">
-<meta name="twitter:description" content="Problem SummaryGiven an array A with N integers, find the maximum sum of a  Continguous subarray. Not necessarily contiguous subarray.  Empty subarrays or subsequences should not be considered.">
+<meta name="twitter:title" content="LintCode&#x2F;Trailing Zeros">
+<meta name="twitter:description" content="Problem SummaryFind the number of trailing zeros in N! (N factorial).">
   
     <link rel="alternate" href="/atom.xml" title="Suzy Zhang" type="application/atom+xml">
   
@@ -66,10 +66,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-the-maximum-subarray" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-trailing-zeros" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/09/18/the-maximum-subarray/" class="article-date">
-  <time datetime="2017-09-18T13:43:49.000Z" itemprop="datePublished">2017-09-18</time>
+    <a href="/2017/09/27/trailing-zeros/" class="article-date">
+  <time datetime="2017-09-27T09:56:12.000Z" itemprop="datePublished">2017-09-27</time>
 </a>
     
   <div class="article-category">
@@ -84,7 +84,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      HackerRank/Algorithm/Dynamic Programming/The Maximum Subarray
+      LintCode/Trailing Zeros
     </h1>
   
 
@@ -92,25 +92,22 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Problem-Summary"><a href="#Problem-Summary" class="headerlink" title="Problem Summary"></a>Problem Summary</h1><p>Given an array A with N integers, find the maximum sum of a</p>
-<ol>
-<li>Continguous subarray.</li>
-<li>Not necessarily contiguous subarray.</li>
-</ol>
-<p>Empty subarrays or subsequences should not be considered.</p>
+        <h1 id="Problem-Summary"><a href="#Problem-Summary" class="headerlink" title="Problem Summary"></a>Problem Summary</h1><p>Find the number of trailing zeros in N! (N factorial).</p>
 <a id="more"></a>
-<h1 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h1><p>Two subproblems both can be solved with dynamic programming and greedy.</p>
-<h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;climits&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">int</span> T,n;</div><div class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;T);</div><div class="line"></div><div class="line"><span class="keyword">while</span>(T)</div><div class="line">&#123;</div><div class="line">    T--;</div><div class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</div><div class="line"></div><div class="line">    <span class="keyword">int</span> d,sum=<span class="number">0</span>,mins=<span class="number">0</span>,ans1=<span class="number">-1e9</span>,ans2=<span class="number">0</span>,maxd=<span class="number">-1e9</span>;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</div><div class="line">    &#123;</div><div class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;d);</div><div class="line">        <span class="keyword">if</span>(d&gt;<span class="number">0</span>) ans2+=d;</div><div class="line">        <span class="keyword">if</span>(d&gt;maxd) maxd=d;</div><div class="line">        sum += d;</div><div class="line"></div><div class="line">        <span class="keyword">if</span>(sum-mins&gt;ans1) ans1 = sum-mins;</div><div class="line"></div><div class="line">        <span class="keyword">if</span>(sum&lt;mins) mins=sum;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">if</span>(maxd&lt;<span class="number">0</span>) ans2 = maxd;</div><div class="line"></div><div class="line">    <span class="built_in">printf</span>(<span class="string">"%d %d\n"</span>,ans1,ans2);</div><div class="line">&#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h1><p>Apparently, the answer is equal to the number of 5 in N!, e.g.</p>
+<p>N/5 + N/(5^2) + N/(5^3) + … + N/(5^c).</p>
+<p>5^c &le; N &lt; 5^(c+1).</p>
+<h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="comment">/*</span></div><div class="line">     * @param n: A long integer</div><div class="line">     * @return: An integer, denote the number of trailing zeros in n!</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="title">trailingZeros</span><span class="params">(<span class="keyword">long</span> <span class="keyword">long</span> n)</span> </span>&#123;</div><div class="line">    	<span class="keyword">long</span> <span class="keyword">long</span> count5 = <span class="number">0</span> , fac = <span class="number">5</span>;</div><div class="line">    	<span class="keyword">while</span> (n&gt;=fac) &#123;</div><div class="line">    		count5 += n/fac;</div><div class="line">    		fac *= <span class="number">5</span>;</div><div class="line">    	&#125;</div><div class="line">    	<span class="keyword">return</span> count5;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://suzyz.github.io/2017/09/18/the-maximum-subarray/" data-id="cj82v1pkv002ygqo95whus3ha" class="article-share-link">Share</a>
+      <a data-url="https://suzyz.github.io/2017/09/27/trailing-zeros/" data-id="cj82v1pl8003cgqo9d2b7eck4" class="article-share-link">Share</a>
       
-        <a href="https://suzyz.github.io/2017/09/18/the-maximum-subarray/#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="https://suzyz.github.io/2017/09/27/trailing-zeros/#disqus_thread" class="article-comment-link">Comments</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DP/">DP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Greedy/">Greedy</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HackerRank/">HackerRank</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LintCode/">LintCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Number-Theory/">Number Theory</a></li></ul>
 
     </footer>
   </div>
@@ -118,19 +115,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2017/09/19/angry-children2/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          HackerRank/Algorithm/Dynamic Programming/Angry Children 2
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/09/18/sam-and-substrings/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/09/26/substring-diff/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">HackerRank/Algorithm/Dynamic Programming/Sam And Substrings</div>
+      <div class="article-nav-title">HackerRank/Dynamic Programming/Substring Diff</div>
     </a>
   
 </nav>
@@ -235,7 +223,7 @@
 <script>
   var disqus_shortname = 'suzyz';
   
-  var disqus_url = 'https://suzyz.github.io/2017/09/18/the-maximum-subarray/';
+  var disqus_url = 'https://suzyz.github.io/2017/09/27/trailing-zeros/';
   
   (function(){
     var dsq = document.createElement('script');
