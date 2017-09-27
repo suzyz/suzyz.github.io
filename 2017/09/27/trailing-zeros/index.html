@@ -12,7 +12,7 @@
 <meta property="og:url" content="https://suzyz.github.io/2017/09/27/trailing-zeros/index.html">
 <meta property="og:site_name" content="Suzy Zhang">
 <meta property="og:description" content="Problem SummaryFind the number of trailing zeros in N! (N factorial).">
-<meta property="og:updated_time" content="2017-09-27T10:00:52.000Z">
+<meta property="og:updated_time" content="2017-09-27T14:38:13.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LintCode&#x2F;Trailing Zeros">
 <meta name="twitter:description" content="Problem SummaryFind the number of trailing zeros in N! (N factorial).">
@@ -94,15 +94,13 @@
       
         <h1 id="Problem-Summary"><a href="#Problem-Summary" class="headerlink" title="Problem Summary"></a>Problem Summary</h1><p>Find the number of trailing zeros in N! (N factorial).</p>
 <a id="more"></a>
-<h1 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h1><p>Apparently, the answer is equal to the number of 5 in N!, e.g.</p>
-<p>N/5 + N/(5^2) + N/(5^3) + … + N/(5^c).</p>
-<p>5^c &le; N &lt; 5^(c+1).</p>
+<h1 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h1><p>Apparently, the answer is equal to the number of 5 in N!, e.g. N/5 + N/(5^2) + N/(5^3) + … + N/(5^c), where 5^c &le; N &lt; 5^(c+1).</p>
 <h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="comment">/*</span></div><div class="line">     * @param n: A long integer</div><div class="line">     * @return: An integer, denote the number of trailing zeros in n!</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="title">trailingZeros</span><span class="params">(<span class="keyword">long</span> <span class="keyword">long</span> n)</span> </span>&#123;</div><div class="line">    	<span class="keyword">long</span> <span class="keyword">long</span> count5 = <span class="number">0</span> , fac = <span class="number">5</span>;</div><div class="line">    	<span class="keyword">while</span> (n&gt;=fac) &#123;</div><div class="line">    		count5 += n/fac;</div><div class="line">    		fac *= <span class="number">5</span>;</div><div class="line">    	&#125;</div><div class="line">    	<span class="keyword">return</span> count5;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://suzyz.github.io/2017/09/27/trailing-zeros/" data-id="cj82v1pl8003cgqo9d2b7eck4" class="article-share-link">Share</a>
+      <a data-url="https://suzyz.github.io/2017/09/27/trailing-zeros/" data-id="cj8351xqe0035hno9u5k82lzo" class="article-share-link">Share</a>
       
         <a href="https://suzyz.github.io/2017/09/27/trailing-zeros/#disqus_thread" class="article-comment-link">Comments</a>
       
