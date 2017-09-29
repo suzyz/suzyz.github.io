@@ -3,19 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>USACO Section5.5 Hidden Password (hidden) | Suzy Zhang</title>
+  <title>LintCode/Flip Bits | Suzy Zhang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Problem SummaryGiven a string S composed of L (5&amp;lt;=L&amp;lt;=100,000) letters, find the start position of the first letter of the sorted list of cyclic shifts of S.">
-<meta name="keywords" content="USACO,String">
+  <meta name="description" content="Problem SummaryDetermine the number of bits to flip when converting integer n to integer m.">
+<meta name="keywords" content="LintCode,Bit Manipulation">
 <meta property="og:type" content="article">
-<meta property="og:title" content="USACO Section5.5 Hidden Password (hidden)">
-<meta property="og:url" content="https://suzyz.github.io/2017/08/13/hidden/index.html">
+<meta property="og:title" content="LintCode&#x2F;Flip Bits">
+<meta property="og:url" content="https://suzyz.github.io/2017/09/29/flip-bits/index.html">
 <meta property="og:site_name" content="Suzy Zhang">
-<meta property="og:description" content="Problem SummaryGiven a string S composed of L (5&amp;lt;=L&amp;lt;=100,000) letters, find the start position of the first letter of the sorted list of cyclic shifts of S.">
-<meta property="og:updated_time" content="2017-08-14T08:45:29.000Z">
+<meta property="og:description" content="Problem SummaryDetermine the number of bits to flip when converting integer n to integer m.">
+<meta property="og:updated_time" content="2017-09-29T01:19:49.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="USACO Section5.5 Hidden Password (hidden)">
-<meta name="twitter:description" content="Problem SummaryGiven a string S composed of L (5&amp;lt;=L&amp;lt;=100,000) letters, find the start position of the first letter of the sorted list of cyclic shifts of S.">
+<meta name="twitter:title" content="LintCode&#x2F;Flip Bits">
+<meta name="twitter:description" content="Problem SummaryDetermine the number of bits to flip when converting integer n to integer m.">
   
     <link rel="alternate" href="/atom.xml" title="Suzy Zhang" type="application/atom+xml">
   
@@ -66,10 +66,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-hidden" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-flip-bits" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/08/13/hidden/" class="article-date">
-  <time datetime="2017-08-13T10:32:02.000Z" itemprop="datePublished">2017-08-13</time>
+    <a href="/2017/09/29/flip-bits/" class="article-date">
+  <time datetime="2017-09-29T00:51:43.000Z" itemprop="datePublished">2017-09-29</time>
 </a>
     
   <div class="article-category">
@@ -84,7 +84,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      USACO Section5.5 Hidden Password (hidden)
+      LintCode/Flip Bits
     </h1>
   
 
@@ -92,31 +92,82 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Problem-Summary"><a href="#Problem-Summary" class="headerlink" title="Problem Summary"></a>Problem Summary</h1><p>Given a string S composed of L (5&lt;=L&lt;=100,000) letters, find the start position of the first letter of the sorted list of cyclic shifts of S.</p>
+        <h1 id="Problem-Summary"><a href="#Problem-Summary" class="headerlink" title="Problem Summary"></a>Problem Summary</h1><p>Determine the number of bits to flip when converting integer n to integer m.</p>
 <a id="more"></a>
-<p>For example, with the string “alabala”, the sorted cyclic shifts are:</p>
-<p>aalabal<br>abalaal<br>alaalab<br>alabala<br>balaala<br>laalaba<br>labalaa</p>
-<p>Lexicographically, the first string is “aalabal”. So the answer is position 6.</p>
-<h1 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h1><p>First, we concatenate two copies of our string S, yielding SS. Then we simply want the lexicographically least L-letter substring of SS. </p>
-<p>We use two iterators to indicate the two positions we are comparing. Let i be 0 and j be 1, and start a while loop. Each time, suppose k is the minimal non-negative integer s.t. s[i+k]!=s[j+k] &amp;&amp; k&lt;=L. Then there are 4 cases:</p>
-<ol>
-<li>i or j is equal to or greater than L. Then the smaller one is answer.</li>
-<li>k does not exist, i.e. the L-letter substring starting at i is the same as the one starting at j. We move j to j+L.</li>
-<li>s[i+k]&gt;s[j+k]. In this case, it is needless to examine the substrings starting at i, i+1, i+2,…, or i+k. So we just move i to i+k+1.</li>
-<li>s[i+k]&lt;s[j+k]. Similarly, we move j to j+k+1.</li>
-</ol>
-<p>Apparently, the time comlexity is O(n).</p>
-<h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fstream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;climits&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">200020</span>;</div><div class="line"></div><div class="line"><span class="keyword">int</span> n;</div><div class="line"><span class="keyword">char</span> s[maxn];</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">	<span class="function">fstream <span class="title">fin</span><span class="params">(<span class="string">"hidden.in"</span>,ios::in)</span></span>;</div><div class="line">	<span class="function">fstream <span class="title">fout</span><span class="params">(<span class="string">"hidden.out"</span>,ios::out)</span></span>;</div><div class="line"></div><div class="line">	fin&gt;&gt;n;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i+=<span class="number">72</span>)</div><div class="line">		fin&gt;&gt;(s+i);</div><div class="line"></div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</div><div class="line">		s[i+n]=s[i];</div><div class="line"></div><div class="line">	<span class="keyword">int</span> i=<span class="number">0</span>,j=<span class="number">1</span>,k;</div><div class="line">	<span class="keyword">while</span>(i&lt;n &amp;&amp; j&lt;n)</div><div class="line">	&#123;</div><div class="line">		k=<span class="number">0</span>;</div><div class="line">		<span class="keyword">while</span>(k&lt;n &amp;&amp; s[i+k]==s[j+k])</div><div class="line">			k++;</div><div class="line"></div><div class="line">		<span class="keyword">if</span>(s[i+k]&gt;s[j+k])</div><div class="line">			i+=k+<span class="number">1</span>;</div><div class="line">		<span class="keyword">else</span></div><div class="line">			j+=k+<span class="number">1</span>;</div><div class="line"></div><div class="line">		<span class="keyword">if</span>(i==j) j++;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">if</span>(i&gt;j) i=j;</div><div class="line">	fout&lt;&lt;i&lt;&lt;<span class="built_in">endl</span>;</div><div class="line">	fin.close();</div><div class="line">	fout.close();</div><div class="line">	<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h1><p>The answer is how many bits of (n xor m) are 1.</p>
+<p>I think there are some relevant skills about bit manipulation that we need to know.</p>
+<table>
+<thead>
+<tr>
+<th>Binary Value</th>
+<th>Sample</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>  x</td>
+<td>00101100</td>
+<td>the original x value</td>
+</tr>
+<tr>
+<td>x and -x</td>
+<td>00000100</td>
+<td>extract lowest bit set</td>
+</tr>
+<tr>
+<td>x or -x</td>
+<td>11111100</td>
+<td>create mask for lowest-set-bit &amp; bits to its left</td>
+</tr>
+<tr>
+<td>x xor -x</td>
+<td>11111000</td>
+<td>create mask bits to left of lowest bit set</td>
+</tr>
+<tr>
+<td>x and (x-1)</td>
+<td>00101000</td>
+<td>strip off lowest bit set ( useful to process words in O(bits set), instead of O(nbits in a word))</td>
+</tr>
+<tr>
+<td>x or (x-1)</td>
+<td>00101111</td>
+<td>fill in all bits below lowest bit set</td>
+</tr>
+<tr>
+<td>x xor (x-1)</td>
+<td>00000111</td>
+<td>create mask for lowest-set-bit &amp; bits to its right</td>
+</tr>
+<tr>
+<td>~x and (x-1)</td>
+<td>00000011</td>
+<td>create mask for bits to right of lowest bit set</td>
+</tr>
+<tr>
+<td>x or (x+1)</td>
+<td>00101101</td>
+<td>toggle lowest zero bit</td>
+</tr>
+<tr>
+<td>x / (x and -x)</td>
+<td>00001011</td>
+<td>shift number right so lowest set bit is at bit 0</td>
+</tr>
+</tbody>
+</table>
+<h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="comment">/*</span></div><div class="line">     * @param a: An integer</div><div class="line">     * @param b: An integer</div><div class="line">     * @return: An integer</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">bitSwapRequired</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</div><div class="line">        a ^= b;</div><div class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</div><div class="line">        </div><div class="line">        <span class="keyword">while</span> (a) &#123;</div><div class="line">            ans++;</div><div class="line">            a &amp;= (a<span class="number">-1</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> ans;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://suzyz.github.io/2017/08/13/hidden/" data-id="cj856st5a001dfco9hofc4h3p" class="article-share-link">Share</a>
+      <a data-url="https://suzyz.github.io/2017/09/29/flip-bits/" data-id="cj856st4t0010fco9uwiya8cl" class="article-share-link">Share</a>
       
-        <a href="https://suzyz.github.io/2017/08/13/hidden/#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="https://suzyz.github.io/2017/09/29/flip-bits/#disqus_thread" class="article-comment-link">Comments</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/String/">String</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/USACO/">USACO</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Bit-Manipulation/">Bit Manipulation</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LintCode/">LintCode</a></li></ul>
 
     </footer>
   </div>
@@ -124,19 +175,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2017/08/14/cowxor/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          USACO Section6.1 Cow XOR (cowxor)
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/08/11/rectbarn/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/09/28/binary-representation/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">USACO Section6.1 A Rectangular Barn (rectbarn)</div>
+      <div class="article-nav-title">LintCode/Binary Representation</div>
     </a>
   
 </nav>
@@ -241,7 +283,7 @@
 <script>
   var disqus_shortname = 'suzyz';
   
-  var disqus_url = 'https://suzyz.github.io/2017/08/13/hidden/';
+  var disqus_url = 'https://suzyz.github.io/2017/09/29/flip-bits/';
   
   (function(){
     var dsq = document.createElement('script');
