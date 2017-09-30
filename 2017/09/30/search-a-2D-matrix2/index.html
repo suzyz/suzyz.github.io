@@ -3,14 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives | Suzy Zhang</title>
+  <title>LintCode Search A 2D matrix II | Suzy Zhang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Suzy Zhang">
-<meta property="og:url" content="https://suzyz.github.io/archives/page/3/index.html">
+  <meta name="description" content="Problem SummarySearch for the value T in an M x N matrix and return the occurrence of it. This matrix has the following properties:  Integers in each row are sorted from left to right. Integers in eac">
+<meta name="keywords" content="LintCode,Binary Search">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LintCode Search A 2D matrix II">
+<meta property="og:url" content="https://suzyz.github.io/2017/09/30/search-a-2D-matrix2/index.html">
 <meta property="og:site_name" content="Suzy Zhang">
+<meta property="og:description" content="Problem SummarySearch for the value T in an M x N matrix and return the occurrence of it. This matrix has the following properties:  Integers in each row are sorted from left to right. Integers in eac">
+<meta property="og:updated_time" content="2017-09-30T03:21:39.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Suzy Zhang">
+<meta name="twitter:title" content="LintCode Search A 2D matrix II">
+<meta name="twitter:description" content="Problem SummarySearch for the value T in an M x N matrix and return the occurrence of it. This matrix has the following properties:  Integers in each row are sorted from left to right. Integers in eac">
   
     <link rel="alternate" href="/atom.xml" title="Suzy Zhang" type="application/atom+xml">
   
@@ -61,254 +66,86 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/17/fence8/" class="archive-article-date">
-  <time datetime="2017-08-17T09:56:51.000Z" itemprop="datePublished">Aug 17</time>
+        <section id="main"><article id="post-search-a-2D-matrix2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/09/30/search-a-2D-matrix2/" class="article-date">
+  <time datetime="2017-09-30T02:46:19.000Z" itemprop="datePublished">2017-09-30</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Algorithm/">Algorithm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/17/fence8/">USACO Section6.4 Fence Rails (fence8)</a>
+    <h1 class="article-title" itemprop="name">
+      LintCode Search A 2D matrix II
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/14/cowxor/" class="archive-article-date">
-  <time datetime="2017-08-14T02:17:39.000Z" itemprop="datePublished">Aug 14</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/14/cowxor/">USACO Section6.1 Cow XOR (cowxor)</a>
-    </h1>
-  
+        <h1 id="Problem-Summary"><a href="#Problem-Summary" class="headerlink" title="Problem Summary"></a>Problem Summary</h1><p>Search for the value T in an M x N matrix and return the occurrence of it.</p>
+<p>This matrix has the following properties:</p>
+<ol>
+<li>Integers in each row are sorted from left to right.</li>
+<li>Integers in each column are sorted from up to bottom.</li>
+<li>No duplicate integers in each row or column.</li>
+</ol>
+<a id="more"></a>
+<h1 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h1><p>We can use two values i and j to mark the current position we are at. And we use the following algorithm.</p>
+<ol>
+<li>Let i = 0 and j = N-1.</li>
+<li>If matrix[i][0] &gt; T , then the search is finished (Because of the property 2 of the matrix). </li>
+<li>While matrix[i][j] &gt; T and j &ge; 0 , decrease j by 1.</li>
+<li>If j &lt; 0 , then finish the search.</li>
+<li>If matrix[i][j] == T, then increase the answer by 1.</li>
+<li>Increase i by 1 and if i &lt; M, go back to step 2.</li>
+</ol>
+<p>Note that, because the matrix has property 2, we do not need to set j to N-1 every time we increase i.</p>
+<p>The time complexity is O(M+N) and only constant extra space is needed.</p>
+<h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="comment">/*</span></div><div class="line">     * @param matrix: A list of lists of integers</div><div class="line">     * @param target: An integer you want to search in matrix</div><div class="line">     * @return: An integer indicate the total occurrence of target in the given matrix</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">searchMatrix</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; &amp;matrix, <span class="keyword">int</span> target)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> m = matrix.size();</div><div class="line">        <span class="keyword">if</span> (m==<span class="number">0</span>)</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span> n = matrix[<span class="number">0</span>].size();</div><div class="line"></div><div class="line">        <span class="keyword">int</span> i = <span class="number">0</span>, j = n<span class="number">-1</span>, ans = <span class="number">0</span>;</div><div class="line">        <span class="keyword">while</span> (i&lt;m &amp;&amp; j&gt;=<span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">if</span> (matrix[i][<span class="number">0</span>] &gt; target)</div><div class="line">                <span class="keyword">break</span>;</div><div class="line"></div><div class="line">            <span class="keyword">while</span> (j&gt;=<span class="number">0</span> &amp;&amp; matrix[i][j] &gt; target)</div><div class="line">                --j;</div><div class="line"></div><div class="line">            <span class="keyword">if</span> (j&lt;<span class="number">0</span>)</div><div class="line">                <span class="keyword">break</span>;</div><div class="line"></div><div class="line">            <span class="keyword">if</span> (matrix[i][j]==target)</div><div class="line">                ++ans;</div><div class="line"></div><div class="line">            ++i;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> ans;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/13/hidden/" class="archive-article-date">
-  <time datetime="2017-08-13T10:32:02.000Z" itemprop="datePublished">Aug 13</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/13/hidden/">USACO Section5.5 Hidden Password (hidden)</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/11/rectbarn/" class="archive-article-date">
-  <time datetime="2017-08-11T09:19:59.000Z" itemprop="datePublished">Aug 11</time>
-</a>
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://suzyz.github.io/2017/09/30/search-a-2D-matrix2/" data-id="cj86qsaqx0000hco9z25tdt93" class="article-share-link">Share</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/11/rectbarn/">USACO Section6.1 A Rectangular Barn (rectbarn)</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/09/telecow/" class="archive-article-date">
-  <time datetime="2017-08-09T12:32:12.000Z" itemprop="datePublished">Aug 9</time>
-</a>
+        <a href="https://suzyz.github.io/2017/09/30/search-a-2D-matrix2/#disqus_thread" class="article-comment-link">Comments</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/09/telecow/">USACO Section5.4 Telecowmunication (telecow)</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/08/tour/" class="archive-article-date">
-  <time datetime="2017-08-08T09:44:10.000Z" itemprop="datePublished">Aug 8</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/08/tour/">USACO Section5.4 Canada Tour (tour)</a>
-    </h1>
-  
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Binary-Search/">Binary Search</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LintCode/">LintCode</a></li></ul>
 
-    </header>
+    </footer>
   </div>
-</article>
   
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/08/milk4/" class="archive-article-date">
-  <time datetime="2017-08-08T03:32:51.000Z" itemprop="datePublished">Aug 8</time>
-</a>
-      
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/08/milk4/">USACO Section5.3 Milk Measuring (milk4)</a>
-    </h1>
   
+    <a href="/2017/09/29/flip-bits/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">LintCode/Flip Bits</div>
+    </a>
+  
+</nav>
 
-    </header>
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
   </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/07/theme/" class="archive-article-date">
-  <time datetime="2017-08-07T04:30:35.000Z" itemprop="datePublished">Aug 7</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/07/theme/">USACO Section5.1 theme</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/07/window/" class="archive-article-date">
-  <time datetime="2017-08-07T03:50:48.000Z" itemprop="datePublished">Aug 7</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/07/window/">USACO Section5.3 Window Area (window)</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/06/schlnet/" class="archive-article-date">
-  <time datetime="2017-08-06T02:40:21.000Z" itemprop="datePublished">Aug 6</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/06/schlnet/">USACO Section5.3 schlnet</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/04/fc/" class="archive-article-date">
-  <time datetime="2017-08-04T11:46:48.000Z" itemprop="datePublished">Aug 4</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/04/fc/">USACO Section5.1 Fencing the Cows (fc)</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/04/milk6/" class="archive-article-date">
-  <time datetime="2017-08-04T03:50:46.000Z" itemprop="datePublished">Aug 4</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/04/milk6/">USACO Section5.1 Pollutant Control(milk6)</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-
-  <nav id="page-nav">
-    <a class="extend prev" rel="prev" href="/archives/page/2/">&laquo;Prev</a><a class="page-number" href="/archives/">1</a><a class="page-number" href="/archives/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/archives/page/4/">4</a><a class="extend next" rel="next" href="/archives/page/4/">Next&raquo;</a>
-  </nav>
-
+</section>
 </section>
         
           <aside id="sidebar">
@@ -400,11 +237,13 @@
 <script>
   var disqus_shortname = 'suzyz';
   
+  var disqus_url = 'https://suzyz.github.io/2017/09/30/search-a-2D-matrix2/';
+  
   (function(){
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>
