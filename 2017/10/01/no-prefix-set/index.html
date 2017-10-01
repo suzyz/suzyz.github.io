@@ -3,19 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>USACO Section3.3 game1 | Suzy Zhang</title>
+  <title>HackerRank/Data Structures/No Prefix Set | Suzy Zhang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Problem SummaryTwo players play a game with a sequence of N positive integers laid onto a 1*N game board. Player 1 starts the game and they move alternately by selecting a number from either the left">
-<meta name="keywords" content="DP,USACO,Game Theory">
+  <meta name="description" content="Problem SummaryGiven N strings. Each string contains only lowercase letters from a to j(both inclusive). The set of N strings is said to be “GOOD SET” if no string is prefix of another string. Else, i">
+<meta name="keywords" content="HackerRank,Trie">
 <meta property="og:type" content="article">
-<meta property="og:title" content="USACO Section3.3 game1">
-<meta property="og:url" content="https://suzyz.github.io/2017/07/26/game1/index.html">
+<meta property="og:title" content="HackerRank&#x2F;Data Structures&#x2F;No Prefix Set">
+<meta property="og:url" content="https://suzyz.github.io/2017/10/01/no-prefix-set/index.html">
 <meta property="og:site_name" content="Suzy Zhang">
-<meta property="og:description" content="Problem SummaryTwo players play a game with a sequence of N positive integers laid onto a 1*N game board. Player 1 starts the game and they move alternately by selecting a number from either the left">
-<meta property="og:updated_time" content="2017-07-30T10:14:16.000Z">
+<meta property="og:description" content="Problem SummaryGiven N strings. Each string contains only lowercase letters from a to j(both inclusive). The set of N strings is said to be “GOOD SET” if no string is prefix of another string. Else, i">
+<meta property="og:updated_time" content="2017-10-01T05:06:02.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="USACO Section3.3 game1">
-<meta name="twitter:description" content="Problem SummaryTwo players play a game with a sequence of N positive integers laid onto a 1*N game board. Player 1 starts the game and they move alternately by selecting a number from either the left">
+<meta name="twitter:title" content="HackerRank&#x2F;Data Structures&#x2F;No Prefix Set">
+<meta name="twitter:description" content="Problem SummaryGiven N strings. Each string contains only lowercase letters from a to j(both inclusive). The set of N strings is said to be “GOOD SET” if no string is prefix of another string. Else, i">
   
     <link rel="alternate" href="/atom.xml" title="Suzy Zhang" type="application/atom+xml">
   
@@ -66,14 +66,14 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-game1" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-no-prefix-set" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/07/26/game1/" class="article-date">
-  <time datetime="2017-07-26T03:50:00.000Z" itemprop="datePublished">2017-07-26</time>
+    <a href="/2017/10/01/no-prefix-set/" class="article-date">
+  <time datetime="2017-10-01T04:51:40.000Z" itemprop="datePublished">2017-10-01</time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/Algorithm/">Algorithm</a>
+    <a class="article-category-link" href="/categories/Data-Structure/">Data Structure</a>
   </div>
 
   </div>
@@ -84,7 +84,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      USACO Section3.3 game1
+      HackerRank/Data Structures/No Prefix Set
     </h1>
   
 
@@ -92,21 +92,24 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Problem-Summary"><a href="#Problem-Summary" class="headerlink" title="Problem Summary"></a>Problem Summary</h1><p>Two players play a game with a sequence of N positive integers laid onto a 1*N game board. Player 1 starts the game and they move alternately by selecting a number from either the left or the right end of the board. The selected number is then deleted, and its value is added to the score of the player who selected it. Whoever has the greater sum in the end wins.<br>Write a program that implements the optimal strategy for player 2. The optimal strategy yields maximum points when playing against the “best possible” opponent.</p>
+        <h1 id="Problem-Summary"><a href="#Problem-Summary" class="headerlink" title="Problem Summary"></a>Problem Summary</h1><p>Given N strings. Each string contains only lowercase letters from a to j(both inclusive). The set of N strings is said to be “GOOD SET” if no string is prefix of another string. Else, it is “BAD SET”.<br>(If two strings are identical, they are considered prefixes of each other.)</p>
 <a id="more"></a>
-<h1 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h1><p>We can use dynamic programming to compute the best scores.<br>Define f[i][j] to be the highest score we can get by going first with the sequence from i to j.<br>Then the player can choose data[i] or data[j],and leave the rest to his opponent. So we can write :</p>
-<p>  <strong>f[i][j] = max(data[i]+sum[i+1][j]-f[i+1][j],data[j]+sum[i][j-1]-f[i][j-1]), 1&lt;=i&lt;j&lt;=N<br>  f[i][i] = data[i], 1&lt;=i&lt;=N</strong></p>
-<h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fstream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;climits&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">102</span>;</div><div class="line"></div><div class="line"><span class="keyword">int</span> n,d[maxn];</div><div class="line"><span class="keyword">int</span> sum[maxn][maxn],f[maxn][maxn];</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">	<span class="function">fstream <span class="title">fin</span><span class="params">(<span class="string">"game1.in"</span>,ios::in)</span></span>;</div><div class="line">	<span class="function">fstream <span class="title">fout</span><span class="params">(<span class="string">"game1.out"</span>,ios::out)</span></span>;</div><div class="line"></div><div class="line">	fin&gt;&gt;n;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</div><div class="line">	&#123;</div><div class="line">		fin&gt;&gt;d[i];</div><div class="line">		f[i][i]=sum[i][i]=d[i];</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;n;i++)</div><div class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=i+<span class="number">1</span>;j&lt;=n;j++)</div><div class="line">			sum[i][j]=sum[i][j<span class="number">-1</span>]+d[j];</div><div class="line"></div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> len=<span class="number">2</span>;len&lt;=n;len++)</div><div class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n-len+<span class="number">1</span>;i++)</div><div class="line">		&#123;</div><div class="line">			<span class="keyword">int</span> j=i+len<span class="number">-1</span>;</div><div class="line">			f[i][j]=max(d[i]+sum[i+<span class="number">1</span>][j]-f[i+<span class="number">1</span>][j],d[j]+sum[i][j<span class="number">-1</span>]-f[i][j<span class="number">-1</span>]);</div><div class="line">		&#125;</div><div class="line"></div><div class="line">	fout&lt;&lt;f[<span class="number">1</span>][n]&lt;&lt;<span class="string">" "</span>&lt;&lt;sum[<span class="number">1</span>][n]-f[<span class="number">1</span>][n]&lt;&lt;<span class="built_in">endl</span>;</div><div class="line"></div><div class="line">	fin.close();</div><div class="line">	fout.close();</div><div class="line">	<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h1><p>We use trie to store the set of strings.<br>For each string s[i], we try to add it to the set. Apparently, we need to make sure that</p>
+<ol>
+<li>s[i] is not a prefix of s[0],s[1],… or s[i-1].</li>
+<li>s[j] is not a prefix of s[i], for any j, 0 &le; j &lt; i.</li>
+</ol>
+<h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Trie</span></span></div><div class="line">&#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">	<span class="keyword">bool</span> is_element;</div><div class="line">	Trie *p[<span class="number">10</span>];</div><div class="line"></div><div class="line">	Trie()</div><div class="line">	&#123;</div><div class="line">		is_element = <span class="literal">false</span>;</div><div class="line">		<span class="built_in">memset</span>(p,<span class="number">0</span>,<span class="keyword">sizeof</span>(p));</div><div class="line">	&#125;</div><div class="line">	~Trie();</div><div class="line">	</div><div class="line">	<span class="function"><span class="keyword">bool</span> <span class="title">add</span><span class="params">(<span class="built_in">string</span> s)</span></span>;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">bool</span> Trie::add(<span class="built_in">string</span> s)</div><div class="line">&#123;</div><div class="line">	Trie *ch = <span class="keyword">this</span>;</div><div class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.length(); ++i)</div><div class="line">	&#123;</div><div class="line">		<span class="keyword">int</span> cur = s[i] - <span class="string">'a'</span>;</div><div class="line">		<span class="keyword">if</span> (ch-&gt;p[cur] == <span class="literal">NULL</span>)</div><div class="line">			ch-&gt;p[cur] = <span class="keyword">new</span> Trie;</div><div class="line">		<span class="keyword">else</span></div><div class="line">			<span class="keyword">if</span> (ch-&gt;p[cur]-&gt;is_element)</div><div class="line">				<span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line"></div><div class="line">		ch = ch-&gt;p[cur];</div><div class="line">	&#125;</div><div class="line">	ch -&gt; is_element = <span class="literal">true</span>;</div><div class="line"></div><div class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; ++i)</div><div class="line">		<span class="keyword">if</span> (ch-&gt;p[i] != <span class="literal">NULL</span>)</div><div class="line">			<span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">	<span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">int</span> n;</div><div class="line">	Trie *trie = <span class="keyword">new</span> Trie;</div><div class="line"></div><div class="line">	<span class="built_in">cin</span>&gt;&gt;n;</div><div class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</div><div class="line">	&#123;</div><div class="line">		<span class="built_in">string</span> s;</div><div class="line">		<span class="built_in">cin</span>&gt;&gt;s;</div><div class="line"></div><div class="line">		<span class="keyword">if</span> (!trie-&gt;add(s))</div><div class="line">		&#123;</div><div class="line">			<span class="built_in">cout</span>&lt;&lt;<span class="string">"BAD SET"</span>&lt;&lt;<span class="built_in">endl</span>&lt;&lt;s&lt;&lt;<span class="built_in">endl</span>;</div><div class="line">			<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	<span class="built_in">cout</span>&lt;&lt;<span class="string">"GOOD SET"</span>&lt;&lt;<span class="built_in">endl</span>;</div><div class="line">	<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://suzyz.github.io/2017/07/26/game1/" data-id="cj88aa8eb001akko9eidpeuuv" class="article-share-link">Share</a>
+      <a data-url="https://suzyz.github.io/2017/10/01/no-prefix-set/" data-id="cj88aa8eq001qkko9k6pkw905" class="article-share-link">Share</a>
       
-        <a href="https://suzyz.github.io/2017/07/26/game1/#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="https://suzyz.github.io/2017/10/01/no-prefix-set/#disqus_thread" class="article-comment-link">Comments</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DP/">DP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Game-Theory/">Game Theory</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/USACO/">USACO</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HackerRank/">HackerRank</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Trie/">Trie</a></li></ul>
 
     </footer>
   </div>
@@ -114,19 +117,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2017/07/27/nuggets/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          USACO Section4.1 nuggets
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/07/26/camlot/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/09/30/search-a-2D-matrix2/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">USACO Section3.3 camlot</div>
+      <div class="article-nav-title">LintCode/Search A 2D matrix II</div>
     </a>
   
 </nav>
@@ -231,7 +225,7 @@
 <script>
   var disqus_shortname = 'suzyz';
   
-  var disqus_url = 'https://suzyz.github.io/2017/07/26/game1/';
+  var disqus_url = 'https://suzyz.github.io/2017/10/01/no-prefix-set/';
   
   (function(){
     var dsq = document.createElement('script');
