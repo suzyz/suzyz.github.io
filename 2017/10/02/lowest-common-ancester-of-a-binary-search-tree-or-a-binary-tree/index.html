@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>LeetCode/Lowest Common Ancester Of A Binary Search Tree Or A Binary Tree | Suzy Zhang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Problem Summary Given a binary search tree (BST), find the lowest common ancestor (LCA) of two given nodes in the BST.  What if the tree is just a binary tree ?">
+<meta name="keywords" content="Graph Theory,LeetCode,LCA,Tree">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode&#x2F;Lowest Common Ancester Of A Binary Search Tree Or A Binary Tree">
+<meta property="og:url" content="https://suzyz.github.io/2017/10/02/lowest-common-ancester-of-a-binary-search-tree-or-a-binary-tree/index.html">
+<meta property="og:site_name" content="Suzy Zhang">
+<meta property="og:description" content="Problem Summary Given a binary search tree (BST), find the lowest common ancestor (LCA) of two given nodes in the BST.  What if the tree is just a binary tree ?">
+<meta property="og:updated_time" content="2017-10-02T03:16:07.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LeetCode&#x2F;Lowest Common Ancester Of A Binary Search Tree Or A Binary Tree">
+<meta name="twitter:description" content="Problem Summary Given a binary search tree (BST), find the lowest common ancestor (LCA) of two given nodes in the BST.  What if the tree is just a binary tree ?">
+  
+    <link rel="alternate" href="/atom.xml" title="Suzy Zhang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Suzy Zhang</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://suzyz.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-lowest-common-ancester-of-a-binary-search-tree-or-a-binary-tree" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/10/02/lowest-common-ancester-of-a-binary-search-tree-or-a-binary-tree/" class="article-date">
+  <time datetime="2017-10-02T01:54:23.000Z" itemprop="datePublished">2017-10-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Algorithm/">Algorithm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      LeetCode/Lowest Common Ancester Of A Binary Search Tree Or A Binary Tree
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem-Summary"><a href="#Problem-Summary" class="headerlink" title="Problem Summary"></a>Problem Summary</h1><ol>
+<li><p>Given a binary search tree (BST), find the lowest common ancestor (LCA) of two given nodes in the BST.</p>
+</li>
+<li><p>What if the tree is just a binary tree ?</p>
+</li>
+</ol>
+<a id="more"></a>
+<h1 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h1><p>Subproblem 1 is trivial if we know the definition of BST.</p>
+<p>Subproblem 2 needs more thinking. There are two ways to solve it.</p>
+<ol>
+<li><p>The first is traditional. We define a variant LCA and a function dfs(TreeNode *ROOT,TreeNode *p,TreeNode *q). dfs returns the number of given nodes that are in the subtree with ROOT as root. If dfs returns 2 and LCA have not been changed, then the answer is ROOT.</p>
+</li>
+<li><p>Let us define a recursive function f(TreeNode *ROOT,TreeNode *p,TreeNode *q).</p>
+<ul>
+<li>If the subtree with ROOT as root contains both p and q, f returns the LCA of p and q.</li>
+<li>If the subtree only contains one of them, f returns that one.</li>
+<li>If the subtree contains neither of them, f returns NULL.</li>
+</ul>
+</li>
+</ol>
+<p>For each ROOT, we first check whether it is NULL or equal to p or q. If that is the case, return ROOT. Then we call f(ROOT-&gt;left,p,q) and f(ROOT-&gt;right,p,q), and store the results in LEFT and RIGHT. If they are both not NULL, we know that both subtrees contain one of p and q. Thus ROOT is the LCA we are looking for. If only one of them are not NULL, then return it. If both are NULL, return NULL.</p>
+<h1 id="Code-1-—-LCA-of-a-binary-search-tree"><a href="#Code-1-—-LCA-of-a-binary-search-tree" class="headerlink" title="Code 1 — LCA of a binary search tree"></a>Code 1 — LCA of a binary search tree</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function">TreeNode* <span class="title">lowestCommonAncestor</span><span class="params">(TreeNode* root, TreeNode* p, TreeNode* q)</span> </span>&#123;</div><div class="line">  	    <span class="keyword">if</span> (root == <span class="literal">NULL</span> || p == <span class="literal">NULL</span> || q == <span class="literal">NULL</span>)</div><div class="line">  	      	<span class="keyword">return</span> <span class="literal">NULL</span>;</div><div class="line">  	    <span class="keyword">if</span> (root-&gt;val &gt; p-&gt;val &amp;&amp; root-&gt;val &gt; q-&gt;val)</div><div class="line">  	    	<span class="keyword">return</span> lowestCommonAncestor(root-&gt;left,p,q);</div><div class="line">  	    <span class="keyword">if</span> (root-&gt;val &lt; p-&gt;val &amp;&amp; root-&gt;val &lt; q-&gt;val)</div><div class="line">  	    	<span class="keyword">return</span> lowestCommonAncestor(root-&gt;right,p,q);</div><div class="line">  	    <span class="keyword">return</span> root;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h1 id="Code-2-—-LCA-of-a-binary-tree-Solution-1"><a href="#Code-2-—-LCA-of-a-binary-tree-Solution-1" class="headerlink" title="Code 2 — LCA of a binary tree, Solution 1"></a>Code 2 — LCA of a binary tree, Solution 1</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"> <span class="comment">// struct TreeNode &#123;</span></div><div class="line"> <span class="comment">//    int val;</span></div><div class="line"> <span class="comment">//     TreeNode *left;</span></div><div class="line"> <span class="comment">//    TreeNode *right;</span></div><div class="line"> <span class="comment">//    TreeNode(int x) : val(x), left(NULL), right(NULL) &#123;&#125;</span></div><div class="line"> <span class="comment">// &#125;;</span></div><div class="line"> </div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">	TreeNode *LCA;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">int</span> <span class="title">dfs</span><span class="params">(TreeNode *root,TreeNode *p,TreeNode *q)</span></span></div><div class="line">	&#123;</div><div class="line">		<span class="keyword">if</span> (root == <span class="literal">NULL</span>)</div><div class="line">			<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">		<span class="keyword">int</span> count = <span class="number">0</span>;</div><div class="line">		<span class="keyword">if</span> (p == root)</div><div class="line">			++ count;</div><div class="line">		<span class="keyword">if</span> (q == root)</div><div class="line">			++ count;</div><div class="line"></div><div class="line">		count += dfs(root-&gt;left,p,q);</div><div class="line">		<span class="keyword">if</span> (count == <span class="number">2</span>)</div><div class="line">		&#123;</div><div class="line">			<span class="keyword">if</span> (!LCA)</div><div class="line">				LCA = root;</div><div class="line">			<span class="keyword">return</span> <span class="number">2</span>;</div><div class="line">		&#125;</div><div class="line">		</div><div class="line">		count += dfs(root-&gt;right,p,q);</div><div class="line">		<span class="keyword">if</span> (count == <span class="number">2</span> &amp;&amp; !LCA)</div><div class="line">			LCA = root;</div><div class="line">		<span class="keyword">return</span> count;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">    <span class="function">TreeNode* <span class="title">lowestCommonAncestor</span><span class="params">(TreeNode* root,TreeNode *p,TreeNode *q)</span> </span>&#123;</div><div class="line">    	LCA = <span class="literal">NULL</span>;</div><div class="line">        dfs(root,p,q);</div><div class="line">        <span class="keyword">return</span> LCA;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h1 id="Code-3-–-LCA-of-a-binary-tree-Solution-2"><a href="#Code-3-–-LCA-of-a-binary-tree-Solution-2" class="headerlink" title="Code 3 – LCA of a binary tree, Solution 2"></a>Code 3 – LCA of a binary tree, Solution 2</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"> <span class="comment">// struct TreeNode &#123;</span></div><div class="line"> <span class="comment">//    int val;</span></div><div class="line"> <span class="comment">//     TreeNode *left;</span></div><div class="line"> <span class="comment">//    TreeNode *right;</span></div><div class="line"> <span class="comment">//    TreeNode(int x) : val(x), left(NULL), right(NULL) &#123;&#125;</span></div><div class="line"> <span class="comment">// &#125;;</span></div><div class="line"> </div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function">TreeNode* <span class="title">lowestCommonAncestor</span><span class="params">(TreeNode* root,TreeNode *p,TreeNode *q)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (root == <span class="literal">NULL</span> || root == p || root == q)</div><div class="line">        	<span class="keyword">return</span> root;</div><div class="line"></div><div class="line">        TreeNode *l = lowestCommonAncestor(root-&gt;left,p,q);</div><div class="line">        TreeNode *r = lowestCommonAncestor(root-&gt;right,p,q);</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (l &amp;&amp; r)</div><div class="line">            <span class="keyword">return</span> root;</div><div class="line"></div><div class="line">        <span class="keyword">return</span> l ? l:r;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://suzyz.github.io/2017/10/02/lowest-common-ancester-of-a-binary-search-tree-or-a-binary-tree/" data-id="cj89kuq01001kg7o9dysdav6p" class="article-share-link">Share</a>
+      
+        <a href="https://suzyz.github.io/2017/10/02/lowest-common-ancester-of-a-binary-search-tree-or-a-binary-tree/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Graph-Theory/">Graph Theory</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LCA/">LCA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tree/">Tree</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/10/01/no-prefix-set/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">HackerRank/Data Structures/No Prefix Set</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/">Algorithm</a><span class="category-list-count">48</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Data-Structure/">Data Structure</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BFS/">BFS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Big-Number/">Big Number</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Binary-Search/">Binary Search</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bit-Manipulation/">Bit Manipulation</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Convex-Hull/">Convex Hull</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DFS/">DFS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/">DP</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP-on-Trees/">DP on Trees</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dijkstra/">Dijkstra</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dinic/">Dinic</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Game-Theory/">Game Theory</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Geometry/">Geometry</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Graph-Theory/">Graph Theory</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Greedy/">Greedy</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HackerRank/">HackerRank</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hash/">Hash</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hungarian-Alogrithm/">Hungarian Alogrithm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDDFS/">IDDFS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Implementation/">Implementation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LCA/">LCA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LeetCode/">LeetCode</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LintCode/">LintCode</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MST/">MST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maximum-Flow/">Maximum Flow</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Minimum-Cut/">Minimum Cut</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Minimum-length-cycle/">Minimum length cycle</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Number-Theory/">Number Theory</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Partial-order/">Partial order</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Prim/">Prim</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pruning/">Pruning</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SPFA/">SPFA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/String/">String</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Strongly-connected-components/">Strongly connected components</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tarjan-s-algorithm/">Tarjan's algorithm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tree/">Tree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Trie/">Trie</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/USACO/">USACO</a><span class="tag-list-count">25</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a><span class="archive-list-count">18</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">10</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/10/02/lowest-common-ancester-of-a-binary-search-tree-or-a-binary-tree/">LeetCode/Lowest Common Ancester Of A Binary Search Tree Or A Binary Tree</a>
+          </li>
+        
+          <li>
+            <a href="/2017/10/01/no-prefix-set/">HackerRank/Data Structures/No Prefix Set</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/30/search-a-2D-matrix2/">LintCode/Search A 2D matrix II</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/29/flip-bits/">LintCode/Flip Bits</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/28/binary-representation/">LintCode/Binary Representation</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Suzy Zhang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'suzyz';
+  
+  var disqus_url = 'https://suzyz.github.io/2017/10/02/lowest-common-ancester-of-a-binary-search-tree-or-a-binary-tree/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
