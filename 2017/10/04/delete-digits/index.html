@@ -3,14 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Tag: Graph Theory | Suzy Zhang</title>
+  <title>LintCode/Delete Digits | Suzy Zhang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Suzy Zhang">
-<meta property="og:url" content="https://suzyz.github.io/tags/Graph-Theory/index.html">
+  <meta name="description" content="Problem SummaryGiven string A representative a positive integer which has N digits, remove any k digits of the number, the remaining digits are arranged according to the original order to become a new">
+<meta name="keywords" content="LintCode,Greedy">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LintCode&#x2F;Delete Digits">
+<meta property="og:url" content="https://suzyz.github.io/2017/10/04/delete-digits/index.html">
 <meta property="og:site_name" content="Suzy Zhang">
+<meta property="og:description" content="Problem SummaryGiven string A representative a positive integer which has N digits, remove any k digits of the number, the remaining digits are arranged according to the original order to become a new">
+<meta property="og:updated_time" content="2017-10-04T02:19:31.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Suzy Zhang">
+<meta name="twitter:title" content="LintCode&#x2F;Delete Digits">
+<meta name="twitter:description" content="Problem SummaryGiven string A representative a positive integer which has N digits, remove any k digits of the number, the remaining digits are arranged according to the original order to become a new">
   
     <link rel="alternate" href="/atom.xml" title="Suzy Zhang" type="application/atom+xml">
   
@@ -61,254 +66,72 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/10/02/lowest-common-ancester-of-a-binary-search-tree-or-a-binary-tree/" class="archive-article-date">
-  <time datetime="2017-10-02T01:54:23.000Z" itemprop="datePublished">Oct 2</time>
+        <section id="main"><article id="post-delete-digits" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/10/04/delete-digits/" class="article-date">
+  <time datetime="2017-10-04T02:04:15.000Z" itemprop="datePublished">2017-10-04</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Algorithm/">Algorithm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/02/lowest-common-ancester-of-a-binary-search-tree-or-a-binary-tree/">LeetCode/Lowest Common Ancester Of A Binary Search Tree Or A Binary Tree</a>
+    <h1 class="article-title" itemprop="name">
+      LintCode/Delete Digits
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/09/05/synchronous-shopping/" class="archive-article-date">
-  <time datetime="2017-09-05T02:14:38.000Z" itemprop="datePublished">Sep 5</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/05/synchronous-shopping/">HackerRank/Graph Theory/Synchronous Shopping</a>
-    </h1>
-  
+        <h1 id="Problem-Summary"><a href="#Problem-Summary" class="headerlink" title="Problem Summary"></a>Problem Summary</h1><p>Given string A representative a positive integer which has N digits, remove any k digits of the number, the remaining digits are arranged according to the original order to become a new positive integer.</p>
+<p>Find the smallest integer after remove k digits. k &le; N &le; 240.</p>
+<a id="more"></a>
+<h1 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h1><p>Removing k digits is actually choosing N-k digits to form a new integer.</p>
+<p>Apparently, we should make the top digit minimal.<br>For any i, 0 &le; i &lt; N-k, we greedily choose the smallest digit in current range.</p>
+<h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="comment">/*</span></div><div class="line">     * @param A: A positive integer which has N digits, A is a string</div><div class="line">     * @param l: Remove k digits</div><div class="line">     * @return: A string</div><div class="line">     */</div><div class="line"></div><div class="line">    <span class="function"><span class="built_in">string</span> <span class="title">DeleteDigits</span><span class="params">(<span class="built_in">string</span> &amp;A, <span class="keyword">int</span> l)</span> </span>&#123;</div><div class="line">    	<span class="built_in">string</span> res;</div><div class="line">        <span class="keyword">int</span> n = A.length();</div><div class="line"></div><div class="line">        <span class="keyword">int</span> st = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n-l; ++i)</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">int</span> k = st, en = l+i;</div><div class="line"></div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = st+<span class="number">1</span>; j &lt;= en; ++j)</div><div class="line">                <span class="keyword">if</span> (A[j]&lt;A[k])</div><div class="line">                    k = j;</div><div class="line">            </div><div class="line">            res += A[k];</div><div class="line">            st = k+<span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">while</span> (res.length()&gt;<span class="number">1</span> &amp;&amp; res[<span class="number">0</span>] == <span class="string">'0'</span>)</div><div class="line">            res.erase(res.begin());</div><div class="line"></div><div class="line">    	<span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/30/roads-and-libraries/" class="archive-article-date">
-  <time datetime="2017-08-30T09:39:50.000Z" itemprop="datePublished">Aug 30</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/30/roads-and-libraries/">HackerRank/Algorithm/Graph Theory/Roads and Libraries</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/29/the-story-of-a-tree/" class="archive-article-date">
-  <time datetime="2017-08-29T10:28:31.000Z" itemprop="datePublished">Aug 29</time>
-</a>
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://suzyz.github.io/2017/10/04/delete-digits/" data-id="cj8cefofw000lhfo9h23namx9" class="article-share-link">Share</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/29/the-story-of-a-tree/">HackerRank/Algorithms/Graph Theory/The Story of a Tree</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/27/even-tree/" class="archive-article-date">
-  <time datetime="2017-08-27T10:25:29.000Z" itemprop="datePublished">Aug 27</time>
-</a>
+        <a href="https://suzyz.github.io/2017/10/04/delete-digits/#disqus_thread" class="article-comment-link">Comments</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/27/even-tree/">HackerRank/Algorithms/Graphy Theory/Even Tree</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/09/telecow/" class="archive-article-date">
-  <time datetime="2017-08-09T12:32:12.000Z" itemprop="datePublished">Aug 9</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/09/telecow/">USACO Section5.4 Telecowmunication (telecow)</a>
-    </h1>
-  
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Greedy/">Greedy</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LintCode/">LintCode</a></li></ul>
 
-    </header>
+    </footer>
   </div>
-</article>
   
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/06/schlnet/" class="archive-article-date">
-  <time datetime="2017-08-06T02:40:21.000Z" itemprop="datePublished">Aug 6</time>
-</a>
-      
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/06/schlnet/">USACO Section5.3 schlnet</a>
-    </h1>
   
+    <a href="/2017/10/03/4sum2/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">LeetCode/4Sum II</div>
+    </a>
+  
+</nav>
 
-    </header>
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
   </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/04/milk6/" class="archive-article-date">
-  <time datetime="2017-08-04T03:50:46.000Z" itemprop="datePublished">Aug 4</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/04/milk6/">USACO Section5.1 Pollutant Control(milk6)</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/07/31/ditch/" class="archive-article-date">
-  <time datetime="2017-07-31T02:38:52.000Z" itemprop="datePublished">Jul 31</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/31/ditch/">USACO Section4.2 ditch</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/07/30/fence6/" class="archive-article-date">
-  <time datetime="2017-07-30T08:44:40.000Z" itemprop="datePublished">Jul 30</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/30/fence6/">USACO Section4.1 fence6</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/07/29/stall4/" class="archive-article-date">
-  <time datetime="2017-07-29T08:50:52.000Z" itemprop="datePublished">Jul 29</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/29/stall4/">USACO Section4.1 stall4</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/07/26/camlot/" class="archive-article-date">
-  <time datetime="2017-07-26T02:37:20.000Z" itemprop="datePublished">Jul 26</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/26/camlot/">USACO Section3.3 camlot</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-
-  <nav id="page-nav">
-    <span class="page-number current">1</span><a class="page-number" href="/tags/Graph-Theory/page/2/">2</a><a class="extend next" rel="next" href="/tags/Graph-Theory/page/2/">Next&raquo;</a>
-  </nav>
-
+</section>
 </section>
         
           <aside id="sidebar">
@@ -400,11 +223,13 @@
 <script>
   var disqus_shortname = 'suzyz';
   
+  var disqus_url = 'https://suzyz.github.io/2017/10/04/delete-digits/';
+  
   (function(){
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>
