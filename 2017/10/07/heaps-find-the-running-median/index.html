@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>HackerRank/Heaps/Find the Running Median | Suzy Zhang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Problem SummaryGiven N integers in order, for each ith integer, add it to a running list of integers, find the median of the updated list and print the median. (1 &amp;le; N &amp;le; 10^5)">
+<meta name="keywords" content="HackerRank,Heap,Binary Search Tree">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HackerRank&#x2F;Heaps&#x2F;Find the Running Median">
+<meta property="og:url" content="https://suzyz.github.io/2017/10/07/heaps-find-the-running-median/index.html">
+<meta property="og:site_name" content="Suzy Zhang">
+<meta property="og:description" content="Problem SummaryGiven N integers in order, for each ith integer, add it to a running list of integers, find the median of the updated list and print the median. (1 &amp;le; N &amp;le; 10^5)">
+<meta property="og:updated_time" content="2017-10-07T07:49:57.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HackerRank&#x2F;Heaps&#x2F;Find the Running Median">
+<meta name="twitter:description" content="Problem SummaryGiven N integers in order, for each ith integer, add it to a running list of integers, find the median of the updated list and print the median. (1 &amp;le; N &amp;le; 10^5)">
+  
+    <link rel="alternate" href="/atom.xml" title="Suzy Zhang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Suzy Zhang</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://suzyz.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-heaps-find-the-running-median" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/10/07/heaps-find-the-running-median/" class="article-date">
+  <time datetime="2017-10-07T03:08:21.000Z" itemprop="datePublished">2017-10-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Algorithm/">Algorithm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      HackerRank/Heaps/Find the Running Median
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem-Summary"><a href="#Problem-Summary" class="headerlink" title="Problem Summary"></a>Problem Summary</h1><p>Given N integers in order, for each ith integer, add it to a running list of integers, find the median of the updated list and print the median. (1 &le; N &le; 10^5)<br><a id="more"></a></p>
+<h1 id="Solution-1"><a href="#Solution-1" class="headerlink" title="Solution 1"></a>Solution 1</h1><p>The median is the number in the middle of a sorted list. It is unnecessary to sort the entire list to find the median. Instead, we can split the list into two groups of numbers, each containing about half of the list and the number in the first greater than the numbers in the other. Then we only need the biggest number of the first group and the smallest of the second group. </p>
+<p>We can keep two heaps A and B , which have the following properties:</p>
+<ol>
+<li>A contains the bigger half of current list and A is a minimum heap.</li>
+<li>B contains the smaller half of current list and B is a maximum heap. </li>
+<li>The absolute difference between the sizes of A and B is less than 2. </li>
+</ol>
+<p>For each ith integer, nums[i], we push it into A, if A is empty or nums[i] &ge; A.top() . Else, we push it into B.<br>Then we balance the two heaps, making sure the property 3 still holds.<br>If i is odd, then the top of the bigger heap is the current median.<br>If i is even, then the average of the sum of the tops of A and B is the current median.</p>
+<p>The time complexity is O(NlogN).</p>
+<h1 id="Solution-2"><a href="#Solution-2" class="headerlink" title="Solution 2"></a>Solution 2</h1><p>We can use a heap, or a binary search tree to store the list.<br>For each node i, we use a variable “sum” to denote the number of nodes in the subtree with i as root. With this we can find the nth number of the list in O(logN) time.</p>
+<p>For each ith integer, we insert it into this BST, updating nodes along the way. Then, if i is odd, we find the (i+1)/2 th number in the list. Else, we find the i/2 th and the i/2+1 th number, and calculate the average.</p>
+<p>The time complexity is also O(NlogN), but it might be harder to code.</p>
+<h1 id="Code-for-Solution-1"><a href="#Code-for-Solution-1" class="headerlink" title="Code for Solution 1"></a>Code for Solution 1</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">NumsHeap</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">bool</span> is_min_heap;</div><div class="line">	<span class="keyword">int</span> size, nums[<span class="number">100010</span>];</div><div class="line">	NumsHeap(<span class="keyword">bool</span> flag) &#123; is_min_heap = flag; size = <span class="number">0</span>; &#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> x)</span></span>;</div><div class="line">	<span class="function"><span class="keyword">void</span> <span class="title">pop</span><span class="params">()</span></span>;</div><div class="line">	<span class="function"><span class="keyword">int</span> <span class="title">top</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> size &gt; <span class="number">0</span> ? nums[<span class="number">1</span>] : <span class="number">-1</span>; &#125;</div><div class="line">&#125; min_heap(<span class="literal">true</span>), max_heap(<span class="literal">false</span>);</div><div class="line"></div><div class="line"><span class="keyword">void</span> NumsHeap::push(<span class="keyword">int</span> x)</div><div class="line">&#123;</div><div class="line">	nums[++size] = x;</div><div class="line"></div><div class="line">	<span class="keyword">int</span> i = size, j = i&gt;&gt;<span class="number">1</span>;</div><div class="line">	<span class="keyword">while</span> (j&gt;<span class="number">0</span>)</div><div class="line">	&#123;</div><div class="line">		<span class="keyword">if</span> (is_min_heap ^ (nums[j] &gt; nums[i]))</div><div class="line">			<span class="keyword">break</span>;</div><div class="line"></div><div class="line">		<span class="keyword">int</span> tmp = nums[i]; nums[i] = nums[j]; nums[j] = tmp;</div><div class="line">		i = j;</div><div class="line">		j = i&gt;&gt;<span class="number">1</span>;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">void</span> NumsHeap::pop()</div><div class="line">&#123;</div><div class="line">	--size;</div><div class="line">	<span class="keyword">if</span> (size == <span class="number">0</span>)</div><div class="line">		<span class="keyword">return</span>;</div><div class="line">	nums[<span class="number">1</span>] = nums[size+<span class="number">1</span>];</div><div class="line">	<span class="keyword">int</span> i = <span class="number">1</span>, j = i&lt;&lt;<span class="number">1</span>;</div><div class="line">	<span class="keyword">while</span> (j&lt;=size)</div><div class="line">	&#123;</div><div class="line">		<span class="keyword">if</span> (is_min_heap &amp;&amp; (nums[i] &lt;= nums[j] &amp;&amp; (j==size || (j&lt;size &amp;&amp; nums[i] &lt;= nums[j+<span class="number">1</span>]))))</div><div class="line">			<span class="keyword">break</span>;</div><div class="line">		<span class="keyword">if</span> (!is_min_heap &amp;&amp; (nums[i] &gt;= nums[j] &amp;&amp; (j==size || (j&lt;size &amp;&amp; nums[i] &gt;= nums[j+<span class="number">1</span>]))))</div><div class="line">			<span class="keyword">break</span>;</div><div class="line"></div><div class="line">		<span class="keyword">if</span> (j&lt;size &amp;&amp; (is_min_heap ^ (nums[j+<span class="number">1</span>] &gt; nums[j])))</div><div class="line">			++j;</div><div class="line">		<span class="keyword">int</span> tmp = nums[i]; nums[i] = nums[j]; nums[j] = tmp;</div><div class="line">		i = j;</div><div class="line">		j = i&lt;&lt;<span class="number">1</span>;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">rebalance</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">if</span> (min_heap.size &gt; max_heap.size + <span class="number">1</span>)</div><div class="line">	&#123;</div><div class="line">		max_heap.push(min_heap.top());</div><div class="line">		min_heap.pop();</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">else</span></div><div class="line">	<span class="keyword">if</span> (max_heap.size &gt; min_heap.size + <span class="number">1</span>)</div><div class="line">	&#123;</div><div class="line">		min_heap.push(max_heap.top());</div><div class="line">		max_heap.pop();</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">int</span> n;</div><div class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</div><div class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</div><div class="line">	&#123;</div><div class="line">		<span class="keyword">int</span> j;</div><div class="line">		<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;j);</div><div class="line"></div><div class="line">		<span class="keyword">if</span> (min_heap.size == <span class="number">0</span> || j &gt;= min_heap.top())</div><div class="line">			min_heap.push(j);</div><div class="line">		<span class="keyword">else</span></div><div class="line">			max_heap.push(j);</div><div class="line">		rebalance();</div><div class="line"></div><div class="line">		<span class="keyword">if</span> (i&amp;<span class="number">1</span>)</div><div class="line">		&#123;</div><div class="line">			<span class="keyword">if</span> (min_heap.size &gt; max_heap.size)</div><div class="line">				<span class="built_in">printf</span>(<span class="string">"%.1f\n"</span>,<span class="number">1.0</span> * min_heap.top());</div><div class="line">			<span class="keyword">else</span></div><div class="line">				<span class="built_in">printf</span>(<span class="string">"%.1f\n"</span>,<span class="number">1.0</span> * max_heap.top());</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">else</span></div><div class="line">			<span class="built_in">printf</span>(<span class="string">"%.1f\n"</span>,<span class="number">0.5</span> * (min_heap.top() + max_heap.top()));</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="Code-for-Solution-2"><a href="#Code-for-Solution-2" class="headerlink" title="Code for Solution 2"></a>Code for Solution 2</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="keyword">int</span> heap_size = <span class="number">0</span>;</div><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">int</span> sum,val,l,r;</div><div class="line">	Node() &#123; sum = <span class="number">0</span>; val = l = r = <span class="number">-1</span>; &#125;</div><div class="line">&#125; nums_heap[<span class="number">100010</span>];</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">insert_node</span><span class="params">(<span class="keyword">int</span> x)</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">if</span> (heap_size == <span class="number">0</span>)</div><div class="line">	&#123;</div><div class="line">		heap_size = <span class="number">1</span>;</div><div class="line">		nums_heap[<span class="number">1</span>].sum = <span class="number">1</span>;</div><div class="line">		nums_heap[<span class="number">1</span>].val = x;</div><div class="line">		<span class="keyword">return</span>;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">int</span> i = <span class="number">1</span>;</div><div class="line">	<span class="keyword">while</span> (i&gt;<span class="number">0</span>)</div><div class="line">	&#123;</div><div class="line">		++ nums_heap[i].sum;</div><div class="line"></div><div class="line">		<span class="keyword">if</span> (x &lt; nums_heap[i].val)</div><div class="line">		&#123;</div><div class="line">			<span class="keyword">if</span> (nums_heap[i].l == <span class="number">-1</span>)</div><div class="line">			&#123;</div><div class="line">				nums_heap[i].l = ++heap_size;</div><div class="line">				i = nums_heap[i].l;</div><div class="line">				nums_heap[i].sum = <span class="number">1</span>;</div><div class="line">				nums_heap[i].val = x;</div><div class="line">				<span class="keyword">return</span>;</div><div class="line">			&#125;</div><div class="line">			</div><div class="line">			i = nums_heap[i].l;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">else</span></div><div class="line">		&#123;</div><div class="line">			<span class="keyword">if</span> (nums_heap[i].r == <span class="number">-1</span>)</div><div class="line">			&#123;</div><div class="line">				nums_heap[i].r = ++heap_size;</div><div class="line">				i = nums_heap[i].r;</div><div class="line">				nums_heap[i].sum = <span class="number">1</span>;</div><div class="line">				nums_heap[i].val = x;</div><div class="line">				<span class="keyword">return</span>;</div><div class="line">			&#125;</div><div class="line">			</div><div class="line">			i = nums_heap[i].r;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">get_nth</span><span class="params">(<span class="keyword">int</span> n)</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">int</span> i = <span class="number">1</span>;</div><div class="line">	<span class="keyword">while</span> (i&gt;<span class="number">0</span>)</div><div class="line">	&#123;</div><div class="line">		<span class="keyword">if</span> (nums_heap[i].l == <span class="number">-1</span> &amp;&amp; n==<span class="number">1</span>)</div><div class="line">			<span class="keyword">return</span> nums_heap[i].val;</div><div class="line">		<span class="keyword">if</span> (nums_heap[i].l != <span class="number">-1</span> &amp;&amp; n == nums_heap[nums_heap[i].l].sum +<span class="number">1</span>)</div><div class="line">			<span class="keyword">return</span> nums_heap[i].val;</div><div class="line"></div><div class="line">		<span class="keyword">if</span> (nums_heap[i].l != <span class="number">-1</span> &amp;&amp; nums_heap[nums_heap[i].l].sum &gt;= n)</div><div class="line">		&#123;</div><div class="line">			i = nums_heap[i].l;</div><div class="line">			<span class="keyword">continue</span>;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		<span class="keyword">if</span> (nums_heap[i].l != <span class="number">-1</span>)</div><div class="line">			n = n - <span class="number">1</span> - nums_heap[nums_heap[i].l].sum;</div><div class="line">		<span class="keyword">else</span></div><div class="line">			--n;</div><div class="line"></div><div class="line">		i = nums_heap[i].r;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span> <span class="number">-1</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">int</span> n;</div><div class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</div><div class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</div><div class="line">	&#123;</div><div class="line">		<span class="keyword">int</span> j;</div><div class="line">		<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;j);</div><div class="line">		insert_node(j);</div><div class="line"></div><div class="line">		<span class="keyword">if</span> (i&amp;<span class="number">1</span>)</div><div class="line">			<span class="built_in">printf</span>(<span class="string">"%.1f\n"</span>,<span class="number">1.0</span>*get_nth((i+<span class="number">1</span>)/<span class="number">2</span>));</div><div class="line">		<span class="keyword">else</span></div><div class="line">			<span class="built_in">printf</span>(<span class="string">"%.1f\n"</span>,<span class="number">0.5</span>*(get_nth(i/<span class="number">2</span>)+get_nth(i/<span class="number">2</span>+<span class="number">1</span>)));</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://suzyz.github.io/2017/10/07/heaps-find-the-running-median/" data-id="cj8h0sxsj001jf5o9spttxhbo" class="article-share-link">Share</a>
+      
+        <a href="https://suzyz.github.io/2017/10/07/heaps-find-the-running-median/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Binary-Search-Tree/">Binary Search Tree</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HackerRank/">HackerRank</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Heap/">Heap</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/10/04/delete-digits/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">LintCode/Delete Digits</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/">Algorithm</a><span class="category-list-count">51</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Data-Structure/">Data Structure</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Array/">Array</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BFS/">BFS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Big-Number/">Big Number</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Binary-Search/">Binary Search</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Binary-Search-Tree/">Binary Search Tree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bit-Manipulation/">Bit Manipulation</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Convex-Hull/">Convex Hull</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DFS/">DFS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/">DP</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP-on-Trees/">DP on Trees</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dijkstra/">Dijkstra</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dinic/">Dinic</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Game-Theory/">Game Theory</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Geometry/">Geometry</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Graph-Theory/">Graph Theory</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Greedy/">Greedy</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HackerRank/">HackerRank</a><span class="tag-list-count">17</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hash/">Hash</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heap/">Heap</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hungarian-Alogrithm/">Hungarian Alogrithm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDDFS/">IDDFS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Implementation/">Implementation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LCA/">LCA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LeetCode/">LeetCode</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LintCode/">LintCode</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MST/">MST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matrix/">Matrix</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maximum-Flow/">Maximum Flow</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Minimum-Cut/">Minimum Cut</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Minimum-length-cycle/">Minimum length cycle</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Number-Theory/">Number Theory</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Partial-order/">Partial order</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Prim/">Prim</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pruning/">Pruning</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SPFA/">SPFA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/String/">String</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Strongly-connected-components/">Strongly connected components</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tarjan-s-algorithm/">Tarjan's algorithm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tree/">Tree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Trie/">Trie</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/USACO/">USACO</a><span class="tag-list-count">25</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a><span class="archive-list-count">18</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">10</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/10/07/heaps-find-the-running-median/">HackerRank/Heaps/Find the Running Median</a>
+          </li>
+        
+          <li>
+            <a href="/2017/10/04/delete-digits/">LintCode/Delete Digits</a>
+          </li>
+        
+          <li>
+            <a href="/2017/10/03/4sum2/">LeetCode/4Sum II</a>
+          </li>
+        
+          <li>
+            <a href="/2017/10/02/lowest-common-ancester-of-a-binary-search-tree-or-a-binary-tree/">LeetCode/Lowest Common Ancester Of A Binary Search Tree Or A Binary Tree</a>
+          </li>
+        
+          <li>
+            <a href="/2017/10/01/no-prefix-set/">HackerRank/Data Structures/No Prefix Set</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Suzy Zhang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'suzyz';
+  
+  var disqus_url = 'https://suzyz.github.io/2017/10/07/heaps-find-the-running-median/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
