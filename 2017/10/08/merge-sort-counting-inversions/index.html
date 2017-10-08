@@ -3,14 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Tag: DP | Suzy Zhang</title>
+  <title>HackerRank/Merge Sort/Counting Inversions | Suzy Zhang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Suzy Zhang">
-<meta property="og:url" content="https://suzyz.github.io/tags/DP/index.html">
+  <meta name="description" content="Problem SummaryGiven an array of N integers, calculate the number of swaps you need to perfom to sort the array in ascending order. You can only swap adjacent elements.">
+<meta name="keywords" content="HackerRank,Sort,Merge Sort">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HackerRank&#x2F;Merge Sort&#x2F;Counting Inversions">
+<meta property="og:url" content="https://suzyz.github.io/2017/10/08/merge-sort-counting-inversions/index.html">
 <meta property="og:site_name" content="Suzy Zhang">
+<meta property="og:description" content="Problem SummaryGiven an array of N integers, calculate the number of swaps you need to perfom to sort the array in ascending order. You can only swap adjacent elements.">
+<meta property="og:updated_time" content="2017-10-08T09:45:37.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Suzy Zhang">
+<meta name="twitter:title" content="HackerRank&#x2F;Merge Sort&#x2F;Counting Inversions">
+<meta name="twitter:description" content="Problem SummaryGiven an array of N integers, calculate the number of swaps you need to perfom to sort the array in ascending order. You can only swap adjacent elements.">
   
     <link rel="alternate" href="/atom.xml" title="Suzy Zhang" type="application/atom+xml">
   
@@ -61,254 +66,72 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/09/26/substring-diff/" class="archive-article-date">
-  <time datetime="2017-09-26T03:10:22.000Z" itemprop="datePublished">Sep 26</time>
+        <section id="main"><article id="post-merge-sort-counting-inversions" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/10/08/merge-sort-counting-inversions/" class="article-date">
+  <time datetime="2017-10-08T09:16:27.000Z" itemprop="datePublished">2017-10-08</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Algorithm/">Algorithm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/26/substring-diff/">HackerRank/Dynamic Programming/Substring Diff</a>
+    <h1 class="article-title" itemprop="name">
+      HackerRank/Merge Sort/Counting Inversions
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/09/19/angry-children2/" class="archive-article-date">
-  <time datetime="2017-09-19T11:29:03.000Z" itemprop="datePublished">Sep 19</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/19/angry-children2/">HackerRank/Algorithm/Dynamic Programming/Angry Children 2</a>
-    </h1>
-  
+        <h1 id="Problem-Summary"><a href="#Problem-Summary" class="headerlink" title="Problem Summary"></a>Problem Summary</h1><p>Given an array of N integers, calculate the number of swaps you need to perfom to sort the array in ascending order. You can only swap adjacent elements.</p>
+<a id="more"></a>
+<h1 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h1><p>We use merge sort to solve this problem. During each merging process, we count the number of swaps. And we get the sum recursively.</p>
+<p>Note that we can only swap adjacent elements. So moving an integer from position j to position i requires i-j swaps.</p>
+<p>A trick for saving time :<br>We can use two arrays A and B, to store the data, and if this time we perfom the merge function from A to B, the next time we perfom it from B to A. In this way we do not have to copy the array every time.</p>
+<h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div></pre></td><td class="code"><pre><div class="line">#include &lt;cstdio&gt;</div><div class="line">#include &lt;vector&gt;</div><div class="line">#include &lt;iostream&gt;</div><div class="line">#include &lt;algorithm&gt;</div><div class="line">#include &lt;cstring&gt;</div><div class="line"></div><div class="line">using namespace std;</div><div class="line">const int maxn = 100010;</div><div class="line"></div><div class="line">int n,arr[maxn],aux[maxn];</div><div class="line"></div><div class="line">long long merge(int (&amp;s)[maxn],int (&amp;t)[maxn],int st,int mid,int en)</div><div class="line">&#123;</div><div class="line">    int i = st, j = mid+1, idx = st;</div><div class="line">    long long res = 0;</div><div class="line">    while (i&lt;=mid &amp;&amp; j&lt;=en)</div><div class="line">    &#123;</div><div class="line">        if (s[i] &lt;= s[j])</div><div class="line">            t[idx++] = s[i++];</div><div class="line">        else</div><div class="line">        &#123;</div><div class="line">            t[idx++] = s[j++];</div><div class="line">            res += mid+1 - i;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    while (i&lt;=mid)</div><div class="line">    &#123;</div><div class="line">        t[idx++] = s[i++];</div><div class="line">    &#125;</div><div class="line">    while (j&lt;=en)</div><div class="line">    &#123;</div><div class="line">        t[idx++] = s[j++];</div><div class="line">    &#125;</div><div class="line">    return res;</div><div class="line">&#125;</div><div class="line"></div><div class="line">long long merge_sort(int (&amp;s)[maxn],int (&amp;t)[maxn],int st,int en)</div><div class="line">&#123;</div><div class="line">    if (st &gt;= en)</div><div class="line">        return 0;</div><div class="line"></div><div class="line">    long long count = 0;</div><div class="line">    int mid = st + ((en-st)&gt;&gt;1);</div><div class="line">    count += merge_sort (t,s,st,mid);</div><div class="line">    count += merge_sort (t,s,mid+1,en);</div><div class="line"></div><div class="line">    count += merge(s,t,st,mid,en);</div><div class="line">    return count;</div><div class="line">&#125;</div><div class="line"></div><div class="line">int main() &#123;</div><div class="line">    </div><div class="line">    int Q;</div><div class="line">    cin &gt;&gt; Q;</div><div class="line"></div><div class="line">while (Q--)</div><div class="line">&#123;</div><div class="line">    int n;</div><div class="line">    cin &gt;&gt; n;</div><div class="line">    for (int i = 0; i &lt; n; ++i)</div><div class="line">    &#123;</div><div class="line">        cin &gt;&gt; arr[i];</div><div class="line">        aux[i] = arr[i];</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    cout &lt;&lt; merge_sort(arr,aux,0,n-1) &lt;&lt; endl;</div><div class="line">&#125;</div><div class="line"></div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/09/18/the-maximum-subarray/" class="archive-article-date">
-  <time datetime="2017-09-18T13:43:49.000Z" itemprop="datePublished">Sep 18</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/18/the-maximum-subarray/">HackerRank/Algorithm/Dynamic Programming/The Maximum Subarray</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/09/18/sam-and-substrings/" class="archive-article-date">
-  <time datetime="2017-09-18T00:48:42.000Z" itemprop="datePublished">Sep 18</time>
-</a>
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://suzyz.github.io/2017/10/08/merge-sort-counting-inversions/" data-id="cj8ikad80001wdfo9fqis6dth" class="article-share-link">Share</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/18/sam-and-substrings/">HackerRank/Algorithm/Dynamic Programming/Sam And Substrings</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/09/17/the-coin-change-problem/" class="archive-article-date">
-  <time datetime="2017-09-17T11:44:30.000Z" itemprop="datePublished">Sep 17</time>
-</a>
+        <a href="https://suzyz.github.io/2017/10/08/merge-sort-counting-inversions/#disqus_thread" class="article-comment-link">Comments</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/17/the-coin-change-problem/">HackerRank/Algorithm/Dynamic Programming/The Coin Change Problem</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/09/16/prime-xor/" class="archive-article-date">
-  <time datetime="2017-09-16T13:37:53.000Z" itemprop="datePublished">Sep 16</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/16/prime-xor/">HackerRank/Algorithm/Dynamic Programming/Prime XOR</a>
-    </h1>
-  
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HackerRank/">HackerRank</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Merge-Sort/">Merge Sort</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Sort/">Sort</a></li></ul>
 
-    </header>
+    </footer>
   </div>
-</article>
   
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/09/16/abbreviation/" class="archive-article-date">
-  <time datetime="2017-09-16T12:29:20.000Z" itemprop="datePublished">Sep 16</time>
-</a>
-      
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/16/abbreviation/">HackerRank/Algorithm/Dynamic Programming/Abbreviation</a>
-    </h1>
   
+    <a href="/2017/10/07/heaps-find-the-running-median/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">HackerRank/Heaps/Find the Running Median</div>
+    </a>
+  
+</nav>
 
-    </header>
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
   </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/09/08/kingdom-division/" class="archive-article-date">
-  <time datetime="2017-09-08T03:56:57.000Z" itemprop="datePublished">Sep 8</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/08/kingdom-division/">HackerRank/Algorithm/Dynamic Programming/Kingdom Division</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/09/07/sherlock-and-cost/" class="archive-article-date">
-  <time datetime="2017-09-07T02:20:16.000Z" itemprop="datePublished">Sep 7</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/07/sherlock-and-cost/">HackerRank/Algorithm/Dynamic Programming/Sherlock and Cost</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/22/buylow/" class="archive-article-date">
-  <time datetime="2017-08-22T03:48:33.000Z" itemprop="datePublished">Aug 22</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/22/buylow/">USACO Section4.3 Buy Low, Buy Lower (buylow)</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/11/rectbarn/" class="archive-article-date">
-  <time datetime="2017-08-11T09:19:59.000Z" itemprop="datePublished">Aug 11</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/11/rectbarn/">USACO Section6.1 A Rectangular Barn (rectbarn)</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/08/tour/" class="archive-article-date">
-  <time datetime="2017-08-08T09:44:10.000Z" itemprop="datePublished">Aug 8</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/08/tour/">USACO Section5.4 Canada Tour (tour)</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-
-  <nav id="page-nav">
-    <span class="page-number current">1</span><a class="page-number" href="/tags/DP/page/2/">2</a><a class="extend next" rel="next" href="/tags/DP/page/2/">Next&raquo;</a>
-  </nav>
-
+</section>
 </section>
         
           <aside id="sidebar">
@@ -400,11 +223,13 @@
 <script>
   var disqus_shortname = 'suzyz';
   
+  var disqus_url = 'https://suzyz.github.io/2017/10/08/merge-sort-counting-inversions/';
+  
   (function(){
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>
