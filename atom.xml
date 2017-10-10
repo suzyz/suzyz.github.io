@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://suzyz.github.io/"/>
-  <updated>2017-10-08T09:55:55.000Z</updated>
+  <updated>2017-10-10T06:55:47.000Z</updated>
   <id>https://suzyz.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>LintCode/Gas Station</title>
+    <link href="https://suzyz.github.io/2017/10/10/gas-station/"/>
+    <id>https://suzyz.github.io/2017/10/10/gas-station/</id>
+    <published>2017-10-10T04:50:02.000Z</published>
+    <updated>2017-10-10T06:55:47.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Problem-Summary"><a href="#Problem-Summary" class="headerlink" title="Problem Summary"></a>Problem Summary</h1><p>There are N gas stations along a circular route, where the amount of gas at station i is gas[i].</p><p>You have a car with an unlimited gas tank and it costs cost[i] of gas to travel from station i to its next station (i+1). You begin the journey with an empty tank at one of the gas stations.</p><p>Find the index of the starting gas station if you can travel around the circuit once, otherwise return -1.<br>The solution is guaranteed to be unique.</p><a id="more"></a><h1 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h1><p>Fisrt, let us use diff[i] to denote the amount of gas left if we go to station (i+1) from station i. Apparently, diff[i] = gas[i] - cost[i].</p><p>Let sum[i,j] = diff[i] + diff[i+1] + … + diff[j], total = sum[0,N-1].</p><p>If there is a feasible solution i, it should satisfy that</p><blockquote><p>sum[i,j] &ge; 0, j = i+1,i+2,…,N-1,0,1,…,i-1. &nbsp; &nbsp; &nbsp; &nbsp; (1)</p></blockquote><p>Apparently, there is no feasible solution if total is negative. But if total &ge; 0, can we say for sure that there is a solution?</p><p>Well, we can prove that</p><blockquote><p>if total &ge; 0, there exits an index i such that (1) holds. (2)</p></blockquote><p>So if total &ge; 0, there must be an answer. Now let us think greedily.<br>Suppose we begin the journey at j. If we find sum[j,j+k] &ge; 0, but sum[j,j+k+1] &lt; 0, then j is definitely not the answer. Actually, it is unnecessary to consider j+1, j+2, …, j+k+1, either. So we move to consider j’ = j+k+2.<br>In this way we can find the answer in O(N) time.</p><h2 id="Proof-of-2"><a href="#Proof-of-2" class="headerlink" title="Proof of (2)"></a>Proof of (2)</h2><p>Let’s assume that</p><blockquote><p>total &ge; 0 but (1) does not hold for any i, 0 &le; i &le; N-1. &nbsp;(3)</p></blockquote><p>The for 0 we have an index p[0] &gt; 0, s.t. sum[0,p[0]] &lt; 0. Since total &ge; 0, we know that p[0] &ne; N-1. Let us suppose p[0] is the first index that satisfies sum[0,i] &lt; 0.</p><p>Because of (3), there exits an index p[1] s.t. sum[p[0],p[1]] &lt; 0.<br>If 0 &le; p[1] &lt; p[0], we have sum[0,p[0]] + sum[p[0],p[1]] = total + sum[0,p[1]], hence sum[0,p[1]] &lt; 0. So p[0] &lt; p[1] &lt; N-1.</p><p>Similiarly, we can find infinite indices p[2],p[3],p[4],… s.t. p[0] &lt; p[1] &lt; p[2] &lt; p[3] &lt; …<br>But the diff array is finite. With this contradiction, we know that (3) is false, so (2) is true.</p><h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="comment">/*</span></div><div class="line">     * @param gas: An array of integers</div><div class="line">     * @param cost: An array of integers</div><div class="line">     * @return: An integer</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">canCompleteCircuit</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;gas, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;cost)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> n = gas.size();</div><div class="line">        <span class="keyword">if</span> (n==<span class="number">0</span>)</div><div class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</div><div class="line"></div><div class="line">        <span class="keyword">int</span> total = <span class="number">0</span>, sum = <span class="number">0</span>, st = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</div><div class="line">        &#123;</div><div class="line">        <span class="keyword">int</span> cur = gas[i] - cost[i];</div><div class="line">        total += cur;</div><div class="line">        <span class="keyword">if</span> (sum &lt; <span class="number">0</span>)</div><div class="line">        &#123;</div><div class="line">        sum = cur;</div><div class="line">        st = i;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span></div><div class="line">        sum += cur;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">return</span> total &lt; <span class="number">0</span> ? <span class="number">-1</span> : st;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Problem-Summary&quot;&gt;&lt;a href=&quot;#Problem-Summary&quot; class=&quot;headerlink&quot; title=&quot;Problem Summary&quot;&gt;&lt;/a&gt;Problem Summary&lt;/h1&gt;&lt;p&gt;There are N gas stations along a circular route, where the amount of gas at station i is gas[i].&lt;/p&gt;
+&lt;p&gt;You have a car with an unlimited gas tank and it costs cost[i] of gas to travel from station i to its next station (i+1). You begin the journey with an empty tank at one of the gas stations.&lt;/p&gt;
+&lt;p&gt;Find the index of the starting gas station if you can travel around the circuit once, otherwise return -1.&lt;br&gt;The solution is guaranteed to be unique.&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Algorithm" scheme="https://suzyz.github.io/categories/Algorithm/"/>
+    
+    
+      <category term="LintCode" scheme="https://suzyz.github.io/tags/LintCode/"/>
+    
+      <category term="Greedy" scheme="https://suzyz.github.io/tags/Greedy/"/>
+    
+  </entry>
   
   <entry>
     <title>HackerRank/Merge Sort/Counting Inversions</title>
@@ -251,30 +277,6 @@
       <category term="LintCode" scheme="https://suzyz.github.io/tags/LintCode/"/>
     
       <category term="Bit Manipulation" scheme="https://suzyz.github.io/tags/Bit-Manipulation/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>LintCode/Trailing Zeros</title>
-    <link href="https://suzyz.github.io/2017/09/27/trailing-zeros/"/>
-    <id>https://suzyz.github.io/2017/09/27/trailing-zeros/</id>
-    <published>2017-09-27T09:56:12.000Z</published>
-    <updated>2017-09-27T14:38:13.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="Problem-Summary"><a href="#Problem-Summary" class="headerlink" title="Problem Summary"></a>Problem Summary</h1><p>Find the number of trailing zeros in N! (N factorial).</p><a id="more"></a><h1 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h1><p>Apparently, the answer is equal to the number of 5 in N!, e.g. N/5 + N/(5^2) + N/(5^3) + … + N/(5^c), where 5^c &le; N &lt; 5^(c+1).</p><h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="comment">/*</span></div><div class="line">     * @param n: A long integer</div><div class="line">     * @return: An integer, denote the number of trailing zeros in n!</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="title">trailingZeros</span><span class="params">(<span class="keyword">long</span> <span class="keyword">long</span> n)</span> </span>&#123;</div><div class="line">    <span class="keyword">long</span> <span class="keyword">long</span> count5 = <span class="number">0</span> , fac = <span class="number">5</span>;</div><div class="line">    <span class="keyword">while</span> (n&gt;=fac) &#123;</div><div class="line">    count5 += n/fac;</div><div class="line">    fac *= <span class="number">5</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> count5;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;Problem-Summary&quot;&gt;&lt;a href=&quot;#Problem-Summary&quot; class=&quot;headerlink&quot; title=&quot;Problem Summary&quot;&gt;&lt;/a&gt;Problem Summary&lt;/h1&gt;&lt;p&gt;Find the number of trailing zeros in N! (N factorial).&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Algorithm" scheme="https://suzyz.github.io/categories/Algorithm/"/>
-    
-    
-      <category term="LintCode" scheme="https://suzyz.github.io/tags/LintCode/"/>
-    
-      <category term="Number Theory" scheme="https://suzyz.github.io/tags/Number-Theory/"/>
     
   </entry>
   
