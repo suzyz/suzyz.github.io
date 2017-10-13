@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://suzyz.github.io/"/>
-  <updated>2017-10-11T15:41:09.000Z</updated>
+  <updated>2017-10-13T09:10:52.000Z</updated>
   <id>https://suzyz.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>LintCode/Copy List With Random Pointer</title>
+    <link href="https://suzyz.github.io/2017/10/13/copy-list-with-random-pointer/"/>
+    <id>https://suzyz.github.io/2017/10/13/copy-list-with-random-pointer/</id>
+    <published>2017-10-13T04:12:01.000Z</published>
+    <updated>2017-10-13T09:10:52.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Problem-Summary"><a href="#Problem-Summary" class="headerlink" title="Problem Summary"></a>Problem Summary</h1><p>A linked list is given such that each node contains an additional random pointer which could point to any node in the list or null.</p><p>Return a deep copy of the list.</p><a id="more"></a><h1 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h1><p>First, we make a copy of each node and insert it right after the original node.</p><p>Then, we need to find the “random” pointers for the new nodes.<br>Suppose we have a node p, whose random pointer points to node q, i.e. p-&gt;random == q. And after the copying, we have p-&gt;next == p2, q-&gt;next == q2. Then the random pointer of q1 should be q2. So we let p-&gt;next-&gt;random = p-&gt;random-&gt;next.</p><p>Finally, we break the linked list into two lists, the original one and the copy of it.</p><p>The time complexity is O(N), where N is the length of the linked list.</p><h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * Definition for singly-linked list with a random pointer.</div><div class="line"> * struct RandomListNode &#123;</div><div class="line"> *     int label;</div><div class="line"> *     RandomListNode *next, *random;</div><div class="line"> *     RandomListNode(int x) : label(x), next(NULL), random(NULL) &#123;&#125;</div><div class="line"> * &#125;;</div><div class="line"> */</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * @param head: The head of linked list with a random pointer.</div><div class="line">     * @return: A new head of a deep copy of the list.</div><div class="line">     */</div><div class="line">    <span class="function">RandomListNode *<span class="title">copyRandomList</span><span class="params">(RandomListNode *head)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (head == <span class="literal">NULL</span>)</div><div class="line">    <span class="keyword">return</span> <span class="literal">NULL</span>;</div><div class="line">        RandomListNode *p = head,*tmp;</div><div class="line">        <span class="keyword">while</span> (p)</div><div class="line">        &#123;</div><div class="line">        tmp = p-&gt;next;</div><div class="line">        p-&gt;next = <span class="keyword">new</span> RandomListNode(p-&gt;label);</div><div class="line">        p-&gt;next-&gt;next = tmp;</div><div class="line">        p = p-&gt;next-&gt;next;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        p = head;</div><div class="line">        <span class="keyword">while</span> (p)</div><div class="line">        &#123;</div><div class="line">     <span class="keyword">if</span> (p-&gt;random == <span class="literal">NULL</span>)</div><div class="line">     p-&gt;next-&gt;random = <span class="literal">NULL</span>;</div><div class="line">     <span class="keyword">else</span></div><div class="line">        p-&gt;next-&gt;random = p-&gt;random-&gt;next;</div><div class="line">        p = p-&gt;next-&gt;next;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        RandomListNode *res = head-&gt;next;</div><div class="line">        p = head;</div><div class="line">        <span class="keyword">while</span> (p &amp;&amp; p-&gt;next)</div><div class="line">        &#123;</div><div class="line">            tmp = p-&gt;next;</div><div class="line">            p-&gt;next = p-&gt;next-&gt;next;</div><div class="line">            p = tmp;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Problem-Summary&quot;&gt;&lt;a href=&quot;#Problem-Summary&quot; class=&quot;headerlink&quot; title=&quot;Problem Summary&quot;&gt;&lt;/a&gt;Problem Summary&lt;/h1&gt;&lt;p&gt;A linked list is given such that each node contains an additional random pointer which could point to any node in the list or null.&lt;/p&gt;
+&lt;p&gt;Return a deep copy of the list.&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Algorithm" scheme="https://suzyz.github.io/categories/Algorithm/"/>
+    
+    
+      <category term="LintCode" scheme="https://suzyz.github.io/tags/LintCode/"/>
+    
+      <category term="Linked List" scheme="https://suzyz.github.io/tags/Linked-List/"/>
+    
+  </entry>
   
   <entry>
     <title>LintCode/Sort List</title>
@@ -253,30 +278,6 @@
       <category term="LintCode" scheme="https://suzyz.github.io/tags/LintCode/"/>
     
       <category term="Matrix" scheme="https://suzyz.github.io/tags/Matrix/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>LintCode/Flip Bits</title>
-    <link href="https://suzyz.github.io/2017/09/29/flip-bits/"/>
-    <id>https://suzyz.github.io/2017/09/29/flip-bits/</id>
-    <published>2017-09-29T00:51:43.000Z</published>
-    <updated>2017-09-29T01:19:49.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="Problem-Summary"><a href="#Problem-Summary" class="headerlink" title="Problem Summary"></a>Problem Summary</h1><p>Determine the number of bits to flip when converting integer n to integer m.</p><a id="more"></a><h1 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h1><p>The answer is how many bits of (n xor m) are 1.</p><p>I think there are some relevant skills about bit manipulation that we need to know.</p><table><thead><tr><th>Binary Value</th><th>Sample</th><th>Meaning</th></tr></thead><tbody><tr><td>  x</td><td>00101100</td><td>the original x value</td></tr><tr><td>x and -x</td><td>00000100</td><td>extract lowest bit set</td></tr><tr><td>x or -x</td><td>11111100</td><td>create mask for lowest-set-bit &amp; bits to its left</td></tr><tr><td>x xor -x</td><td>11111000</td><td>create mask bits to left of lowest bit set</td></tr><tr><td>x and (x-1)</td><td>00101000</td><td>strip off lowest bit set ( useful to process words in O(bits set), instead of O(nbits in a word))</td></tr><tr><td>x or (x-1)</td><td>00101111</td><td>fill in all bits below lowest bit set</td></tr><tr><td>x xor (x-1)</td><td>00000111</td><td>create mask for lowest-set-bit &amp; bits to its right</td></tr><tr><td>~x and (x-1)</td><td>00000011</td><td>create mask for bits to right of lowest bit set</td></tr><tr><td>x or (x+1)</td><td>00101101</td><td>toggle lowest zero bit</td></tr><tr><td>x / (x and -x)</td><td>00001011</td><td>shift number right so lowest set bit is at bit 0</td></tr></tbody></table><h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="comment">/*</span></div><div class="line">     * @param a: An integer</div><div class="line">     * @param b: An integer</div><div class="line">     * @return: An integer</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">bitSwapRequired</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</div><div class="line">        a ^= b;</div><div class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</div><div class="line">        </div><div class="line">        <span class="keyword">while</span> (a) &#123;</div><div class="line">            ans++;</div><div class="line">            a &amp;= (a<span class="number">-1</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> ans;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;Problem-Summary&quot;&gt;&lt;a href=&quot;#Problem-Summary&quot; class=&quot;headerlink&quot; title=&quot;Problem Summary&quot;&gt;&lt;/a&gt;Problem Summary&lt;/h1&gt;&lt;p&gt;Determine the number of bits to flip when converting integer n to integer m.&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Algorithm" scheme="https://suzyz.github.io/categories/Algorithm/"/>
-    
-    
-      <category term="LintCode" scheme="https://suzyz.github.io/tags/LintCode/"/>
-    
-      <category term="Bit Manipulation" scheme="https://suzyz.github.io/tags/Bit-Manipulation/"/>
     
   </entry>
   

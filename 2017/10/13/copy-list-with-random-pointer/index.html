@@ -3,14 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Tag: LeetCode | Suzy Zhang</title>
+  <title>LintCode/Copy List With Random Pointer | Suzy Zhang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Suzy Zhang">
-<meta property="og:url" content="https://suzyz.github.io/tags/LeetCode/index.html">
+  <meta name="description" content="Problem SummaryA linked list is given such that each node contains an additional random pointer which could point to any node in the list or null. Return a deep copy of the list.">
+<meta name="keywords" content="LintCode,Linked List">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LintCode&#x2F;Copy List With Random Pointer">
+<meta property="og:url" content="https://suzyz.github.io/2017/10/13/copy-list-with-random-pointer/index.html">
 <meta property="og:site_name" content="Suzy Zhang">
+<meta property="og:description" content="Problem SummaryA linked list is given such that each node contains an additional random pointer which could point to any node in the list or null. Return a deep copy of the list.">
+<meta property="og:updated_time" content="2017-10-13T09:10:52.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Suzy Zhang">
+<meta name="twitter:title" content="LintCode&#x2F;Copy List With Random Pointer">
+<meta name="twitter:description" content="Problem SummaryA linked list is given such that each node contains an additional random pointer which could point to any node in the list or null. Return a deep copy of the list.">
   
     <link rel="alternate" href="/atom.xml" title="Suzy Zhang" type="application/atom+xml">
   
@@ -61,60 +66,74 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/10/03/4sum2/" class="archive-article-date">
-  <time datetime="2017-10-03T03:07:19.000Z" itemprop="datePublished">Oct 3</time>
+        <section id="main"><article id="post-copy-list-with-random-pointer" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/10/13/copy-list-with-random-pointer/" class="article-date">
+  <time datetime="2017-10-13T04:12:01.000Z" itemprop="datePublished">2017-10-13</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Algorithm/">Algorithm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/03/4sum2/">LeetCode/4Sum II</a>
+    <h1 class="article-title" itemprop="name">
+      LintCode/Copy List With Random Pointer
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/10/02/lowest-common-ancester-of-a-binary-search-tree-or-a-binary-tree/" class="archive-article-date">
-  <time datetime="2017-10-02T01:54:23.000Z" itemprop="datePublished">Oct 2</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/02/lowest-common-ancester-of-a-binary-search-tree-or-a-binary-tree/">LeetCode/Lowest Common Ancester Of A Binary Search Tree Or A Binary Tree</a>
-    </h1>
-  
+        <h1 id="Problem-Summary"><a href="#Problem-Summary" class="headerlink" title="Problem Summary"></a>Problem Summary</h1><p>A linked list is given such that each node contains an additional random pointer which could point to any node in the list or null.</p>
+<p>Return a deep copy of the list.</p>
+<a id="more"></a>
+<h1 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h1><p>First, we make a copy of each node and insert it right after the original node.</p>
+<p>Then, we need to find the “random” pointers for the new nodes.<br>Suppose we have a node p, whose random pointer points to node q, i.e. p-&gt;random == q. And after the copying, we have p-&gt;next == p2, q-&gt;next == q2. Then the random pointer of q1 should be q2. So we let p-&gt;next-&gt;random = p-&gt;random-&gt;next.</p>
+<p>Finally, we break the linked list into two lists, the original one and the copy of it.</p>
+<p>The time complexity is O(N), where N is the length of the linked list.</p>
+<h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * Definition for singly-linked list with a random pointer.</div><div class="line"> * struct RandomListNode &#123;</div><div class="line"> *     int label;</div><div class="line"> *     RandomListNode *next, *random;</div><div class="line"> *     RandomListNode(int x) : label(x), next(NULL), random(NULL) &#123;&#125;</div><div class="line"> * &#125;;</div><div class="line"> */</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * @param head: The head of linked list with a random pointer.</div><div class="line">     * @return: A new head of a deep copy of the list.</div><div class="line">     */</div><div class="line">    <span class="function">RandomListNode *<span class="title">copyRandomList</span><span class="params">(RandomListNode *head)</span> </span>&#123;</div><div class="line">    	<span class="keyword">if</span> (head == <span class="literal">NULL</span>)</div><div class="line">    		<span class="keyword">return</span> <span class="literal">NULL</span>;</div><div class="line">        RandomListNode *p = head,*tmp;</div><div class="line">        <span class="keyword">while</span> (p)</div><div class="line">        &#123;</div><div class="line">        	tmp = p-&gt;next;</div><div class="line">        	p-&gt;next = <span class="keyword">new</span> RandomListNode(p-&gt;label);</div><div class="line">        	p-&gt;next-&gt;next = tmp;</div><div class="line">        	p = p-&gt;next-&gt;next;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        p = head;</div><div class="line">        <span class="keyword">while</span> (p)</div><div class="line">        &#123;</div><div class="line">     		<span class="keyword">if</span> (p-&gt;random == <span class="literal">NULL</span>)</div><div class="line">     			p-&gt;next-&gt;random = <span class="literal">NULL</span>;</div><div class="line">     		<span class="keyword">else</span></div><div class="line">        		p-&gt;next-&gt;random = p-&gt;random-&gt;next;</div><div class="line">        	p = p-&gt;next-&gt;next;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        RandomListNode *res = head-&gt;next;</div><div class="line">        p = head;</div><div class="line">        <span class="keyword">while</span> (p &amp;&amp; p-&gt;next)</div><div class="line">        &#123;</div><div class="line">            tmp = p-&gt;next;</div><div class="line">            p-&gt;next = p-&gt;next-&gt;next;</div><div class="line">            p = tmp;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 
-    </header>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://suzyz.github.io/2017/10/13/copy-list-with-random-pointer/" data-id="cj8po7mo5000gcmo9j8nwvjiu" class="article-share-link">Share</a>
+      
+        <a href="https://suzyz.github.io/2017/10/13/copy-list-with-random-pointer/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linked-List/">Linked List</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LintCode/">LintCode</a></li></ul>
+
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/10/11/sort-list/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">LintCode/Sort List</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
 
 
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
 </section>
         
           <aside id="sidebar">
@@ -206,11 +225,13 @@
 <script>
   var disqus_shortname = 'suzyz';
   
+  var disqus_url = 'https://suzyz.github.io/2017/10/13/copy-list-with-random-pointer/';
+  
   (function(){
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>
