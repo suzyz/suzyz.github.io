@@ -3,19 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>USACO Section3.3 game1 | Suzy Zhang</title>
+  <title>LintCode/Reorder List | Suzy Zhang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Problem SummaryTwo players play a game with a sequence of N positive integers laid onto a 1*N game board. Player 1 starts the game and they move alternately by selecting a number from either the left">
-<meta name="keywords" content="DP,USACO,Game Theory">
+  <meta name="description" content="Problem SummaryGiven a singly linked list L : L[0] -&amp;gt; L[1] -&amp;gt; … -&amp;gt; L[N-1] -&amp;gt; L[N].Reorder it to : L[0] -&amp;gt; L[N] -&amp;gt; L[1] -&amp;gt; L[N-1] -&amp;gt; L[2] -&amp;gt; L[N-2] -&amp;gt; …">
+<meta name="keywords" content="LintCode,Linked List">
 <meta property="og:type" content="article">
-<meta property="og:title" content="USACO Section3.3 game1">
-<meta property="og:url" content="https://suzyz.github.io/2017/07/26/game1/index.html">
+<meta property="og:title" content="LintCode&#x2F;Reorder List">
+<meta property="og:url" content="https://suzyz.github.io/2017/10/13/reorder-list/index.html">
 <meta property="og:site_name" content="Suzy Zhang">
-<meta property="og:description" content="Problem SummaryTwo players play a game with a sequence of N positive integers laid onto a 1*N game board. Player 1 starts the game and they move alternately by selecting a number from either the left">
-<meta property="og:updated_time" content="2017-07-30T10:14:16.000Z">
+<meta property="og:description" content="Problem SummaryGiven a singly linked list L : L[0] -&amp;gt; L[1] -&amp;gt; … -&amp;gt; L[N-1] -&amp;gt; L[N].Reorder it to : L[0] -&amp;gt; L[N] -&amp;gt; L[1] -&amp;gt; L[N-1] -&amp;gt; L[2] -&amp;gt; L[N-2] -&amp;gt; …">
+<meta property="og:updated_time" content="2017-10-13T10:00:19.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="USACO Section3.3 game1">
-<meta name="twitter:description" content="Problem SummaryTwo players play a game with a sequence of N positive integers laid onto a 1*N game board. Player 1 starts the game and they move alternately by selecting a number from either the left">
+<meta name="twitter:title" content="LintCode&#x2F;Reorder List">
+<meta name="twitter:description" content="Problem SummaryGiven a singly linked list L : L[0] -&amp;gt; L[1] -&amp;gt; … -&amp;gt; L[N-1] -&amp;gt; L[N].Reorder it to : L[0] -&amp;gt; L[N] -&amp;gt; L[1] -&amp;gt; L[N-1] -&amp;gt; L[2] -&amp;gt; L[N-2] -&amp;gt; …">
   
     <link rel="alternate" href="/atom.xml" title="Suzy Zhang" type="application/atom+xml">
   
@@ -66,10 +66,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-game1" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-reorder-list" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/07/26/game1/" class="article-date">
-  <time datetime="2017-07-26T03:50:00.000Z" itemprop="datePublished">2017-07-26</time>
+    <a href="/2017/10/13/reorder-list/" class="article-date">
+  <time datetime="2017-10-13T09:37:10.000Z" itemprop="datePublished">2017-10-13</time>
 </a>
     
   <div class="article-category">
@@ -84,7 +84,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      USACO Section3.3 game1
+      LintCode/Reorder List
     </h1>
   
 
@@ -92,21 +92,23 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Problem-Summary"><a href="#Problem-Summary" class="headerlink" title="Problem Summary"></a>Problem Summary</h1><p>Two players play a game with a sequence of N positive integers laid onto a 1*N game board. Player 1 starts the game and they move alternately by selecting a number from either the left or the right end of the board. The selected number is then deleted, and its value is added to the score of the player who selected it. Whoever has the greater sum in the end wins.<br>Write a program that implements the optimal strategy for player 2. The optimal strategy yields maximum points when playing against the “best possible” opponent.</p>
+        <h1 id="Problem-Summary"><a href="#Problem-Summary" class="headerlink" title="Problem Summary"></a>Problem Summary</h1><p>Given a singly linked list L : L[0] -&gt; L[1] -&gt; … -&gt; L[N-1] -&gt; L[N].<br>Reorder it to : L[0] -&gt; L[N] -&gt; L[1] -&gt; L[N-1] -&gt; L[2] -&gt; L[N-2] -&gt; …</p>
 <a id="more"></a>
-<h1 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h1><p>We can use dynamic programming to compute the best scores.<br>Define f[i][j] to be the highest score we can get by going first with the sequence from i to j.<br>Then the player can choose data[i] or data[j],and leave the rest to his opponent. So we can write :</p>
-<p>  <strong>f[i][j] = max(data[i]+sum[i+1][j]-f[i+1][j],data[j]+sum[i][j-1]-f[i][j-1]), 1&lt;=i&lt;j&lt;=N<br>  f[i][i] = data[i], 1&lt;=i&lt;=N</strong></p>
-<h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fstream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;climits&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">102</span>;</div><div class="line"></div><div class="line"><span class="keyword">int</span> n,d[maxn];</div><div class="line"><span class="keyword">int</span> sum[maxn][maxn],f[maxn][maxn];</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">	<span class="function">fstream <span class="title">fin</span><span class="params">(<span class="string">"game1.in"</span>,ios::in)</span></span>;</div><div class="line">	<span class="function">fstream <span class="title">fout</span><span class="params">(<span class="string">"game1.out"</span>,ios::out)</span></span>;</div><div class="line"></div><div class="line">	fin&gt;&gt;n;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</div><div class="line">	&#123;</div><div class="line">		fin&gt;&gt;d[i];</div><div class="line">		f[i][i]=sum[i][i]=d[i];</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;n;i++)</div><div class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=i+<span class="number">1</span>;j&lt;=n;j++)</div><div class="line">			sum[i][j]=sum[i][j<span class="number">-1</span>]+d[j];</div><div class="line"></div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> len=<span class="number">2</span>;len&lt;=n;len++)</div><div class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n-len+<span class="number">1</span>;i++)</div><div class="line">		&#123;</div><div class="line">			<span class="keyword">int</span> j=i+len<span class="number">-1</span>;</div><div class="line">			f[i][j]=max(d[i]+sum[i+<span class="number">1</span>][j]-f[i+<span class="number">1</span>][j],d[j]+sum[i][j<span class="number">-1</span>]-f[i][j<span class="number">-1</span>]);</div><div class="line">		&#125;</div><div class="line"></div><div class="line">	fout&lt;&lt;f[<span class="number">1</span>][n]&lt;&lt;<span class="string">" "</span>&lt;&lt;sum[<span class="number">1</span>][n]-f[<span class="number">1</span>][n]&lt;&lt;<span class="built_in">endl</span>;</div><div class="line"></div><div class="line">	fin.close();</div><div class="line">	fout.close();</div><div class="line">	<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h1><p>First, we find the middle node of list L.<br>We can use two pointers, fast and slow, both initialized with head pointer of list L, to find the middle node in just one time of traversal. Every time the slow pointer moves one step, the fast pointer moves two step. So when the fast pointer or its next reaches the end, the slow pointer is at the middle node.</p>
+<p>Second, we cut list L into two halves, L1 and L2. L1 ends at the middle node and L2 starts at the next node of the middle node. Then we reverse L2, and we use L3 to denote the reversed list.</p>
+<p>Third, we merge L1 and L3.</p>
+<p>The time and space complexities are O(N) and O(1), respectively.</p>
+<h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function">ListNode* <span class="title">reverse_list</span><span class="params">(ListNode * head)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span> (head == <span class="literal">NULL</span> || head-&gt;next == <span class="literal">NULL</span>)</div><div class="line">            <span class="keyword">return</span> head;</div><div class="line"></div><div class="line">        ListNode *p = head, *q = head-&gt;next, *tmp;</div><div class="line">        <span class="keyword">while</span> (p &amp;&amp; q)</div><div class="line">        &#123;</div><div class="line">            tmp = q-&gt;next;</div><div class="line">            q-&gt;next = p;</div><div class="line"></div><div class="line">            <span class="keyword">if</span> (p == head)</div><div class="line">                p-&gt;next = <span class="literal">NULL</span>;</div><div class="line"></div><div class="line">            p = q;</div><div class="line">            q = tmp;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> p;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">reorderList</span><span class="params">(ListNode * head)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (head == <span class="literal">NULL</span>)</div><div class="line">            <span class="keyword">return</span>;</div><div class="line"></div><div class="line">        ListNode *fast = head,*slow = head;</div><div class="line">        <span class="keyword">while</span> (fast &amp;&amp; fast-&gt;next)</div><div class="line">        &#123;</div><div class="line">            slow = slow-&gt;next;</div><div class="line">            fast = fast-&gt;next-&gt;next;</div><div class="line">        &#125;</div><div class="line">        ListNode *latter = slow-&gt;next;</div><div class="line">        slow-&gt;next = <span class="literal">NULL</span>;</div><div class="line"></div><div class="line">        latter = reverse_list(latter);</div><div class="line"></div><div class="line">        fast = head;</div><div class="line">        ListNode *tmp1,*tmp2;</div><div class="line">        <span class="keyword">while</span> (fast &amp;&amp; latter)</div><div class="line">        &#123;</div><div class="line">            tmp1 = fast-&gt;next;</div><div class="line">            fast-&gt;next = latter;</div><div class="line">            tmp2 = latter-&gt;next;</div><div class="line">            fast = latter-&gt;next = tmp1;</div><div class="line">            latter = tmp2;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://suzyz.github.io/2017/07/26/game1/" data-id="cj8ppxzlk001jfno9st8gcwr1" class="article-share-link">Share</a>
+      <a data-url="https://suzyz.github.io/2017/10/13/reorder-list/" data-id="cj8ppxzmv002ufno9d1vrlvds" class="article-share-link">Share</a>
       
-        <a href="https://suzyz.github.io/2017/07/26/game1/#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="https://suzyz.github.io/2017/10/13/reorder-list/#disqus_thread" class="article-comment-link">Comments</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DP/">DP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Game-Theory/">Game Theory</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/USACO/">USACO</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linked-List/">Linked List</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LintCode/">LintCode</a></li></ul>
 
     </footer>
   </div>
@@ -114,19 +116,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2017/07/27/nuggets/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          USACO Section4.1 nuggets
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/07/26/camlot/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/10/13/copy-list-with-random-pointer/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">USACO Section3.3 camlot</div>
+      <div class="article-nav-title">LintCode/Copy List With Random Pointer</div>
     </a>
   
 </nav>
@@ -231,7 +224,7 @@
 <script>
   var disqus_shortname = 'suzyz';
   
-  var disqus_url = 'https://suzyz.github.io/2017/07/26/game1/';
+  var disqus_url = 'https://suzyz.github.io/2017/10/13/reorder-list/';
   
   (function(){
     var dsq = document.createElement('script');
