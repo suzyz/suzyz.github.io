@@ -3,19 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>USACO Section4.1 stall4 | Suzy Zhang</title>
+  <title>LintCode/Distinct Subsequences | Suzy Zhang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Problem summaryGiven a bipartite graph, compute the size of the maximum matching. SolutionI use Hungarian Algorithm to solve this problem.">
-<meta name="keywords" content="Graph Theory,USACO,Hungarian Alogrithm">
+  <meta name="description" content="Problem SummaryGiven a string S and a string T, count the number of distinct subsequences of T in S.">
+<meta name="keywords" content="DP,LintCode">
 <meta property="og:type" content="article">
-<meta property="og:title" content="USACO Section4.1 stall4">
-<meta property="og:url" content="https://suzyz.github.io/2017/07/29/stall4/index.html">
+<meta property="og:title" content="LintCode&#x2F;Distinct Subsequences">
+<meta property="og:url" content="https://suzyz.github.io/2017/10/21/distinct-subsequences/index.html">
 <meta property="og:site_name" content="Suzy Zhang">
-<meta property="og:description" content="Problem summaryGiven a bipartite graph, compute the size of the maximum matching. SolutionI use Hungarian Algorithm to solve this problem.">
-<meta property="og:updated_time" content="2017-07-30T10:13:03.000Z">
+<meta property="og:description" content="Problem SummaryGiven a string S and a string T, count the number of distinct subsequences of T in S.">
+<meta property="og:updated_time" content="2017-10-21T04:02:30.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="USACO Section4.1 stall4">
-<meta name="twitter:description" content="Problem summaryGiven a bipartite graph, compute the size of the maximum matching. SolutionI use Hungarian Algorithm to solve this problem.">
+<meta name="twitter:title" content="LintCode&#x2F;Distinct Subsequences">
+<meta name="twitter:description" content="Problem SummaryGiven a string S and a string T, count the number of distinct subsequences of T in S.">
   
     <link rel="alternate" href="/atom.xml" title="Suzy Zhang" type="application/atom+xml">
   
@@ -66,10 +66,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-stall4" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-distinct-subsequences" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/07/29/stall4/" class="article-date">
-  <time datetime="2017-07-29T08:50:52.000Z" itemprop="datePublished">2017-07-29</time>
+    <a href="/2017/10/21/distinct-subsequences/" class="article-date">
+  <time datetime="2017-10-21T03:29:03.000Z" itemprop="datePublished">2017-10-21</time>
 </a>
     
   <div class="article-category">
@@ -84,7 +84,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      USACO Section4.1 stall4
+      LintCode/Distinct Subsequences
     </h1>
   
 
@@ -92,20 +92,27 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Problem-summary"><a href="#Problem-summary" class="headerlink" title="Problem summary"></a>Problem summary</h1><p>Given a bipartite graph, compute the size of the maximum matching.</p>
-<h1 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h1><p>I use Hungarian Algorithm to solve this problem.</p>
+        <h1 id="Problem-Summary"><a href="#Problem-Summary" class="headerlink" title="Problem Summary"></a>Problem Summary</h1><p>Given a string S and a string T, count the number of distinct subsequences of T in S.</p>
 <a id="more"></a>
-<h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fstream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">202</span>;</div><div class="line"></div><div class="line"><span class="keyword">int</span> n,m;</div><div class="line"><span class="keyword">int</span> v[maxn][maxn],match[maxn],vis[maxn];</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">bool</span> <span class="title">find_match</span><span class="params">(<span class="keyword">int</span> cur)</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">int</span> t;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=v[cur][<span class="number">0</span>];i++)</div><div class="line">	&#123;</div><div class="line">		t=v[cur][i];</div><div class="line">		<span class="keyword">if</span>(vis[t]) <span class="keyword">continue</span>;</div><div class="line"></div><div class="line">		vis[t]=<span class="literal">true</span>;</div><div class="line">		<span class="keyword">if</span>(match[t]==<span class="number">0</span> || find_match(match[t]))</div><div class="line">		&#123;</div><div class="line">			match[t]=cur;</div><div class="line">			<span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">	<span class="function">fstream <span class="title">fin</span><span class="params">(<span class="string">"stall4.in"</span>,ios::in)</span></span>;</div><div class="line">	<span class="function">fstream <span class="title">fout</span><span class="params">(<span class="string">"stall4.out"</span>,ios::out)</span></span>;</div><div class="line"></div><div class="line">	fin&gt;&gt;n&gt;&gt;m;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</div><div class="line">	&#123;</div><div class="line">		fin&gt;&gt;v[i][<span class="number">0</span>];</div><div class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=v[i][<span class="number">0</span>];j++)</div><div class="line">			fin&gt;&gt;v[i][j];</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	<span class="keyword">int</span> ans=<span class="number">0</span>;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</div><div class="line">	&#123;</div><div class="line">		<span class="built_in">memset</span>(vis,<span class="number">0</span>,<span class="keyword">sizeof</span>(vis));</div><div class="line">		<span class="keyword">if</span>(find_match(i))</div><div class="line">			ans++;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	fout&lt;&lt;ans&lt;&lt;<span class="built_in">endl</span>;</div><div class="line">	fin.close();</div><div class="line">	fout.close();</div><div class="line">	<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>A subsequence of a string is a new string which is formed from the original string by deleting some (can be none) of the characters without disturbing the relative positions of the remaining characters. (ie, “ACE” is a subsequence of “ABCDE” while “AEC” is not).</p>
+<h1 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h1><p>The problem is actually about finding the number of ways to delete some (can be none) of the characters of S such that the remaining string is the same with T.</p>
+<p>We can use dynamic programming to solve this problem.</p>
+<p>First, let f[i,j] be the number of distinct ways to delete some characters from S[1]S[2]…S[i] such that the remaining string is the same with T[0]T[1]T[2]…T[j]. So we have</p>
+<blockquote>
+<p>f[i,j] = f[i-1,j] , if j &le; i &amp;&amp; S[i] != T[j]<br>f[i,j] = f[i-1,j] + f[i-1,j-1] , if j &le; i &amp;&amp; S[i] == T[j]</p>
+</blockquote>
+<p>Notice that f[i,j] only depends on f[i-1,j] and f[i-1,j-1]. We can reduce space complexity using f[j] instead of f[i,j]. If S[i] != T[j], there is no need to change the value of f[j]. If S[i] == T[j], we let f[j] += f[j-1]. The f[j-1] here is actually f[i-1,j-1], so we need to enumerate j from min(i,m) down to 1.</p>
+<h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="comment">/*</span></div><div class="line">     * @param : A string</div><div class="line">     * @param : A string</div><div class="line">     * @return: Count the number of distinct subsequences</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">numDistinct</span><span class="params">(<span class="built_in">string</span> S, <span class="built_in">string</span> T)</span> </span>&#123;</div><div class="line">    	<span class="keyword">int</span> n = S.length(), m = T.length();</div><div class="line">        <span class="keyword">int</span> f[m+<span class="number">2</span>];</div><div class="line">        <span class="built_in">memset</span>(f,<span class="number">0</span>,<span class="keyword">sizeof</span>(f));</div><div class="line">        f[<span class="number">0</span>] = <span class="number">1</span>;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = min(m,i); j&gt;= <span class="number">1</span>; --j)</div><div class="line">                <span class="keyword">if</span> (S[i<span class="number">-1</span>] == T[j<span class="number">-1</span>])</div><div class="line">                    f[j] += f[j<span class="number">-1</span>];</div><div class="line"></div><div class="line">		<span class="keyword">return</span> f[m];</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://suzyz.github.io/2017/07/29/stall4/" data-id="cj90xx1my003zito9nqiap6qp" class="article-share-link">Share</a>
+      <a data-url="https://suzyz.github.io/2017/10/21/distinct-subsequences/" data-id="cj90xx1j8000vito9hlcy4pgw" class="article-share-link">Share</a>
       
-        <a href="https://suzyz.github.io/2017/07/29/stall4/#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="https://suzyz.github.io/2017/10/21/distinct-subsequences/#disqus_thread" class="article-comment-link">Comments</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Graph-Theory/">Graph Theory</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hungarian-Alogrithm/">Hungarian Alogrithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/USACO/">USACO</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DP/">DP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LintCode/">LintCode</a></li></ul>
 
     </footer>
   </div>
@@ -113,19 +120,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2017/07/30/fence6/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          USACO Section4.1 fence6
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/07/27/nuggets/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/10/20/word-ladder2/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">USACO Section4.1 nuggets</div>
+      <div class="article-nav-title">LintCode/Word Ladder II</div>
     </a>
   
 </nav>
@@ -230,7 +228,7 @@
 <script>
   var disqus_shortname = 'suzyz';
   
-  var disqus_url = 'https://suzyz.github.io/2017/07/29/stall4/';
+  var disqus_url = 'https://suzyz.github.io/2017/10/21/distinct-subsequences/';
   
   (function(){
     var dsq = document.createElement('script');
