@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>LintCode/Word Search II | Suzy Zhang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Problem SummaryGiven a matrix of lower alphabets and a dictionary, find all words in the dictionary that can be found in the matrix. A word can start from any position in the matrix and go left/right/">
+<meta name="keywords" content="LintCode,Trie,BFS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LintCode&#x2F;Word Search II">
+<meta property="og:url" content="https://suzyz.github.io/2017/10/22/word-search2/index.html">
+<meta property="og:site_name" content="Suzy Zhang">
+<meta property="og:description" content="Problem SummaryGiven a matrix of lower alphabets and a dictionary, find all words in the dictionary that can be found in the matrix. A word can start from any position in the matrix and go left/right/">
+<meta property="og:updated_time" content="2017-10-22T11:22:02.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LintCode&#x2F;Word Search II">
+<meta name="twitter:description" content="Problem SummaryGiven a matrix of lower alphabets and a dictionary, find all words in the dictionary that can be found in the matrix. A word can start from any position in the matrix and go left/right/">
+  
+    <link rel="alternate" href="/atom.xml" title="Suzy Zhang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Suzy Zhang</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://suzyz.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-word-search2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/10/22/word-search2/" class="article-date">
+  <time datetime="2017-10-22T11:07:15.000Z" itemprop="datePublished">2017-10-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Algorithm/">Algorithm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      LintCode/Word Search II
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem-Summary"><a href="#Problem-Summary" class="headerlink" title="Problem Summary"></a>Problem Summary</h1><p>Given a matrix of lower alphabets and a dictionary, find all words in the dictionary that can be found in the matrix. A word can start from any position in the matrix and go left/right/up/down to the adjacent position.</p>
+<a id="more"></a>
+<h1 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h1><p>First, we use Trie to record the words in the dictionary.</p>
+<p>Second, we iterate the indices of the starting position of strings. For each (i,j), if there are words beginning with matrix[i][j], we use BFS to search for all possible words starting here. During the search, we can greatly cut the search tree with the help of the Trie we built.</p>
+<h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">	<span class="keyword">const</span> <span class="keyword">int</span> dir[<span class="number">4</span>][<span class="number">2</span>] = &#123;&#123;<span class="number">0</span>,<span class="number">1</span>&#125;, &#123;<span class="number">0</span>,<span class="number">-1</span>&#125;, &#123;<span class="number">1</span>,<span class="number">0</span>&#125;, &#123;<span class="number">-1</span>,<span class="number">0</span>&#125;&#125;;</div><div class="line"></div><div class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">Node</span></span></div><div class="line">	&#123;</div><div class="line">		<span class="keyword">char</span> c;</div><div class="line">		<span class="keyword">bool</span> is_word;</div><div class="line">		<span class="keyword">int</span> idx;</div><div class="line">		Node *p[<span class="number">26</span>];</div><div class="line">		Node() &#123; idx = <span class="number">0</span>; is_word = <span class="literal">false</span>; <span class="built_in">memset</span>(p,<span class="number">0</span>,<span class="keyword">sizeof</span>(p)); &#125;</div><div class="line">		Node(<span class="keyword">char</span> c1)</div><div class="line">		&#123;</div><div class="line">			c = c1;</div><div class="line">			idx = <span class="number">0</span>;</div><div class="line">			is_word = <span class="literal">false</span>;</div><div class="line">			<span class="built_in">memset</span>(p,<span class="number">0</span>,<span class="keyword">sizeof</span>(p));</div><div class="line">		&#125;</div><div class="line">	&#125;;</div><div class="line">	<span class="class"><span class="keyword">class</span> <span class="title">Trie</span></span></div><div class="line">	&#123;</div><div class="line">	<span class="keyword">public</span>:</div><div class="line">		Node *root;</div><div class="line">		Trie() &#123; root = <span class="keyword">new</span> Node; &#125;</div><div class="line"></div><div class="line">		<span class="function"><span class="keyword">void</span> <span class="title">insert</span><span class="params">(<span class="built_in">string</span> &amp;w,<span class="keyword">int</span> idx)</span></span></div><div class="line">		&#123;</div><div class="line">			Node *cur = root;</div><div class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; w.length(); ++i)</div><div class="line">			&#123;</div><div class="line">				<span class="keyword">char</span> c = w[i]-<span class="string">'a'</span>;</div><div class="line">				<span class="keyword">if</span> (!cur-&gt;p[c])</div><div class="line">					cur-&gt;p[c] = <span class="keyword">new</span> Node(c);</div><div class="line">				cur = cur-&gt;p[c];</div><div class="line">			&#125;</div><div class="line">			cur-&gt;is_word = <span class="literal">true</span>;</div><div class="line">			cur-&gt;idx = idx;</div><div class="line">		&#125;</div><div class="line">	&#125;;</div><div class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">Status</span></span></div><div class="line">	&#123;</div><div class="line">		<span class="keyword">int</span> x,y;</div><div class="line">		Node *ptr;</div><div class="line">		<span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt; used;</div><div class="line"></div><div class="line">		Status(<span class="keyword">int</span> x1,<span class="keyword">int</span> y1,Node *p1,<span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt; &amp;u)</div><div class="line">		&#123;</div><div class="line">			x = x1; y = y1; ptr = p1; used = u;</div><div class="line">		&#125;</div><div class="line">	&#125;;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">void</span> <span class="title">bfs</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y,Node *p1,<span class="keyword">int</span> n,<span class="keyword">int</span> m,<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt; &gt; &amp;board,<span class="built_in">unordered_set</span>&lt;<span class="built_in">string</span>&gt; &amp;res, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; &amp;words)</span></span></div><div class="line">	&#123;</div><div class="line">		<span class="built_in">queue</span>&lt;Status&gt; q;</div><div class="line"></div><div class="line">		<span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt; u(n*m,<span class="number">0</span>);</div><div class="line">		u[x*m+y] = <span class="literal">true</span>;</div><div class="line">		<span class="function">Status <span class="title">init</span><span class="params">(x,y,p1,u)</span></span>;</div><div class="line"></div><div class="line">		q.push(init);</div><div class="line"></div><div class="line">		<span class="keyword">while</span> (!q.empty())</div><div class="line">		&#123;</div><div class="line">			Status cur = q.front();</div><div class="line">			q.pop();</div><div class="line"></div><div class="line">			<span class="keyword">if</span> (cur.ptr-&gt;is_word)</div><div class="line">				res.insert(words[cur.ptr-&gt;idx]);</div><div class="line"></div><div class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; ++i)</div><div class="line">			&#123;</div><div class="line">				<span class="keyword">int</span> tx = cur.x + dir[i][<span class="number">0</span>];</div><div class="line">				<span class="keyword">if</span> (tx &lt; <span class="number">0</span> || tx &gt;= n)</div><div class="line">					<span class="keyword">continue</span>;</div><div class="line">				<span class="keyword">int</span> ty = cur.y + dir[i][<span class="number">1</span>];</div><div class="line">				<span class="keyword">if</span> (ty &lt; <span class="number">0</span> || ty &gt;= m || cur.used[tx*m+ty])</div><div class="line">					<span class="keyword">continue</span>;</div><div class="line"></div><div class="line">				<span class="keyword">if</span> (!cur.ptr-&gt;p[board[tx][ty]-<span class="string">'a'</span>])</div><div class="line">					<span class="keyword">continue</span>;</div><div class="line"></div><div class="line">				<span class="function">Status <span class="title">next</span><span class="params">(tx,ty,cur.ptr-&gt;p[board[tx][ty]-<span class="string">'a'</span>],cur.used)</span></span>;</div><div class="line">				next.used[tx*m+ty] = <span class="literal">true</span>;</div><div class="line">				q.push(next);</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/*</span></div><div class="line">     * @param board: A list of lists of character</div><div class="line">     * @param words: A list of string</div><div class="line">     * @return: A list of string</div><div class="line">     */</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; wordSearchII(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt; &gt; &amp;board, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; &amp;words) &#123;</div><div class="line">    	<span class="keyword">int</span> n = board.size();</div><div class="line">    	<span class="keyword">if</span> (n==<span class="number">0</span>)</div><div class="line">    		<span class="keyword">return</span> <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;();</div><div class="line"></div><div class="line">    	<span class="built_in">unordered_set</span>&lt;<span class="built_in">string</span>&gt; res;</div><div class="line"></div><div class="line">    	Trie trie;</div><div class="line">    	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; words.size(); ++i)</div><div class="line">    		trie.insert(words[i],i);</div><div class="line">    </div><div class="line">    	<span class="keyword">int</span> m = board[<span class="number">0</span>].size();</div><div class="line">    	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</div><div class="line">    		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; m; ++j)</div><div class="line">    			<span class="keyword">if</span> (trie.root-&gt;p[board[i][j]-<span class="string">'a'</span>])</div><div class="line">    				bfs(i,j,trie.root-&gt;p[board[i][j]-<span class="string">'a'</span>],n,m,board,res,words);</div><div class="line"></div><div class="line">    	<span class="keyword">return</span> <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;(res.begin(),res.end());</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://suzyz.github.io/2017/10/22/word-search2/" data-id="cj92nyddo005lcmo9w9vubkox" class="article-share-link">Share</a>
+      
+        <a href="https://suzyz.github.io/2017/10/22/word-search2/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BFS/">BFS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LintCode/">LintCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Trie/">Trie</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/10/22/longest-consecutive-sequence/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">LintCode/Longest Consecutive Sequence</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/">Algorithm</a><span class="category-list-count">65</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Data-Structure/">Data Structure</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Array/">Array</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BFS/">BFS</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Big-Number/">Big Number</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Binary-Search/">Binary Search</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Binary-Search-Tree/">Binary Search Tree</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Binary-tree/">Binary tree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bit-Manipulation/">Bit Manipulation</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Codeforces/">Codeforces</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Convex-Hull/">Convex Hull</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DFS/">DFS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/">DP</a><span class="tag-list-count">18</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP-on-Trees/">DP on Trees</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dijkstra/">Dijkstra</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dinic/">Dinic</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Game-Theory/">Game Theory</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Geometry/">Geometry</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Graph-Theory/">Graph Theory</a><span class="tag-list-count">15</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Greedy/">Greedy</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HackerRank/">HackerRank</a><span class="tag-list-count">18</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hash/">Hash</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heap/">Heap</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hungarian-Alogrithm/">Hungarian Alogrithm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDDFS/">IDDFS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Implementation/">Implementation</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LCA/">LCA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LeetCode/">LeetCode</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linked-List/">Linked List</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LintCode/">LintCode</a><span class="tag-list-count">20</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MST/">MST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matrix/">Matrix</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maximum-Flow/">Maximum Flow</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Merge-Sort/">Merge Sort</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Minimum-Cut/">Minimum Cut</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Minimum-length-cycle/">Minimum length cycle</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Number-Theory/">Number Theory</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Partial-order/">Partial order</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Prim/">Prim</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pruning/">Pruning</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SPFA/">SPFA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sort/">Sort</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/String/">String</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Strongly-connected-components/">Strongly connected components</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tarjan-s-algorithm/">Tarjan's algorithm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Topological-Sorting/">Topological Sorting</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tree/">Tree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Trie/">Trie</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/USACO/">USACO</a><span class="tag-list-count">25</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a><span class="archive-list-count">18</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">10</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/10/22/word-search2/">LintCode/Word Search II</a>
+          </li>
+        
+          <li>
+            <a href="/2017/10/22/longest-consecutive-sequence/">LintCode/Longest Consecutive Sequence</a>
+          </li>
+        
+          <li>
+            <a href="/2017/10/21/distinct-subsequences/">LintCode/Distinct Subsequences</a>
+          </li>
+        
+          <li>
+            <a href="/2017/10/20/word-ladder2/">LintCode/Word Ladder II</a>
+          </li>
+        
+          <li>
+            <a href="/2017/10/16/topological-sorting/">LintCode/Topological Sorting</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Suzy Zhang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'suzyz';
+  
+  var disqus_url = 'https://suzyz.github.io/2017/10/22/word-search2/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
