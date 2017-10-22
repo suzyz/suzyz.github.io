@@ -3,14 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Tag: Graph Theory | Suzy Zhang</title>
+  <title>LintCode/Longest Consecutive Sequence | Suzy Zhang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Suzy Zhang">
-<meta property="og:url" content="https://suzyz.github.io/tags/Graph-Theory/page/2/index.html">
+  <meta name="description" content="Problem SummaryGiven an unsorted array of integers, A[1], A[2],…, A[N], find the length of the longest consecutive elements sequence.">
+<meta name="keywords" content="Array,LintCode">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LintCode&#x2F;Longest Consecutive Sequence">
+<meta property="og:url" content="https://suzyz.github.io/2017/10/22/longest-consecutive-sequence/index.html">
 <meta property="og:site_name" content="Suzy Zhang">
+<meta property="og:description" content="Problem SummaryGiven an unsorted array of integers, A[1], A[2],…, A[N], find the length of the longest consecutive elements sequence.">
+<meta property="og:updated_time" content="2017-10-22T06:05:13.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Suzy Zhang">
+<meta name="twitter:title" content="LintCode&#x2F;Longest Consecutive Sequence">
+<meta name="twitter:description" content="Problem SummaryGiven an unsorted array of integers, A[1], A[2],…, A[N], find the length of the longest consecutive elements sequence.">
   
     <link rel="alternate" href="/atom.xml" title="Suzy Zhang" type="application/atom+xml">
   
@@ -61,83 +66,75 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/07/26/camlot/" class="archive-article-date">
-  <time datetime="2017-07-26T02:37:20.000Z" itemprop="datePublished">Jul 26</time>
+        <section id="main"><article id="post-longest-consecutive-sequence" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/10/22/longest-consecutive-sequence/" class="article-date">
+  <time datetime="2017-10-22T04:44:17.000Z" itemprop="datePublished">2017-10-22</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Algorithm/">Algorithm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/26/camlot/">USACO Section3.3 camlot</a>
+    <h1 class="article-title" itemprop="name">
+      LintCode/Longest Consecutive Sequence
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/07/23/agrinet/" class="archive-article-date">
-  <time datetime="2017-07-23T03:24:55.000Z" itemprop="datePublished">Jul 23</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/23/agrinet/">USACO Section3.1 agrinet</a>
-    </h1>
-  
+        <h1 id="Problem-Summary"><a href="#Problem-Summary" class="headerlink" title="Problem Summary"></a>Problem Summary</h1><p>Given an unsorted array of integers, A[1], A[2],…, A[N], find the length of the longest consecutive elements sequence.</p>
+<a id="more"></a>
+<h1 id="Solution-1"><a href="#Solution-1" class="headerlink" title="Solution 1"></a>Solution 1</h1><p>We can sort the array first, and iterate through it.</p>
+<p>This takes O(NlogN) time but does not need extra space.</p>
+<h1 id="Solution-2"><a href="#Solution-2" class="headerlink" title="Solution 2"></a>Solution 2</h1><p>Unordered set or hash table can help us to achieve a better time complexity of O(N).</p>
+<p>First, we put all integers in the array in an unordered set (or a hash table).</p>
+<p>Second, we iterate through the given array. For each A[i], we calculate the maximal r such that A[i],A[i]+1,A[i]+2,…,A[i]+r are all in the set, the maximal l such that A[i],A[i]-1,A[i]-2,…,A[i]-l are all in the set. Then we update the answer with l+r+1, and erase A[i]-l,A[i]-l+1,…,A[i],A[i]+1,…,A[i]+r from the set.</p>
+<p>The time and space complexity are both O(N).</p>
+<h1 id="Code-for-Solution-2"><a href="#Code-for-Solution-2" class="headerlink" title="Code for Solution 2"></a>Code for Solution 2</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="comment">/*</span></div><div class="line">     * @param num: A list of integers</div><div class="line">     * @return: An integer</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">longestConsecutive</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;num)</span> </span>&#123;</div><div class="line">        <span class="built_in">unordered_set</span>&lt;<span class="keyword">int</span>&gt; s(num.begin(),num.end());</div><div class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; num.size(); ++i)</div><div class="line">        &#123;</div><div class="line">        	<span class="keyword">if</span> (!s.count(num[i]))</div><div class="line">        		<span class="keyword">continue</span>;</div><div class="line">        	s.erase(num[i]);</div><div class="line"></div><div class="line">        	<span class="keyword">int</span> pre = num[i] - <span class="number">1</span>, next = num[i] + <span class="number">1</span>;</div><div class="line">        	<span class="keyword">while</span> (s.count(pre))</div><div class="line">        		s.erase(pre--);</div><div class="line">        	<span class="keyword">while</span> (s.count(next))</div><div class="line">        		s.erase(next++);</div><div class="line"></div><div class="line">        	ans = max(ans,next - <span class="number">1</span> - pre);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> ans;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/07/22/butter/" class="archive-article-date">
-  <time datetime="2017-07-22T10:07:14.000Z" itemprop="datePublished">Jul 22</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/22/butter/">USACO Section3.2 butter</a>
-    </h1>
-  
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://suzyz.github.io/2017/10/22/longest-consecutive-sequence/" data-id="cj92ca58a0025k1o9wsyu5fnv" class="article-share-link">Share</a>
+      
+        <a href="https://suzyz.github.io/2017/10/22/longest-consecutive-sequence/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LintCode/">LintCode</a></li></ul>
 
-    </header>
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/10/21/distinct-subsequences/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">LintCode/Distinct Subsequences</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
 
 
-  <nav id="page-nav">
-    <a class="extend prev" rel="prev" href="/tags/Graph-Theory/">&laquo;Prev</a><a class="page-number" href="/tags/Graph-Theory/">1</a><span class="page-number current">2</span>
-  </nav>
-
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
 </section>
         
           <aside id="sidebar">
@@ -229,11 +226,13 @@
 <script>
   var disqus_shortname = 'suzyz';
   
+  var disqus_url = 'https://suzyz.github.io/2017/10/22/longest-consecutive-sequence/';
+  
   (function(){
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>
