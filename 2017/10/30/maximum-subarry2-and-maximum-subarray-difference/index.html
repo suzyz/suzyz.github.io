@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>LintCode/Maximum Subarry II; Maximum Subarray Difference | Suzy Zhang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Problem SummaryProblem 1: Maximum Subarray IIGiven an array of integers, find two non-overlapping subarrays which have the largest sum. The subarray should contain at least one number and the numbers">
+<meta name="keywords" content="LintCode,DP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LintCode&#x2F;Maximum Subarry II; Maximum Subarray Difference">
+<meta property="og:url" content="https://suzyz.github.io/2017/10/30/maximum-subarry2-and-maximum-subarray-difference/index.html">
+<meta property="og:site_name" content="Suzy Zhang">
+<meta property="og:description" content="Problem SummaryProblem 1: Maximum Subarray IIGiven an array of integers, find two non-overlapping subarrays which have the largest sum. The subarray should contain at least one number and the numbers">
+<meta property="og:updated_time" content="2017-10-30T14:19:01.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LintCode&#x2F;Maximum Subarry II; Maximum Subarray Difference">
+<meta name="twitter:description" content="Problem SummaryProblem 1: Maximum Subarray IIGiven an array of integers, find two non-overlapping subarrays which have the largest sum. The subarray should contain at least one number and the numbers">
+  
+    <link rel="alternate" href="/atom.xml" title="Suzy Zhang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Suzy Zhang</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://suzyz.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-maximum-subarry2-and-maximum-subarray-difference" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/10/30/maximum-subarry2-and-maximum-subarray-difference/" class="article-date">
+  <time datetime="2017-10-30T13:06:44.000Z" itemprop="datePublished">2017-10-30</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Algorithm/">Algorithm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      LintCode/Maximum Subarry II; Maximum Subarray Difference
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem-Summary"><a href="#Problem-Summary" class="headerlink" title="Problem Summary"></a>Problem Summary</h1><h2 id="Problem-1-Maximum-Subarray-II"><a href="#Problem-1-Maximum-Subarray-II" class="headerlink" title="Problem 1: Maximum Subarray II"></a>Problem 1: Maximum Subarray II</h2><p>Given an array of integers, find two non-overlapping subarrays which have the largest sum. The subarray should contain at least one number and the numbers in each subarray should be contiguous. </p>
+<h2 id="Problem-2-Maximum-Subarray-Difference"><a href="#Problem-2-Maximum-Subarray-Difference" class="headerlink" title="Problem 2: Maximum Subarray Difference"></a>Problem 2: Maximum Subarray Difference</h2><p>Given an array of integers, find two non-overlapping subarrays A and B, such that |SUM(A) - SUM(B)| is the largest.<br>The subarray should contain at least one number and the numbers in each subarray should be contiguous.<br>Calculate the largest difference.</p>
+<a id="more"></a>
+<h1 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h1><h2 id="Problem-1"><a href="#Problem-1" class="headerlink" title="Problem 1:"></a>Problem 1:</h2><p>Let us denote the given array with A[0]A[1]…A[N-1].<br>Define</p>
+<ol>
+<li>f[i] as the maximal sum of subarray ending at i or before i,</li>
+<li>g[i] as the maximal sum of two subarrays of which the second one ends at i.</li>
+</ol>
+<p>So the answer is max{g[i]}, i = 0,1,…,N-1.</p>
+<p>If we use min_sum to indicate the minimum cumulative sum before i, we have</p>
+<blockquote>
+<p>f[i] = max{f[i-1], cur_sum - min_sum}<br>g[i] = max{g[i-1], f[i-1]} + A[i]</p>
+</blockquote>
+<p>The time complexity is O(N); the space complexity is O(1), since we only need f[i-1] and g[i-1], instead of f[0]…f[i-1] and g[0]…g[i-1], when we calculate f[i] and g[i].</p>
+<h2 id="Problem-2"><a href="#Problem-2" class="headerlink" title="Problem 2:"></a>Problem 2:</h2><p>This is easier after we solved problem 1.</p>
+<p>Define</p>
+<ol>
+<li>f[i][0] as the maximal sum of subarray ending at i or before i,</li>
+<li>f[i][1] as the minimal sum of subarray ending at i or before i,</li>
+<li>g[i][0] as the maximal difference of two subarrays of which the second one ends at i.</li>
+<li>g[i][1] as the minimal difference of two subarrays of which the second one ends at i.</li>
+</ol>
+<p>So the answer is max{abs(g[i][j])}, i = 0,1,…,N-1, j = 0,1.</p>
+<p>We have</p>
+<blockquote>
+<p>f[i][0] = max{f[i-1][0], cur_sum - min_sum}<br>f[i][1] = min{f[i-1][1], cur_sum - max_sum}<br>g[i][0] = max{g[i-1][0], -f[i-1][1]} + nums[i-1];<br>g[i][1] = min{g[i-1][1], -f[i-1][0]} + nums[i-1];</p>
+</blockquote>
+<p>The time complexity is O(N); the space complexity is O(1).</p>
+<h1 id="Code-1-Maximum-Subarray-II-O-1-space"><a href="#Code-1-Maximum-Subarray-II-O-1-space" class="headerlink" title="Code 1: Maximum Subarray II, O(1) space"></a>Code 1: Maximum Subarray II, O(1) space</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="comment">/*</span></div><div class="line">     * @param nums: A list of integers</div><div class="line">     * @return: An integer denotes the sum of max two non-overlapping subarrays</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxTwoSubArrays</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;nums)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> n = nums.size();</div><div class="line">        <span class="keyword">if</span> (n&lt;<span class="number">2</span>)</div><div class="line">        	<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line"></div><div class="line">        <span class="keyword">int</span> f[<span class="number">2</span>], g[<span class="number">2</span>], sum = <span class="number">0</span>, min_sum = <span class="number">0</span>, ans = INT_MIN;</div><div class="line">        f[<span class="number">0</span>] = g[<span class="number">0</span>] = INT_MIN/<span class="number">2</span>;</div><div class="line">        <span class="keyword">int</span> flag = <span class="number">1</span>;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</div><div class="line">        &#123;</div><div class="line">        	sum += nums[i<span class="number">-1</span>];</div><div class="line">        	f[flag] = max(f[<span class="number">1</span>-flag],sum - min_sum);</div><div class="line"></div><div class="line">        	min_sum = min(min_sum,sum);</div><div class="line"></div><div class="line">        	g[flag] = max(g[<span class="number">1</span>-flag],f[<span class="number">1</span>-flag]) + nums[i<span class="number">-1</span>];</div><div class="line">        	ans = max(ans,g[flag]);</div><div class="line"></div><div class="line">            flag = <span class="number">1</span>-flag;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">return</span> ans;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h1 id="Code-2-Maximum-Subarray-II-O-N-space"><a href="#Code-2-Maximum-Subarray-II-O-N-space" class="headerlink" title="Code 2: Maximum Subarray II, O(N) space"></a>Code 2: Maximum Subarray II, O(N) space</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="comment">/*</span></div><div class="line">     * @param nums: A list of integers</div><div class="line">     * @return: An integer denotes the sum of max two non-overlapping subarrays</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxTwoSubArrays</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;nums)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> n = nums.size();</div><div class="line">        <span class="keyword">if</span> (n&lt;<span class="number">2</span>)</div><div class="line">        	<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line"></div><div class="line">        <span class="keyword">int</span> f[n+<span class="number">2</span>], g[n+<span class="number">2</span>], sum = <span class="number">0</span>, min_sum = <span class="number">0</span>, ans = INT_MIN;</div><div class="line">        f[<span class="number">0</span>] = g[<span class="number">0</span>] = INT_MIN/<span class="number">2</span>;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</div><div class="line">        &#123;</div><div class="line">        	sum += nums[i<span class="number">-1</span>];</div><div class="line">        	f[i] = max(f[i<span class="number">-1</span>],sum - min_sum);</div><div class="line"></div><div class="line">        	min_sum = min(min_sum,sum);</div><div class="line"></div><div class="line">        	g[i] = max(g[i<span class="number">-1</span>],f[i<span class="number">-1</span>]) + nums[i<span class="number">-1</span>];</div><div class="line">        	ans = max(ans,g[i]);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">return</span>  ans;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h1 id="Code-3-Maximum-Subarray-Difference"><a href="#Code-3-Maximum-Subarray-Difference" class="headerlink" title="Code 3: Maximum Subarray Difference"></a>Code 3: Maximum Subarray Difference</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="comment">/*</span></div><div class="line">     * @param nums: A list of integers</div><div class="line">     * @return: An integer indicate the value of maximum difference between two substrings</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxDiffSubArrays</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;nums)</span> </span>&#123;</div><div class="line">    	<span class="keyword">int</span> n = nums.size();</div><div class="line">    	<span class="keyword">int</span> f[n+<span class="number">2</span>][<span class="number">2</span>],g[n+<span class="number">2</span>][<span class="number">2</span>];</div><div class="line">    	f[<span class="number">0</span>][<span class="number">0</span>] = g[<span class="number">0</span>][<span class="number">0</span>] = INT_MIN;</div><div class="line">    	f[<span class="number">0</span>][<span class="number">1</span>] = g[<span class="number">0</span>][<span class="number">1</span>] = INT_MAX;</div><div class="line"></div><div class="line">    	<span class="keyword">int</span> sum = <span class="number">0</span>, min_sum = <span class="number">0</span>, max_sum = <span class="number">0</span>, ans = <span class="number">0</span>;</div><div class="line">    	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</div><div class="line">    	&#123;</div><div class="line">    		sum += nums[i<span class="number">-1</span>];</div><div class="line">    		f[i][<span class="number">0</span>] = max(f[i<span class="number">-1</span>][<span class="number">0</span>],sum - min_sum);</div><div class="line">    		f[i][<span class="number">1</span>] = min(f[i<span class="number">-1</span>][<span class="number">1</span>],sum - max_sum);</div><div class="line"></div><div class="line">    		min_sum = min(sum,min_sum);</div><div class="line">    		max_sum = max(sum,max_sum);</div><div class="line"></div><div class="line">    		g[i][<span class="number">0</span>] = max(g[i<span class="number">-1</span>][<span class="number">0</span>], -f[i<span class="number">-1</span>][<span class="number">1</span>]) + nums[i<span class="number">-1</span>];</div><div class="line">    		g[i][<span class="number">1</span>] = min(g[i<span class="number">-1</span>][<span class="number">1</span>], -f[i<span class="number">-1</span>][<span class="number">0</span>]) + nums[i<span class="number">-1</span>];</div><div class="line"></div><div class="line">    		<span class="keyword">if</span> (i&gt;<span class="number">1</span>)</div><div class="line">    		&#123;</div><div class="line">    			ans = max(<span class="built_in">abs</span>(g[i][<span class="number">0</span>]), ans);</div><div class="line">    			ans = max(<span class="built_in">abs</span>(g[i][<span class="number">1</span>]), ans);</div><div class="line">    		&#125;</div><div class="line">    	&#125;</div><div class="line">    	<span class="keyword">return</span> ans;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://suzyz.github.io/2017/10/30/maximum-subarry2-and-maximum-subarray-difference/" data-id="cj9e9vr4j002qiqo98ceaec9n" class="article-share-link">Share</a>
+      
+        <a href="https://suzyz.github.io/2017/10/30/maximum-subarry2-and-maximum-subarray-difference/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DP/">DP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LintCode/">LintCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/10/30/a-plus-b-problem/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">LintCode /A + B Problem</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/">Algorithm</a><span class="category-list-count">69</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Data-Structure/">Data Structure</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Array/">Array</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BFS/">BFS</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Big-Number/">Big Number</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Binary-Search/">Binary Search</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Binary-Search-Tree/">Binary Search Tree</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Binary-tree/">Binary tree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bit-Manipulation/">Bit Manipulation</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Codeforces/">Codeforces</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Convex-Hull/">Convex Hull</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DFS/">DFS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/">DP</a><span class="tag-list-count">19</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP-on-Trees/">DP on Trees</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dijkstra/">Dijkstra</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dinic/">Dinic</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Game-Theory/">Game Theory</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Geometry/">Geometry</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Graph-Theory/">Graph Theory</a><span class="tag-list-count">15</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Greedy/">Greedy</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HackerRank/">HackerRank</a><span class="tag-list-count">18</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hash/">Hash</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heap/">Heap</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hungarian-Alogrithm/">Hungarian Alogrithm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDDFS/">IDDFS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Implementation/">Implementation</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LCA/">LCA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LeetCode/">LeetCode</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linked-List/">Linked List</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LintCode/">LintCode</a><span class="tag-list-count">24</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MST/">MST</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matrix/">Matrix</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maximum-Flow/">Maximum Flow</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Merge-Sort/">Merge Sort</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Minimum-Cut/">Minimum Cut</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Minimum-length-cycle/">Minimum length cycle</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Number-Theory/">Number Theory</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Partial-order/">Partial order</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Prim/">Prim</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pruning/">Pruning</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SPFA/">SPFA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sort/">Sort</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Stack/">Stack</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/String/">String</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Strongly-connected-components/">Strongly connected components</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tarjan-s-algorithm/">Tarjan's algorithm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Topological-Sorting/">Topological Sorting</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tree/">Tree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Trie/">Trie</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Two-Pointers/">Two Pointers</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/USACO/">USACO</a><span class="tag-list-count">25</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a><span class="archive-list-count">23</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a><span class="archive-list-count">18</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">10</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/10/30/maximum-subarry2-and-maximum-subarray-difference/">LintCode/Maximum Subarry II; Maximum Subarray Difference</a>
+          </li>
+        
+          <li>
+            <a href="/2017/10/30/a-plus-b-problem/">LintCode /A + B Problem</a>
+          </li>
+        
+          <li>
+            <a href="/2017/10/27/longest-substring-with-at-most-k-distinct-characters/">LintCode/Longest Substring with At Most K Distinct Characters</a>
+          </li>
+        
+          <li>
+            <a href="/2017/10/23/largest-rectangle-in-histogram/">LintCode/Largest Rectangle in Histogram</a>
+          </li>
+        
+          <li>
+            <a href="/2017/10/22/word-search2/">LintCode/Word Search II</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Suzy Zhang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'suzyz';
+  
+  var disqus_url = 'https://suzyz.github.io/2017/10/30/maximum-subarry2-and-maximum-subarray-difference/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
