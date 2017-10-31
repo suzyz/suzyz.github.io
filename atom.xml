@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://suzyz.github.io/"/>
-  <updated>2017-10-30T14:19:01.000Z</updated>
+  <updated>2017-10-31T13:09:19.000Z</updated>
   <id>https://suzyz.github.io/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>LintCode/Longest Increasing Subsequence</title>
+    <link href="https://suzyz.github.io/2017/10/31/longest-increasing-subsequence/"/>
+    <id>https://suzyz.github.io/2017/10/31/longest-increasing-subsequence/</id>
+    <published>2017-10-31T12:37:13.000Z</published>
+    <updated>2017-10-31T13:09:19.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Problem-Summary"><a href="#Problem-Summary" class="headerlink" title="Problem Summary"></a>Problem Summary</h1><p>Given a sequence of integers, find the length of the longest increasing subsequence (LIS).</p><a id="more"></a><h1 id="Solution-1-DP-O-N-2-time"><a href="#Solution-1-DP-O-N-2-time" class="headerlink" title="Solution 1: DP, O(N^2) time"></a>Solution 1: DP, O(N^2) time</h1><p>Let us denote the given array with A[1], A[2], …, A[N].</p><p>Define f[i] as the length of the LIS ending at A[i]. So we have</p><blockquote><p>f[i] = max{f[j]} + 1 , where j &lt; i and A[j] &lt; A[i]</p></blockquote><p>The answer is max{f[i]}, i = 1,2,…,N. This method takes O(N^2) time and O(N) space.</p><h1 id="Solution-2-DP-Binary-Search-O-NlogN-time"><a href="#Solution-2-DP-Binary-Search-O-NlogN-time" class="headerlink" title="Solution 2: DP + Binary Search, O(NlogN) time"></a>Solution 2: DP + Binary Search, O(NlogN) time</h1><p>Define g[i] as the minimal ending number of all increasing subsequences whose length are i.</p><p>Naturally, we realize that g[i] is non-decreasing, which means we can use binary search on it.</p><p>Plus, if g[l] has a legal value, the answer L is equal to or greater than l.That is, L = max{l}, where g[l] has a legal value.</p><p>These thoughts lead to the following algorithm:</p><p>First, we initialize g[1] with A[1] and L with 1.</p><p>Then we iterate through the array. For each i,</p><ol><li>If A[i] &gt; g[L], it is a great thing because we can now increase L by 1. For new L, we let g[L] = A[i].</li><li>If A[i] == g[L], A[i] is not helpful so we continue.</li><li>If A[i] &lt; g[L], we use binary search to find an index k, such that g[k-1] &lt; A[i] &le; g[k]. (We suppose g[0] is INT_MIN, so there will always be a legal k.) Then we use A[i] to update g[k].</li></ol><p>This method has a lower time complexity, but also requires more thinking.</p><h1 id="Code-for-Soluton-2"><a href="#Code-for-Soluton-2" class="headerlink" title="Code for Soluton 2"></a>Code for Soluton 2</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="comment">/*</span></div><div class="line">     * @param nums: An integer array</div><div class="line">     * @return: The length of LIS (longest increasing subsequence)</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">longestIncreasingSubsequence</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;nums)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> n = nums.size();</div><div class="line">    <span class="keyword">if</span> (n&lt;<span class="number">2</span>)</div><div class="line">    <span class="keyword">return</span> n;</div><div class="line"></div><div class="line">    <span class="keyword">int</span> f[n+<span class="number">2</span>];</div><div class="line">    f[<span class="number">1</span>] = nums[<span class="number">0</span>];</div><div class="line"></div><div class="line">    <span class="keyword">int</span> len = <span class="number">1</span>;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; ++i)</div><div class="line">    &#123;</div><div class="line">    <span class="keyword">if</span> (nums[i] &gt; f[len])</div><div class="line">    f[++len] = nums[i];</div><div class="line">    <span class="keyword">else</span></div><div class="line">    <span class="keyword">if</span> (nums[i] == f[len])</div><div class="line">    <span class="keyword">continue</span>;</div><div class="line">    <span class="keyword">else</span></div><div class="line">    &#123;</div><div class="line">    <span class="keyword">int</span> pos = binary_search(nums[i],len,f);</div><div class="line">    f[pos] = nums[i];</div><div class="line">    &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> len;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">binary_search</span><span class="params">(<span class="keyword">int</span> cur,<span class="keyword">int</span> size,<span class="keyword">int</span> *f)</span> <span class="comment">/* return k, s.t. f[k-1] &lt; cur &lt;= f[k] */</span></span></div><div class="line">    &#123;</div><div class="line">    <span class="keyword">int</span> l = <span class="number">1</span>, r = size;</div><div class="line">    <span class="keyword">while</span> (l&lt;r)</div><div class="line">    &#123;</div><div class="line">    <span class="keyword">int</span> mid = l + ((r-l)&gt;&gt;<span class="number">1</span>);</div><div class="line">    <span class="keyword">if</span> (f[mid] == cur)</div><div class="line">    <span class="keyword">return</span> mid;</div><div class="line">    <span class="keyword">else</span></div><div class="line">    <span class="keyword">if</span> (f[mid] &lt; cur)</div><div class="line">    l = mid+<span class="number">1</span>;</div><div class="line">    <span class="keyword">else</span></div><div class="line">    r = mid;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> l;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Problem-Summary&quot;&gt;&lt;a href=&quot;#Problem-Summary&quot; class=&quot;headerlink&quot; title=&quot;Problem Summary&quot;&gt;&lt;/a&gt;Problem Summary&lt;/h1&gt;&lt;p&gt;Given a sequence of integers, find the length of the longest increasing subsequence (LIS).&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Algorithm" scheme="https://suzyz.github.io/categories/Algorithm/"/>
+    
+    
+      <category term="LintCode" scheme="https://suzyz.github.io/tags/LintCode/"/>
+    
+      <category term="LeetCode" scheme="https://suzyz.github.io/tags/LeetCode/"/>
+    
+      <category term="DP" scheme="https://suzyz.github.io/tags/DP/"/>
+    
+      <category term="Binary Search" scheme="https://suzyz.github.io/tags/Binary-Search/"/>
+    
+  </entry>
   
   <entry>
     <title>LintCode/Maximum Subarry II; Maximum Subarray Difference</title>
@@ -161,9 +189,9 @@
       <category term="Algorithm" scheme="https://suzyz.github.io/categories/Algorithm/"/>
     
     
-      <category term="Array" scheme="https://suzyz.github.io/tags/Array/"/>
-    
       <category term="LintCode" scheme="https://suzyz.github.io/tags/LintCode/"/>
+    
+      <category term="Array" scheme="https://suzyz.github.io/tags/Array/"/>
     
   </entry>
   
@@ -242,32 +270,6 @@
       <category term="Graph Theory" scheme="https://suzyz.github.io/tags/Graph-Theory/"/>
     
       <category term="Topological Sorting" scheme="https://suzyz.github.io/tags/Topological-Sorting/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Codeforces/873B. Balanced Substring</title>
-    <link href="https://suzyz.github.io/2017/10/15/balanced-substring/"/>
-    <id>https://suzyz.github.io/2017/10/15/balanced-substring/</id>
-    <published>2017-10-15T06:50:12.000Z</published>
-    <updated>2017-10-15T07:09:51.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="Problem-Summary"><a href="#Problem-Summary" class="headerlink" title="Problem Summary"></a>Problem Summary</h1><p>Given a string S consisting only of characters 0 and 1. A substring starts from l to r is called balanced if the number of zeroes equals to the number of ones in this substring. Determine the length of the longest balanced substring of S.</p><a id="more"></a><h1 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h1><p>Let sum_zero[i] be the number of zeroes in the substring S[1]S[2]…S[i], and sum_one[i] be the number of ones.</p><p>If a substring S[i]S[i+1]…S[j] is balanced, we have this equation:</p><blockquote><p>sum_zero[j] - sum_zero[i-1] = sum_one[j] - sum_one[i-1] &nbsp; (1)</p></blockquote><p>If we let diff[i] = sum_zero[i] - sum_one[i], then (1) is actually:</p><blockquote><p>diff[j] = diff[i-1] &nbsp; (2)</p></blockquote><p>So, to find the longest substring ending at j, we only need to find the minimum i, such that (2) holds. If such i exits, the length of the longest substring ending at j is j-i+1, which can be used to update the answer.</p><p>The space and time complexities are both O(N).</p><h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">100010</span>;</div><div class="line"></div><div class="line"><span class="keyword">int</span> n,diff[maxn];</div><div class="line"><span class="keyword">char</span> s[maxn];</div><div class="line"></div><div class="line"><span class="keyword">int</span> min_idx[maxn*<span class="number">2</span> + <span class="number">10</span>];</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line"><span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</div><div class="line"><span class="built_in">scanf</span>(<span class="string">"%s"</span>,s+<span class="number">1</span>);</div><div class="line"></div><div class="line"><span class="keyword">int</span> sum0 = <span class="number">0</span>, sum1 = <span class="number">0</span>;</div><div class="line"><span class="built_in">memset</span>(min_idx,<span class="number">-1</span>,<span class="keyword">sizeof</span>(min_idx));</div><div class="line"></div><div class="line">min_idx[maxn] = <span class="number">0</span>;</div><div class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i&lt;=n; ++i)</div><div class="line">&#123;</div><div class="line"><span class="keyword">if</span> (s[i] == <span class="string">'0'</span>)</div><div class="line">++sum0;</div><div class="line"><span class="keyword">else</span></div><div class="line">++sum1;</div><div class="line"></div><div class="line">diff[i] = sum0 - sum1;</div><div class="line"><span class="keyword">if</span> (min_idx[diff[i] + maxn] == <span class="number">-1</span>)</div><div class="line">min_idx[diff[i] + maxn] = i;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">int</span> ans = <span class="number">0</span>;</div><div class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</div><div class="line">&#123;</div><div class="line"><span class="keyword">int</span> idx = min_idx[diff[i] + maxn];</div><div class="line"><span class="keyword">if</span> (idx != <span class="number">-1</span>)</div><div class="line">ans = max(ans,i - idx);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="built_in">printf</span>(<span class="string">"%d\n"</span>,ans);</div><div class="line"><span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;Problem-Summary&quot;&gt;&lt;a href=&quot;#Problem-Summary&quot; class=&quot;headerlink&quot; title=&quot;Problem Summary&quot;&gt;&lt;/a&gt;Problem Summary&lt;/h1&gt;&lt;p&gt;Given a string S consisting only of characters 0 and 1. A substring starts from l to r is called balanced if the number of zeroes equals to the number of ones in this substring. Determine the length of the longest balanced substring of S.&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Algorithm" scheme="https://suzyz.github.io/categories/Algorithm/"/>
-    
-    
-      <category term="DP" scheme="https://suzyz.github.io/tags/DP/"/>
-    
-      <category term="Codeforces" scheme="https://suzyz.github.io/tags/Codeforces/"/>
-    
-      <category term="Implementation" scheme="https://suzyz.github.io/tags/Implementation/"/>
     
   </entry>
   
